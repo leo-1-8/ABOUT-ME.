@@ -11,7 +11,13 @@
             box-sizing: border-box;
         }
 
-        body 
+        body {
+            font-family: 'Poppins', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #333333;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
 
         html {
             height: 100%;
@@ -256,6 +262,10 @@
         .btn-updates {
             background: #00bfff;
             color: white;
+            padding: 10px 28px;
+            font-size: 16px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
         }
 
         .update-button-container {
@@ -264,19 +274,252 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .update-button-container.hidden {
+            display: none;
+        }
+
+        .update-button-container .btn-updates {
+            pointer-events: auto;
         }
 
         .modal-updates {
             background: linear-gradient(135deg, #ffeef8 0%, #e8f5e9 100%);
         }
 
-        .singer-modal-content a {
+        .music-mini-button {
+            position: fixed;
+            right: 10px;
+            top: 10px;
+            z-index: 11000;
+            padding: 6px 14px 6px 12px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(6px);
+            max-width: min(320px, 85vw);
+        }
+
+        .music-mini-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .music-mini-card {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            padding: 8px 12px;
+            min-width: 180px;
+            max-width: 230px;
+            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.08), 0 6px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .music-mini-card.active {
+            display: flex;
+        }
+
+        .music-mini-text-wrapper {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .music-mini-title {
+            display: inline-block;
+            white-space: nowrap;
+            max-width: 100%;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .music-mini-subtext {
+            font-size: 11px;
+            color: #f0f0f0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .music-mini-inline-controls {
+            display: none;
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(40px, 1fr));
+            gap: 6px;
+        }
+
+        .music-mini-inline-controls.active {
+            display: flex;
+            gap: 10px;
+        }
+
+        .music-mini-inline-btn {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        @keyframes music-marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .music-mini-title.scrolling {
+            animation: music-marquee 12s linear infinite;
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .music-mini-button {
+                top: 8px;
+                right: 8px;
+                max-width: min(280px, 70vw);
+            }
+        }
+
+        .music-mini-panel {
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            width: min(320px, 85vw);
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10999;
+        }
+
+        .music-mini-panel-header {
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #ffd700;
+        }
+
+        .music-mini-panel-box {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.25);
+        }
+
+        .music-mini-panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .music-mini-panel-status {
+            font-size: 12px;
+            color: #e0e0e0;
+            letter-spacing: 0.5px;
+        }
+
+        .music-mini-panel-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .music-mini-panel-control {
+            flex: 1 1 calc(50% - 8px);
+            min-width: 60px;
+            border: none;
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .music-mini-panel-control:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-mini-panel-times {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #f0f0f0;
+            margin-top: 8px;
+        }
+
+
+        .music-mini-button-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf50;
+            box-shadow: 0 0 6px #4caf50;
+        }
+
+        .singer-social-list {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .social-label {
+            color: #333;
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        .social-link a {
             color: #667eea;
             text-decoration: none;
             transition: color 0.3s ease;
+            word-break: break-all;
         }
 
-        .singer-modal-content a:hover {
+        .social-link a:hover {
             color: #764ba2;
             text-decoration: underline;
         }
@@ -400,6 +643,99 @@
         /* Music modal content should use full available height */
         .modal-music .modal-content {
             max-height: calc(90vh - 200px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding-right: 10px;
+        }
+
+        /* Ensure What's New and Singer modals scroll the same way as Music */
+        .modal-updates .modal-content,
+        .modal-singer .modal-content {
+            max-height: calc(90vh - 180px);
+            padding-right: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-list,
+        .updates-scroll-body,
+        .singer-modal-content {
+            max-height: calc(90vh - 220px);
+            overflow-y: auto;
+            padding: 20px;
+            padding-right: 28px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .music-list,
+        .updates-scroll-body,
+        .singer-modal-content {
+            flex: 1;
+            width: 100%;
+        }
+
+        .music-list {
+            padding-top: 10px;
+            padding-left: 10px;
+        }
+
+        .updates-scroll-body {
+            line-height: 1.8;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .singer-modal-content {
+            line-height: 2;
+            color: #333;
+        }
+
+        .music-list::-webkit-scrollbar,
+        .updates-scroll-body::-webkit-scrollbar,
+        .singer-modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .music-list::-webkit-scrollbar-track,
+        .updates-scroll-body::-webkit-scrollbar-track,
+        .singer-modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .music-list::-webkit-scrollbar-thumb,
+        .updates-scroll-body::-webkit-scrollbar-thumb,
+        .singer-modal-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .music-list::-webkit-scrollbar-thumb:hover,
+        .updates-scroll-body::-webkit-scrollbar-thumb:hover,
+        .singer-modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+
+            .main-button {
+                font-size: 18px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .info-label,
+            .info-value {
+                font-size: 14px;
+            }
         }
 
         /* Mobile landscape specific adjustments for music modal */
@@ -416,6 +752,9 @@
             .modal-music .modal-content {
                 max-height: calc(98vh - 100px);
                 padding-right: 5px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
             }
 
             .modal-music .music-list {
@@ -1058,11 +1397,6 @@
             font-weight: 500;
         }
 
-        .music-list {
-            overflow: visible;
-            padding-right: 10px;
-        }
-
         .song-item {
             margin-bottom: 20px;
         }
@@ -1614,9 +1948,37 @@
                 transform: translate(-50%, -50%);
             }
 
+            .update-button-container {
+                position: static;
+                transform: none;
+                bottom: auto;
+                width: 100%;
+                justify-content: center;
+                margin-top: 20px;
+                pointer-events: auto;
+            }
+
             .main-button {
                 padding: 12px 30px;
                 font-size: 16px;
+            }
+
+            .btn-updates {
+                padding: 8px 22px;
+                font-size: 14px;
+            }
+
+            .modal-updates .modal-content,
+            .modal-singer .modal-content {
+                max-height: calc(100vh - 40px);
+                padding: 15px 20px;
+            }
+
+            .music-list,
+            .updates-scroll-body,
+            .singer-modal-content {
+                max-height: calc(100vh - 80px);
+                padding: 10px 18px 20px 10px;
             }
 
             .warning-message {
@@ -1631,9 +1993,18 @@
                 height: 100vh;
                 max-height: 100vh;
                 min-height: 100vh;
-                padding: 10px;
+                padding: 0;
                 border-radius: 0;
                 margin: 0;
+            }
+
+            .modal-updates .modal-box,
+            .modal-singer .modal-box,
+            .modal-music .modal-box,
+            .modal-gaming .modal-box {
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
             }
 
             .modal-title {
@@ -1642,13 +2013,15 @@
             }
 
             .modal-content {
-                max-height: calc(100vh - 100px);
-                margin-top: 10px;
+                max-height: calc(100vh - 40px);
+                margin-top: 0;
                 height: auto;
+                padding: 15px;
             }
 
             .modal-music .modal-content {
-                max-height: calc(100vh - 120px);
+                max-height: calc(100vh - 40px);
+                padding: 15px 20px;
             }
 
             .music-info-button {
@@ -1737,7 +2110,7 @@
             <button class="main-button btn-about" onclick="openModal('about')">About Me</button>
             <button class="main-button btn-favorites" onclick="openModal('favorites')">My Favorites</button>
         </div>
-        <div class="update-button-container">
+        <div class="update-button-container hidden">
             <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW ✨🆕</button>
         </div>
         <div class="warning-message" id="mainWarning">
@@ -1757,6 +2130,39 @@
             >ANSWER THIS FORM</a>
         </div>
     </div>
+    <!-- Floating mini music button -->
+    <button id="musicMiniButton" class="music-mini-button" type="button" onclick="toggleMiniPanel()">
+        <span class="music-mini-icon">♬</span>
+        <div id="musicMiniCard" class="music-mini-card">
+            <div class="music-mini-text-wrapper">
+                <span id="musicMiniTitle" class="music-mini-title"></span>
+                <span id="musicMiniNext" class="music-mini-subtext"></span>
+            </div>
+            <div class="music-mini-inline-controls" id="musicMiniInlineControls">
+                <div class="music-mini-inline-btn" role="button" onclick="miniSkipForward()">+5s</div>
+                <div class="music-mini-inline-btn" role="button" onclick="miniSkipBackward()">-5s</div>
+                <div id="musicMiniInlineToggle" class="music-mini-inline-btn" role="button" onclick="miniTogglePlay()">⏸️</div>
+                <div class="music-mini-inline-btn" role="button" onclick="miniRestart()">🔄</div>
+            </div>
+        </div>
+    </button>
+    <div id="musicMiniPanel" class="music-mini-panel">
+        <div class="music-mini-panel-header">NOW PLAYING</div>
+        <div id="musicMiniPanelSong" class="music-mini-panel-box">
+            <div id="musicMiniPanelTitle" class="music-mini-panel-title">NO MUSIC IS PLAYING RIGHT NOW.</div>
+            <div id="musicMiniPanelStatus" class="music-mini-panel-status">Start a song to see controls</div>
+            <div class="music-mini-panel-controls" id="musicMiniPanelControls">
+                <button type="button" class="music-mini-panel-control" onclick="miniSkipForward()">+5s</button>
+                <button type="button" id="musicMiniPanelToggle" class="music-mini-panel-control" onclick="miniTogglePlay()">⏸️</button>
+                <button type="button" class="music-mini-panel-control" onclick="miniSkipBackward()">-5s</button>
+                <button type="button" class="music-mini-panel-control" onclick="miniRestart()">🔄</button>
+            </div>
+            <div class="music-mini-panel-times" id="musicMiniPanelTimes">
+                <span id="musicMiniCurrentTime">0:00</span>
+                <span id="musicMiniTotalTime">0:00</span>
+            </div>
+        </div>
+    </div>
     <!-- Welcome Intro Box -->
     <div id="introBox" class="intro-box" role="dialog" aria-live="polite">
         <div class="intro-title">WELCOME</div>
@@ -1765,7 +2171,9 @@
 THIS IS WHERE YOU'LL GET TO KNOW A LITTLE MORE ABOUT ME — ESPECIALLY MY HOBBIES, MY FAVORITES, AND THE THINGS THAT KEEP ME
 INSPIRED.
 
-FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
+FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
+        
+            !KIDLY ROTATE YOUR PHONE TO LANDSCAPE, FOR BETTER EXPERIENCE!</div>
         <button id="introSkip" class="intro-skip" title="Skip">Skip</button>
     </div>
 
@@ -2004,7 +2412,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
     </div>
 
     <!-- Music Modal -->
-    <div class="modal-overlay" id="musicModal" onclick="closeModalOnOverlay(event, 'music')">
+    <div class="modal-overlay" id="musicModal">
         <div class="modal-box modal-music">
             <button class="close-button-left" onclick="closeModal('music')" title="Close">×</button>
             <button class="music-info-button" onclick="toggleDisclaimer()" title="Disclaimer">!</button>
@@ -2607,69 +3015,91 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
         <div class="modal-box modal-updates">
             <button class="close-button-left" onclick="closeModal('updates')" title="Close">×</button>
             <div class="modal-content">
-                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">UI REFORGE + MUSIC SYSTEM UPGRADE ⚡🎵</h2>
-                <div style="padding: 20px; line-height: 1.8; color: #555; font-size: 15px;">
-                    <p><strong>⏳ Loading Screen</strong></p>
-                    <p>📊 Moved percentage text below "Loading…"</p>
-                    <p>🔄 Added rotating smart messages (show once per session)</p>
-                    
-                    <p style="margin-top: 20px;"><strong>🎵 Music Player Update</strong></p>
-                    <p>Unified play/pause logic for smoother switching</p>
-                    <p>Added -5s / +5s skip buttons</p>
-                    <p>Loop & Repeat now use class-based toggle animations</p>
-                    <p>Draggable, touch-friendly progress bar</p>
-                    <p>Active song highlight improved</p>
-                    
-                    <p style="margin-top: 20px;"><strong>📱 Modal Upgrade (Mobile & Desktop)</strong></p>
-                    <p>Mobile landscape = fullscreen, no border-radius</p>
-                    <p>Desktop modal width refined</p>
-                    <p>Blur/shadow improved</p>
-                    <p>Close buttons repositioned</p>
-                    <p>Smoother internal scrolling</p>
-                    
-                    <p style="margin-top: 20px;"><strong>⚠️ "!" Button Enhancement</strong></p>
-                    <p>Turns red + performs a one-time rotation</p>
-                    <p>Animation fully resets when modal closes</p>
-                    <p>Faster activation response</p>
-                    
-                    <p style="margin-top: 20px;"><strong>🖼️ Layout & Styling</strong></p>
-                    <p>Improved spacing for all button groups</p>
-                    <p>Unified padding across modals</p>
-                    <p>Better responsive fonts</p>
-                    <p>Cleaner progress bar visuals</p>
-                    <p>Consistent hover/active states</p>
-                    
-                    <p style="margin-top: 20px;"><strong>🔧 JavaScript Improvements</strong></p>
-                    <p>Centralized modal logic</p>
-                    <p>Optimized music control functions</p>
-                    <p>Touch scrubbing support</p>
-                    <p>Cleaner event listeners</p>
-                    <p>Removed redundant state resets</p>
-                    
-                    <p style="margin-top: 20px;"><strong>🐛 Fixes, Changes & QOL</strong></p>
-                    <p>Fixed modal overflow on small screens</p>
-                    <p>Fixed audio desync on song change</p>
-                    <p>Removed unused CSS</p>
-                    <p>Improved volume consistency</p>
-                    <p>Minor UI glitch fixes</p>
-                    <p>Overall performance improvements</p>
+                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">WHAT'S NEW ✨🆕</h2>
+                <div class="updates-scroll-body">
+                    <p style="margin-top: 20px;"><strong>UPDATE 1</strong></p>
+                    <p id="update1-summary" style="margin-bottom: 8px;">
+                        UI REFORGE + MUSIC SYSTEM UPGRADE ⚡🎵
+                        <span id="update1-toggle-top" class="see-more-link" onclick="toggleUpdateDetails()">see more...</span>
+                    </p>
+                    <div id="update1-details" style="display:none; margin-bottom: 15px;">
+                        <p><strong>⏳ Loading Screen</strong></p>
+                        <p>📊 Moved percentage text below "Loading…"</p>
+                        <p>🔄 Added rotating smart messages (show once per session)</p>
+                        
+                        <p style="margin-top: 20px;"><strong>🎵 Music Player Update</strong></p>
+                        <p>Unified play/pause logic for smoother switching</p>
+                        <p>Added -5s / +5s skip buttons</p>
+                        <p>Loop & Repeat now use class-based toggle animations</p>
+                        <p>Draggable, touch-friendly progress bar</p>
+                        <p>Active song highlight improved</p>
+                        
+                        <p style="margin-top: 20px;"><strong>📱 Modal Upgrade (Mobile & Desktop)</strong></p>
+                        <p>Mobile landscape = fullscreen, no border-radius</p>
+                        <p>Desktop modal width refined</p>
+                        <p>Blur/shadow improved</p>
+                        <p>Close buttons repositioned</p>
+                        <p>Smoother internal scrolling</p>
+                        
+                        <p style="margin-top: 20px;"><strong>⚠️ "!" Button Enhancement</strong></p>
+                        <p>Turns red + performs a one-time rotation</p>
+                        <p>Animation fully resets when modal closes</p>
+                        <p>Faster activation response</p>
+                        
+                        <p style="margin-top: 20px;"><strong>🖼️ Layout & Styling</strong></p>
+                        <p>Improved spacing for all button groups</p>
+                        <p>Unified padding across modals</p>
+                        <p>Better responsive fonts</p>
+                        <p>Cleaner progress bar visuals</p>
+                        <p>Consistent hover/active states</p>
+                        
+                        <p style="margin-top: 20px;"><strong>🔧 JavaScript Improvements</strong></p>
+                        <p>Centralized modal logic</p>
+                        <p>Optimized music control functions</p>
+                        <p>Touch scrubbing support</p>
+                        <p>Cleaner event listeners</p>
+                        <p>Removed redundant state resets</p>
+                        
+                        <p style="margin-top: 20px;"><strong>🐛 Fixes, Changes & QOL</strong></p>
+                        <p>Fixed modal overflow on small screens</p>
+                        <p>Fixed audio desync on song change</p>
+                        <p>Removed unused CSS</p>
+                        <p>Improved volume consistency</p>
+                        <p>Minor UI glitch fixes</p>
+                        <p>Overall performance improvements
+                        
+                        <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
+                        <p>I received you all response on my form and most of it i applied it here</p>
+                        <p>Thank you so much for taking the time answering the form💖</p>
+        
+                        <p style="margin-top: 20px;"><strong>🔜Coming Soon...</strong></p>
+                        <p>Big Update Coming On December 25!</p>
+                        <p>Get Ready for Something New!</p>
+                        <p>Thank You and Enjoy!🥰🫶🏻</p>
+                        <span id="update1-toggle-bottom" class="see-more-link" onclick="toggleUpdateDetails()">see less...</span>
+                        </p>
+                    </div>
 
-                    <p style="margin-top: 20px;"><strong>[To Be Fixed]</strong></p>
+                    <p style="margin-top: 20px;"><strong>UPDATE 1.1 [FIXED]</strong></p>
+                    <p id="update11-summary" style="font-style: italic; font-size: 16px; margin-bottom: 10px; color: #555;">
+                        These fixes are now applied in this version
+                        <span id="update11-toggle-top" class="see-more-link" onclick="toggleUpdate11Details()">see more...</span>
+                    </p>
+                    <div id="update11-details" style="display:none; margin-bottom: 10px;">
+                        <p>Fixed the blue button, because it's too big</p>
+                        <p>Fixed the title “Facebook, Instagram, etc.” so it is no longer clickable and is displayed as plain text</p>
+                        <p>Fixed the scrolling effect on “Songs” and “What's New” because it wasn't supposed to scroll that way</p>
+                        <p>Overall improvements and small fixes have been applied
+                            <span id="update11-toggle-bottom" class="see-more-link" onclick="toggleUpdate11Details()">see less...</span>
+                        </p>
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><atrong>[TO BE FIXED]</strong></p>
                     <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">These changes will be applied in the next update.</p>
-                    <p>Fixing the blue button because it's too big, and in landscape mode it appears beside “ABOUT ME” and “MY FAVORITES”</p>
-                    <p>Fixing the title: Facebook, Instagram, etc. are currently clickable; they should just be text</p>
-                    <p>Fixing the scrolling effect on “Songs” and “What’s New,” because it shouldn’t behave that way</p>
-                    <p>Fix the width of the box because it doesn’t go full screen in landscape mode</p>
-                    <p>Overall improvements and small fixes to be applied in the next update</p>
-
-                    <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
-                    <p>I received you all response on my form and most of it i applied it here</p>
-                    <p>Thank you so much for taking the time answering the form💖</p>
-
-                    <p style="margin-top: 20px;"><strong>🔜Coming Soon...</strong></p>
-                    <p>Big Update Coming On December 25!</p>
-                    <p>Get Ready for Something New!</p>
-                    <p>Thank You and Enjoy!🥰🫶🏻</p>
+                    <p>Fixing the music buttons so they work correctly during playback</p>
+                    <p>Fix the pause/play button, as it currently closes the music instead of pausing it</p>
+                    <p>Overall improvements and small bugs will be applied next update</p>
+                    <p>Next Update December 1</p>
                 </div>
             </div>
         </div>
@@ -2681,81 +3111,165 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
             <button class="close-button-left" onclick="closeModal('singer')" title="Close">×</button>
             <div class="modal-content">
                 <h2 style="text-align: center; font-size: 32px; margin-bottom: 30px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">SINGER</h2>
-                <div class="singer-modal-content" style="padding: 20px; line-height: 2; color: #333;">
+                <div class="singer-modal-content">
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Sabrina Carpenter</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Sabrina because she's talented, inspiring, and her music is full of joy.</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/sabrinacarpenter" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/sabrinacarpenter</a></p>
-                            <p><a href="https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==</a></p>
-                            <p><a href="https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ</a></p>
-                            <p><a href="https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/sabrinacarpenter" target="_blank" rel="noopener noreferrer">https://www.facebook.com/sabrinacarpenter</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==" target="_blank" rel="noopener noreferrer">https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N" target="_blank" rel="noopener noreferrer">https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N</a>
+                            </p>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Taylor Swift</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Taylor because her songs tell stories that feel like they understand me</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/TaylorSwift" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/TaylorSwift</a></p>
-                            <p><a href="https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr</a></p>
-                            <p><a href="https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM</a></p>
-                            <p><a href="https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/TaylorSwift" target="_blank" rel="noopener noreferrer">https://www.facebook.com/TaylorSwift</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr" target="_blank" rel="noopener noreferrer">https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7" target="_blank" rel="noopener noreferrer">https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7</a>
+                            </p>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Ariana Grande</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Ariana because her voice is so powerful and sweet, it makes me happy every time I listen.</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/arianagrande" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/arianagrande</a></p>
-                            <p><a href="https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3</a></p>
-                            <p><a href="https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG</a></p>
-                            <p><a href="https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/arianagrande" target="_blank" rel="noopener noreferrer">https://www.facebook.com/arianagrande</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3" target="_blank" rel="noopener noreferrer">https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4" target="_blank" rel="noopener noreferrer">https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4</a>
+                            </p>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">The Weeknd</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like The Weeknd because his music is dark, emotional, and unforgettable.</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/theweeknd" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/theweeknd</a></p>
-                            <p><a href="https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk</a></p>
-                            <p><a href="https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI</a></p>
-                            <p><a href="https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/theweeknd" target="_blank" rel="noopener noreferrer">https://www.facebook.com/theweeknd</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk" target="_blank" rel="noopener noreferrer">https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla" target="_blank" rel="noopener noreferrer">https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla</a>
+                            </p>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Billie Eilish</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Billie because she's fearless and unique, and her music feels so real.</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/billieeilish" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/billieeilish</a></p>
-                            <p><a href="https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn</a></p>
-                            <p><a href="https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q</a></p>
-                            <p><a href="https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/billieeilish" target="_blank" rel="noopener noreferrer">https://www.facebook.com/billieeilish</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn" target="_blank" rel="noopener noreferrer">https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt" target="_blank" rel="noopener noreferrer">https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt</a>
+                            </p>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Lauv</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Lauv because his songs make my heart feel warm and hopeful.</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/lauvsongs" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/lauvsongs</a></p>
-                            <p><a href="https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==</a></p>
-                            <p><a href="https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv</a></p>
-                            <p><a href="https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/lauvsongs" target="_blank" rel="noopener noreferrer">https://www.facebook.com/lauvsongs</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==" target="_blank" rel="noopener noreferrer">https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm" target="_blank" rel="noopener noreferrer">https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm</a>
+                            </p>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 30px;">
                         <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Lana Del Rey</h3>
                         <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Lana because her songs feel dreamy and transport me to another world.</p>
-                        <div style="font-size: 14px;">
-                            <p><a href="https://www.facebook.com/lanadelrey" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/lanadelrey</a></p>
-                            <p><a href="https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==</a></p>
-                            <p><a href="https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO</a></p>
-                            <p><a href="https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA</a></p>
+                        <div class="singer-social-list">
+                            <p class="social-link">
+                                <span class="social-label">Facebook:</span>
+                                <a href="https://www.facebook.com/lanadelrey" target="_blank" rel="noopener noreferrer">https://www.facebook.com/lanadelrey</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Instagram:</span>
+                                <a href="https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==" target="_blank" rel="noopener noreferrer">https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Tiktok:</span>
+                                <a href="https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO</a>
+                            </p>
+                            <p class="social-link">
+                                <span class="social-label">Youtube:</span>
+                                <a href="https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA" target="_blank" rel="noopener noreferrer">https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -2789,9 +3303,30 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
             const warningTimerLine = document.getElementById('warningTimerLine');
             const updatingMsgEl = document.getElementById('updatingMsg');
             const formLinkBelow = document.getElementById('formLinkBelow');
+            const updatesButtonContainer = document.querySelector('.update-button-container');
             let warningCountdownInterval = null;
             let targetNov15 = null;
             let messageInterval = null;
+            const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
+            let countdownAlreadyDone = false;
+            let updatesButtonShown = false;
+            try {
+                countdownAlreadyDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
+            } catch (error) {
+                countdownAlreadyDone = false;
+            }
+            if (countdownAlreadyDone) {
+                if (warningTimerLine) warningTimerLine.style.display = 'none';
+                if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+            }
+
+            function showUpdatesButton() {
+                if (updatesButtonShown) return;
+                if (updatesButtonContainer) {
+                    updatesButtonContainer.classList.remove('hidden');
+                    updatesButtonShown = true;
+                }
+            }
             
             // Messages array
             const messages = [
@@ -2912,9 +3447,14 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                                     // Show warning and start countdown
                                     if (mainWarning) {
                                         mainWarning.style.display = '';
-                                        // countdown already running
                                         if (formLinkBelow) formLinkBelow.style.display = '';
+                                        if (countdownAlreadyDone) {
+                                            if (warningTimerLine) warningTimerLine.style.display = 'none';
+                                            if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                                        }
                                     }
+                                        enableMusicMiniButton();
+                                        showUpdatesButton();
                                 }, 900);
                             }, 30000);
                             if (introSkip) {
@@ -2929,14 +3469,25 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                                         // Show warning and start countdown
                                         if (mainWarning) {
                                             mainWarning.style.display = '';
-                                            // countdown already running
-                                            if (warningTimerLine) warningTimerLine.style.display = '';
-                                            if (updatingMsgEl) updatingMsgEl.style.display = 'none';
                                             if (formLinkBelow) formLinkBelow.style.display = '';
+                                            if (countdownAlreadyDone) {
+                                                if (warningTimerLine) warningTimerLine.style.display = 'none';
+                                                if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                                            } else {
+                                                if (warningTimerLine) warningTimerLine.style.display = '';
+                                                if (updatingMsgEl) updatingMsgEl.style.display = 'none';
+                                            }
                                         }
+                                            enableMusicMiniButton();
+                                            showUpdatesButton();
                                     }, 900);
                                 });
                             }
+                        } else {
+                            if (mainWarning) mainWarning.style.display = '';
+                            if (formLinkBelow) formLinkBelow.style.display = '';
+                            enableMusicMiniButton();
+                            showUpdatesButton();
                         }
                     }, 300);
                 }
@@ -2961,6 +3512,11 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
 
             function startWarningCountdown() {
                 if (!warningTimerEl) return;
+                if (countdownAlreadyDone) {
+                    if (warningTimerLine) warningTimerLine.style.display = 'none';
+                    if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                    return;
+                }
                 // Determine target December 25
                 if (!targetNov15) {
                     const now = new Date();
@@ -2981,6 +3537,14 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                         // Swap timer with "UPDATING..."
                         if (warningTimerLine) warningTimerLine.style.display = 'none';
                         if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                        if (!countdownAlreadyDone) {
+                            countdownAlreadyDone = true;
+                            try {
+                                localStorage.setItem(COUNTDOWN_DONE_KEY, 'true');
+                            } catch (error) {
+                                // ignore storage errors
+                            }
+                        }
                     }
                 }
                 updateCountdown();
@@ -2988,6 +3552,28 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                 warningCountdownInterval = setInterval(updateCountdown, 1000);
             }
         });
+
+        function toggleUpdateDetails() {
+            const details = document.getElementById('update1-details');
+            const topToggle = document.getElementById('update1-toggle-top');
+            const bottomToggle = document.getElementById('update1-toggle-bottom');
+            if (!details || !topToggle || !bottomToggle) return;
+            const isHidden = details.style.display === 'none' || details.style.display === '';
+            details.style.display = isHidden ? 'block' : 'none';
+            topToggle.style.display = isHidden ? 'none' : 'inline';
+            bottomToggle.style.display = isHidden ? 'inline' : 'none';
+        }
+
+        function toggleUpdate11Details() {
+            const details = document.getElementById('update11-details');
+            const topToggle = document.getElementById('update11-toggle-top');
+            const bottomToggle = document.getElementById('update11-toggle-bottom');
+            if (!details || !topToggle || !bottomToggle) return;
+            const isHidden = details.style.display === 'none' || details.style.display === '';
+            details.style.display = isHidden ? 'block' : 'none';
+            topToggle.style.display = isHidden ? 'none' : 'inline';
+            bottomToggle.style.display = isHidden ? 'inline' : 'none';
+        }
 
         // Orientation Detection and Handling
         function detectOrientation() {
@@ -3068,31 +3654,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                 document.body.style.overflow = 'auto';
                 document.documentElement.style.overflow = 'auto';
             }
-            
-            // Stop all music if closing music modal
-            if (type === 'music') {
-                const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
-                songIds.forEach(songId => {
-                    const audio = document.getElementById('musicPlayer-' + songId);
-                    if (audio && !audio.paused) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                        const playButton = document.querySelector(`button[data-song="${songId}"]`);
-                        const songItem = playButton ? playButton.closest('.song-item') : null;
-                        if (playButton) {
-                            playButton.textContent = '▶️';
-                            playButton.classList.remove('paused', 'playing');
-                        }
-                        if (songItem) songItem.classList.remove('song-playing');
-                        const progressContainer = document.getElementById('musicProgressContainer-' + songId);
-                        if (progressContainer) progressContainer.classList.remove('active');
-                        const progressBar = document.getElementById('musicProgressBar-' + songId);
-                        if (progressBar) progressBar.style.width = '0%';
-                        const currentTime = document.getElementById('currentTime-' + songId);
-                        if (currentTime) currentTime.textContent = '0:00';
-                    }
-                });
-            }
+            // Note: do NOT stop music when closing the music modal so audio can keep playing
         }
 
         function closeModalOnOverlay(event, type) {
@@ -3155,6 +3717,168 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
 
         // Music Player Functions
         let currentPlayingSong = null;
+        let isMiniPanelOpen = false;
+        let canShowMusicMiniButton = false;
+        const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
+        const songTitles = {
+            sabrina: 'SABRINA CARPENTER - WHEN DID YOU GET HOT',
+            positions: 'ARIANA GRANDE - POSITIONS',
+            goodnightngo: 'ARIANA GRANDE - GOODNIGHT N GO',
+            ariintro: 'ARIANA GRANDE - INTRO ( EXTENDED )',
+            aripastlife: 'ARIANA GRANDE - PAST LIFE',
+            ariboyfriend: 'ARIANA GRANDE & SOCIAL HOUSE - BOYFRIEND',
+            breakfree: 'ARIANA GRANDE - BREAK FREE',
+            opalite: 'TAYLOR SWIFT - OPALITE',
+            blankspace: 'TAYLOR SWIFT - BLANK SPACE',
+            slut: 'TAYLOR SWIFT - SLUT!',
+            opheila: 'TAYLOR SWIFT - THE FATE OF OPHELIA',
+            weeknd: 'THE WEEKND - SAVE YOUR TEARS',
+            cooloff: 'NIALL HORAN - TOO MUCH TO ASK',
+            happierthanever: 'BILLIE EILISH - HAPPIER THAN EVER',
+            wavetolove: 'LAUV - I LIKE ME BETTER',
+            superfar: 'LANY - SUPER FAR',
+            backburner: 'NIKI - BACKBURNER',
+            aboutyou: 'THE 1975 - ABOUT YOU',
+            charli360: 'CHARLI XCX - 360',
+            oras: 'CALEIN - ORAS',
+            nailang: 'LE JOHN - NAIILANG',
+            multo: 'CUP OF JOE - MULTO',
+            confident: 'JUSTIN BIEBER - CONFIDENT'
+        };
+
+        function getNextSongId(currentId) {
+            const idx = songIds.indexOf(currentId);
+            if (idx >= 0 && idx < songIds.length - 1) {
+                return songIds[idx + 1];
+            }
+            return null;
+        }
+
+        function enableMusicMiniButton() {
+            canShowMusicMiniButton = true;
+            updateMiniMusicUI();
+        }
+
+        function updateMiniMusicUI() {
+            const miniButton = document.getElementById('musicMiniButton');
+            const miniTitle = document.getElementById('musicMiniTitle');
+            const miniNext = document.getElementById('musicMiniNext');
+            const miniCard = document.getElementById('musicMiniCard');
+            const panel = document.getElementById('musicMiniPanel');
+            const panelTitle = document.getElementById('musicMiniPanelTitle');
+            const panelStatus = document.getElementById('musicMiniPanelStatus');
+            const panelBox = document.getElementById('musicMiniPanelSong');
+            const panelControls = document.getElementById('musicMiniPanelControls');
+            const panelTimes = document.getElementById('musicMiniPanelTimes');
+            const panelToggleBtn = document.getElementById('musicMiniPanelToggle');
+            const inlineControls = document.getElementById('musicMiniInlineControls');
+            const inlineToggleBtn = document.getElementById('musicMiniInlineToggle');
+
+            if (!miniButton || !miniTitle || !miniNext || !miniCard) return;
+
+            if (!canShowMusicMiniButton) {
+                miniButton.style.display = 'none';
+                if (panel) panel.style.display = 'none';
+                if (inlineControls) inlineControls.classList.remove('active');
+                isMiniPanelOpen = false;
+                return;
+            }
+
+            miniButton.style.display = 'flex';
+
+            if (currentPlayingSong) {
+                miniCard.classList.add('active');
+                const title = songTitles[currentPlayingSong] || currentPlayingSong;
+                miniTitle.textContent = title;
+                miniTitle.classList.add('scrolling');
+                if (panelControls) panelControls.style.display = 'flex';
+                if (panelTimes) panelTimes.style.display = 'flex';
+                if (inlineControls) inlineControls.classList.add('active');
+                if (panelTitle && panelStatus) {
+                    panelTitle.textContent = title;
+                    panelStatus.textContent = 'Playing now';
+                    panelBox.style.display = 'block';
+                }
+                if (panelToggleBtn) panelToggleBtn.textContent = '⏸️';
+                if (inlineToggleBtn) inlineToggleBtn.textContent = '⏸️';
+                const nextSongId = getNextSongId(currentPlayingSong);
+                if (nextSongId) {
+                    miniNext.textContent = 'UP NEXT: ' + (songTitles[nextSongId] || nextSongId);
+                    miniNext.style.fontStyle = 'normal';
+                } else {
+                    miniNext.textContent = 'UP NEXT: END OF LIST';
+                    miniNext.style.fontStyle = 'italic';
+                }
+                const playingAudio = document.getElementById('musicPlayer-' + currentPlayingSong);
+                if (playingAudio) {
+                    updateMiniPanelTimes(formatTime(playingAudio.currentTime), formatTime(playingAudio.duration || 0));
+                } else {
+                    updateMiniPanelTimes('0:00', '0:00');
+                }
+            } else {
+                miniCard.classList.remove('active');
+                miniTitle.textContent = 'NO MUSIC IS PLAYING RIGHT NOW.';
+                miniTitle.classList.remove('scrolling');
+                if (panelControls) panelControls.style.display = 'none';
+                if (panelTimes) panelTimes.style.display = 'none';
+                if (inlineControls) inlineControls.classList.remove('active');
+                if (panelToggleBtn) panelToggleBtn.textContent = '▶️';
+                if (inlineToggleBtn) inlineToggleBtn.textContent = '▶️';
+                updateMiniPanelTimes('0:00', '0:00');
+                if (panelTitle && panelStatus) {
+                    panelTitle.textContent = 'NO MUSIC IS PLAYING RIGHT NOW.';
+                    panelStatus.textContent = 'Start a song to see details';
+                    panelBox.style.display = 'block';
+                }
+                const firstSongId = songIds[0];
+                if (firstSongId) {
+                    miniNext.textContent = 'UP NEXT: ' + (songTitles[firstSongId] || firstSongId);
+                    miniNext.style.fontStyle = 'normal';
+                } else {
+                    miniNext.textContent = 'UP NEXT: —';
+                    miniNext.style.fontStyle = 'italic';
+                }
+            }
+
+            if (panel) {
+                panel.style.display = isMiniPanelOpen ? 'flex' : 'none';
+            }
+        }
+
+        function updateMiniPanelTimes(current, total) {
+            const curEl = document.getElementById('musicMiniCurrentTime');
+            const totalEl = document.getElementById('musicMiniTotalTime');
+            if (curEl) curEl.textContent = current || '0:00';
+            if (totalEl) totalEl.textContent = total || '0:00';
+        }
+
+        function toggleMiniPanel() {
+            if (!canShowMusicMiniButton) return;
+            const panel = document.getElementById('musicMiniPanel');
+            if (!panel) return;
+            isMiniPanelOpen = !isMiniPanelOpen;
+            panel.style.display = isMiniPanelOpen ? 'flex' : 'none';
+        }
+
+        function miniSkipForward() {
+            if (!currentPlayingSong) return;
+            skipMusic(currentPlayingSong, 5);
+        }
+
+        function miniSkipBackward() {
+            if (!currentPlayingSong) return;
+            skipMusic(currentPlayingSong, -5);
+        }
+
+        function miniTogglePlay() {
+            if (!currentPlayingSong) return;
+            toggleMusic(currentPlayingSong);
+        }
+
+        function miniRestart() {
+            if (!currentPlayingSong) return;
+            restartMusic(currentPlayingSong);
+        }
 
         function formatTime(seconds) {
             if (isNaN(seconds)) return '0:00';
@@ -3165,7 +3889,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
 
         // Set up event handlers for all audio players
         window.addEventListener('load', function() {
-            const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
             songIds.forEach(songId => {
                 const audio = document.getElementById('musicPlayer-' + songId);
                 if (audio) {
@@ -3173,6 +3896,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                         const totalTimeSpan = document.getElementById('totalTime-' + songId);
                         if (totalTimeSpan) {
                             totalTimeSpan.textContent = formatTime(audio.duration);
+                        }
+                        if (currentPlayingSong === songId) {
+                            updateMiniPanelTimes(formatTime(audio.currentTime), formatTime(audio.duration || 0));
                         }
                     });
 
@@ -3188,6 +3914,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                             if (totalTimeSpan && totalTimeSpan.textContent === '0:00') {
                                 totalTimeSpan.textContent = formatTime(audio.duration);
                             }
+                            if (currentPlayingSong === songId) {
+                                updateMiniPanelTimes(formatTime(audio.currentTime), formatTime(audio.duration || 0));
+                            }
                         }
                     });
 
@@ -3201,7 +3930,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                         if (songItem) songItem.classList.remove('song-playing');
                         const progressContainer = document.getElementById('musicProgressContainer-' + songId);
                         if (progressContainer) progressContainer.classList.remove('active');
-                        currentPlayingSong = null;
+                        if (currentPlayingSong === songId) {
+                            currentPlayingSong = null;
+                            updateMiniMusicUI();
+                        }
                     });
 
                     audio.addEventListener('error', function(e) {
@@ -3242,7 +3974,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                 
                 if (prevAudio) {
                     prevAudio.pause();
-                    prevAudio.currentTime = 0;
                 }
                 if (prevButton) {
                     prevButton.textContent = '▶️';
@@ -3252,10 +3983,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                     prevSongItem.classList.remove('song-playing');
                 }
                 if (prevProgress) prevProgress.classList.remove('active');
-                const prevBar = document.getElementById('musicProgressBar-' + currentPlayingSong);
-                if (prevBar) prevBar.style.width = '0%';
-                const prevTime = document.getElementById('currentTime-' + currentPlayingSong);
-                if (prevTime) prevTime.textContent = '0:00';
             }
 
             if (audio.paused) {
@@ -3270,6 +3997,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                         if (songItem) songItem.classList.add('song-playing');
                         if (progressContainer) progressContainer.classList.add('active');
                         currentPlayingSong = songId;
+                        updateMiniMusicUI();
                     }).catch(error => {
                         // Auto-play was prevented or failed
                         console.error('Error playing audio:', error);
@@ -3286,6 +4014,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                     if (songItem) songItem.classList.add('song-playing');
                     if (progressContainer) progressContainer.classList.add('active');
                     currentPlayingSong = songId;
+                    updateMiniMusicUI();
                 }
             } else {
                 audio.pause();
@@ -3294,6 +4023,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
                 if (songItem) songItem.classList.remove('song-playing');
                 if (progressContainer) progressContainer.classList.remove('active');
                 currentPlayingSong = null;
+                updateMiniMusicUI();
             }
         }
 
@@ -3315,10 +4045,24 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!</div>
             }
         }
 
+        function openMusicFromMini() {
+            openModal('music');
+            const panel = document.getElementById('musicMiniPanel');
+            if (panel) panel.style.display = 'none';
+            isMiniPanelOpen = false;
+            // After modal opens, scroll current song into view
+            if (currentPlayingSong) {
+                setTimeout(function() {
+                    const activeSong = document.querySelector(`.song-item.song-playing`);
+                    if (activeSong && activeSong.scrollIntoView) {
+                        activeSong.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 300);
+            }
+        }
+
         // Make progress bars clickable and draggable
         function setupProgressBarSeeking() {
-            const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
-            
             songIds.forEach(songId => {
                 const progressWrapper = document.getElementById('musicProgressContainer-' + songId);
                 if (!progressWrapper) return;
