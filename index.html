@@ -11,14 +11,7 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            height: 100%;
-            width: 100%;
-        }
+        body 
 
         html {
             height: 100%;
@@ -145,10 +138,27 @@
 
         .loading-percentage {
             color: white;
-            font-size: 36px;
-            font-weight: 500;
-            letter-spacing: 2px;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 1px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 5px;
+        }
+
+        .loading-message {
+            color: white;
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-top: 20px;
+            min-height: 24px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .loading-message.show {
+            opacity: 1;
         }
 
         @keyframes pulse {
@@ -243,6 +253,34 @@
             color: white;
         }
 
+        .btn-updates {
+            background: #00bfff;
+            color: white;
+        }
+
+        .update-button-container {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .modal-updates {
+            background: linear-gradient(135deg, #ffeef8 0%, #e8f5e9 100%);
+        }
+
+        .singer-modal-content a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .singer-modal-content a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
         /* Modal Overlay */
         .modal-overlay {
             position: fixed;
@@ -296,6 +334,10 @@
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
         }
 
+        .modal-singer {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
         .close-button {
             position: absolute;
             top: 20px;
@@ -318,6 +360,31 @@
 
 
         .close-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .close-button-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10003;
+        }
+
+        .close-button-left:hover {
             background: rgba(255, 255, 255, 0.5);
             transform: rotate(90deg);
         }
@@ -875,8 +942,58 @@
             font-size: 16px;
         }
 
+        /* Play button - Green when playing */
+        .play-button.playing {
+            background: #4caf50;
+            border-color: #45a049;
+        }
+
+        .play-button.playing:hover {
+            background: #45a049;
+        }
+
+        /* Pause button - Yellow when playing */
+        .play-button.paused {
+            background: #ffc107;
+            border-color: #ffb300;
+            color: #333;
+        }
+
+        .play-button.paused:hover {
+            background: #ffb300;
+        }
+
+        /* +5s button - Green when song is playing */
+        .song-playing .music-control-button[onclick*="5)"] {
+            background: #4caf50;
+            border-color: #45a049;
+        }
+
+        .song-playing .music-control-button[onclick*="5)"]:hover {
+            background: #45a049;
+        }
+
+        /* -5s button - Light Red when song is playing */
+        .song-playing .music-control-button[onclick*="-5)"] {
+            background: #ff6b6b;
+            border-color: #ff5252;
+        }
+
+        .song-playing .music-control-button[onclick*="-5)"]:hover {
+            background: #ff5252;
+        }
+
+        /* Repeat button - Purple when song is playing */
+        .song-playing .music-control-button[onclick*="restartMusic"] {
+            background: #9c27b0;
+            border-color: #7b1fa2;
+        }
+
+        .song-playing .music-control-button[onclick*="restartMusic"]:hover {
+            background: #7b1fa2;
+        }
+
         .play-button:hover, .music-control-button:hover {
-            background: #707070;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
@@ -900,16 +1017,37 @@
             height: 8px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            overflow: hidden;
+            overflow: visible;
             margin-bottom: 10px;
+            position: relative;
+            cursor: pointer;
         }
 
         .music-progress-bar {
             height: 100%;
-            background: #808080;
+            background: black;
             border-radius: 10px;
             width: 0%;
             transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .music-progress-bar-wrapper.dragging .music-progress-bar {
+            transition: none;
+        }
+
+        .music-progress-bar::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .music-time {
@@ -941,32 +1079,38 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 45px;
-            height: 45px;
-            border: 3px solid #ff6b6b;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             cursor: pointer;
             font-size: 24px;
             font-weight: bold;
-            color: white;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
             z-index: 10002;
         }
 
         .music-info-button:hover {
-            background: linear-gradient(135deg, #ff5252 0%, #e53935 100%);
-            transform: scale(1.15);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-            border-color: #ff5252;
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(90deg);
         }
 
-        .music-info-button:active {
-            transform: scale(1.05);
+        .music-info-button.active {
+            background: rgba(255, 107, 107, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        .music-info-button.active:hover {
+            background: rgba(255, 107, 107, 0.8);
+            transform: rotate(180deg);
         }
 
         .music-disclaimer-box {
@@ -1482,9 +1626,14 @@
             }
 
             .modal-box {
-                max-height: 98vh;
-                padding: 15px;
-                width: 98%;
+                width: 100%;
+                max-width: 100%;
+                height: 100vh;
+                max-height: 100vh;
+                min-height: 100vh;
+                padding: 10px;
+                border-radius: 0;
+                margin: 0;
             }
 
             .modal-title {
@@ -1493,12 +1642,13 @@
             }
 
             .modal-content {
-                max-height: calc(98vh - 120px);
+                max-height: calc(100vh - 100px);
                 margin-top: 10px;
+                height: auto;
             }
 
             .modal-music .modal-content {
-                max-height: calc(98vh - 140px);
+                max-height: calc(100vh - 120px);
             }
 
             .music-info-button {
@@ -1549,6 +1699,22 @@
                 padding: 10px 20px;
                 font-size: 14px;
             }
+
+            .close-button-left {
+                top: 10px;
+                left: 10px;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+
+            .close-button {
+                top: 10px;
+                right: 10px;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
@@ -1557,10 +1723,11 @@
     <div class="loading-screen" id="loadingScreen">
         <div class="progress-container">
             <div class="loading-text">Loading<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
             <div class="progress-bar-wrapper">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <div class="loading-percentage" id="loadingPercentage">0%</div>
+            <div class="loading-message" id="loadingMessage"></div>
         </div>
     </div>
 
@@ -1569,6 +1736,9 @@
         <div class="button-container">
             <button class="main-button btn-about" onclick="openModal('about')">About Me</button>
             <button class="main-button btn-favorites" onclick="openModal('favorites')">My Favorites</button>
+        </div>
+        <div class="update-button-container">
+            <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW ✨🆕</button>
         </div>
         <div class="warning-message" id="mainWarning">
             THIS ISN'T OFFICIALLY FINISHED YET; I STILL HAVE MANY WORKS TO DO
@@ -1604,7 +1774,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     <!-- About Me Modal -->
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-box modal-about">
-            <!-- Close button removed per request -->
             <h1 class="modal-title">About Me</h1>
             <div class="modal-content">
                 <div class="info-item name-item">
@@ -1792,10 +1961,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-title">Music</div>
                         <div class="favorite-description">When I'm sleeping, eating, walking, etc., I play this music.</div>
                     </div>
-                    <div class="favorite-card clickable" onclick="showComingSoon()">
-                        <div class="favorite-icon">🕒</div>
-                        <div class="favorite-title">Coming Soon</div>
-                        <div class="favorite-description">Stay tuned for updates</div>
+                    <div class="favorite-card clickable" onclick="openModal('singer')">
+                        <div class="favorite-icon">🎤</div>
+                        <div class="favorite-title">SINGER</div>
+                        <div class="favorite-description">i can't live without my fav singers😭.</div>
                     </div>
                     <div class="favorite-card clickable" onclick="showComingSoon()">
                         <div class="favorite-icon">🕒</div>
@@ -1812,8 +1981,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     </div>
 
     <!-- Gaming Modal -->
-    <div class="modal-overlay" id="gamingModal">
+    <div class="modal-overlay" id="gamingModal" onclick="closeModalOnOverlay(event, 'gaming')">
         <div class="modal-box modal-gaming">
+            <button class="close-button-left" onclick="closeModal('gaming')" title="Close">×</button>
             <h1 class="modal-title">Gaming</h1>
             <div class="modal-content">
                 <div class="info-item">
@@ -1829,7 +1999,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     </div>
                 </div>
                 <div class="modal-buttons">
-                    <button class="modal-action-button btn-back" onclick="closeModal('gaming')">Back to Main Menu</button>
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
                 </div>
             </div>
@@ -1837,8 +2006,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     </div>
 
     <!-- Music Modal -->
-    <div class="modal-overlay" id="musicModal">
+    <div class="modal-overlay" id="musicModal" onclick="closeModalOnOverlay(event, 'music')">
         <div class="modal-box modal-music">
+            <button class="close-button-left" onclick="closeModal('music')" title="Close">×</button>
             <button class="music-info-button" onclick="toggleDisclaimer()" title="Disclaimer">!</button>
             <div class="music-disclaimer-box" id="musicDisclaimer">
                 <p>I DON'T OWN THE RIGHTS TO THE MUSIC USED HERE. ALL CREDITS AND RIGHTS TO THE RESPECTIVE ARTISTS AND COPYRIGHT HOLDERS. SHARED PURELY FOR APPRECIATION AND INSPIRATION.</p>
@@ -1853,9 +2023,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('sabrina', -5)">-5s</button>
-                                    <button class="play-button" data-song="sabrina" onclick="toggleMusic('sabrina')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('sabrina', 5)">+5s</button>
+                                    <button class="play-button" data-song="sabrina" onclick="toggleMusic('sabrina')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('sabrina', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('sabrina')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-sabrina" preload="metadata" controls style="display: none;">
@@ -1878,9 +2048,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('positions', -5)">-5s</button>
-                                    <button class="play-button" data-song="positions" onclick="toggleMusic('positions')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('positions', 5)">+5s</button>
+                                    <button class="play-button" data-song="positions" onclick="toggleMusic('positions')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('positions', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('positions')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-positions" preload="metadata" controls style="display: none;">
@@ -1904,9 +2074,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('goodnightngo', -5)">-5s</button>
-                                    <button class="play-button" data-song="goodnightngo" onclick="toggleMusic('goodnightngo')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('goodnightngo', 5)">+5s</button>
+                                    <button class="play-button" data-song="goodnightngo" onclick="toggleMusic('goodnightngo')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('goodnightngo', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('goodnightngo')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-goodnightngo" preload="metadata" controls style="display: none;">
@@ -1929,9 +2099,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('ariintro', -5)">-5s</button>
-                                    <button class="play-button" data-song="ariintro" onclick="toggleMusic('ariintro')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('ariintro', 5)">+5s</button>
+                                    <button class="play-button" data-song="ariintro" onclick="toggleMusic('ariintro')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('ariintro', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('ariintro')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-ariintro" preload="metadata" controls style="display: none;">
@@ -1954,9 +2124,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('aripastlife', -5)">-5s</button>
-                                    <button class="play-button" data-song="aripastlife" onclick="toggleMusic('aripastlife')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('aripastlife', 5)">+5s</button>
+                                    <button class="play-button" data-song="aripastlife" onclick="toggleMusic('aripastlife')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('aripastlife', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('aripastlife')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-aripastlife" preload="metadata" controls style="display: none;">
@@ -1979,9 +2149,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('ariboyfriend', -5)">-5s</button>
-                                    <button class="play-button" data-song="ariboyfriend" onclick="toggleMusic('ariboyfriend')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('ariboyfriend', 5)">+5s</button>
+                                    <button class="play-button" data-song="ariboyfriend" onclick="toggleMusic('ariboyfriend')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('ariboyfriend', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('ariboyfriend')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-ariboyfriend" preload="metadata" controls style="display: none;">
@@ -2004,9 +2174,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('breakfree', -5)">-5s</button>
-                                    <button class="play-button" data-song="breakfree" onclick="toggleMusic('breakfree')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('breakfree', 5)">+5s</button>
+                                    <button class="play-button" data-song="breakfree" onclick="toggleMusic('breakfree')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('breakfree', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('breakfree')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-breakfree" preload="metadata" controls style="display: none;">
@@ -2029,9 +2199,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('opalite', -5)">-5s</button>
-                                    <button class="play-button" data-song="opalite" onclick="toggleMusic('opalite')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('opalite', 5)">+5s</button>
+                                    <button class="play-button" data-song="opalite" onclick="toggleMusic('opalite')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('opalite', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('opalite')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-opalite" preload="metadata" controls style="display: none;">
@@ -2055,9 +2225,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('blankspace', -5)">-5s</button>
-                                    <button class="play-button" data-song="blankspace" onclick="toggleMusic('blankspace')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('blankspace', 5)">+5s</button>
+                                    <button class="play-button" data-song="blankspace" onclick="toggleMusic('blankspace')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('blankspace', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('blankspace')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-blankspace" preload="metadata" controls style="display: none;">
@@ -2080,9 +2250,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('slut', -5)">-5s</button>
-                                    <button class="play-button" data-song="slut" onclick="toggleMusic('slut')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('slut', 5)">+5s</button>
+                                    <button class="play-button" data-song="slut" onclick="toggleMusic('slut')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('slut', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('slut')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-slut" preload="metadata" controls style="display: none;">
@@ -2105,9 +2275,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('opheila', -5)">-5s</button>
-                                    <button class="play-button" data-song="opheila" onclick="toggleMusic('opheila')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('opheila', 5)">+5s</button>
+                                    <button class="play-button" data-song="opheila" onclick="toggleMusic('opheila')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('opheila', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('opheila')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-opheila" preload="metadata" controls style="display: none;">
@@ -2130,9 +2300,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('weeknd', -5)">-5s</button>
-                                    <button class="play-button" data-song="weeknd" onclick="toggleMusic('weeknd')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('weeknd', 5)">+5s</button>
+                                    <button class="play-button" data-song="weeknd" onclick="toggleMusic('weeknd')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('weeknd', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('weeknd')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-weeknd" preload="metadata" controls style="display: none;">
@@ -2155,9 +2325,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('cooloff', -5)">-5s</button>
-                                    <button class="play-button" data-song="cooloff" onclick="toggleMusic('cooloff')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('cooloff', 5)">+5s</button>
+                                    <button class="play-button" data-song="cooloff" onclick="toggleMusic('cooloff')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('cooloff', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('cooloff')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-cooloff" preload="metadata" controls style="display: none;">
@@ -2181,9 +2351,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('happierthanever', -5)">-5s</button>
-                                    <button class="play-button" data-song="happierthanever" onclick="toggleMusic('happierthanever')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('happierthanever', 5)">+5s</button>
+                                    <button class="play-button" data-song="happierthanever" onclick="toggleMusic('happierthanever')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('happierthanever', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('happierthanever')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-happierthanever" preload="metadata" controls style="display: none;">
@@ -2206,9 +2376,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('wavetolove', -5)">-5s</button>
-                                    <button class="play-button" data-song="wavetolove" onclick="toggleMusic('wavetolove')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('wavetolove', 5)">+5s</button>
+                                    <button class="play-button" data-song="wavetolove" onclick="toggleMusic('wavetolove')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('wavetolove', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('wavetolove')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-wavetolove" preload="metadata" controls style="display: none;">
@@ -2231,9 +2401,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('superfar', -5)">-5s</button>
-                                    <button class="play-button" data-song="superfar" onclick="toggleMusic('superfar')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('superfar', 5)">+5s</button>
+                                    <button class="play-button" data-song="superfar" onclick="toggleMusic('superfar')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('superfar', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('superfar')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-superfar" preload="metadata" controls style="display: none;">
@@ -2256,9 +2426,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('backburner', -5)">-5s</button>
-                                    <button class="play-button" data-song="backburner" onclick="toggleMusic('backburner')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('backburner', 5)">+5s</button>
+                                    <button class="play-button" data-song="backburner" onclick="toggleMusic('backburner')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('backburner', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('backburner')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-backburner" preload="metadata" controls style="display: none;">
@@ -2281,9 +2451,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('aboutyou', -5)">-5s</button>
-                                    <button class="play-button" data-song="aboutyou" onclick="toggleMusic('aboutyou')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('aboutyou', 5)">+5s</button>
+                                    <button class="play-button" data-song="aboutyou" onclick="toggleMusic('aboutyou')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('aboutyou', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('aboutyou')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-aboutyou" preload="metadata" controls style="display: none;">
@@ -2306,9 +2476,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('charli360', -5)">-5s</button>
-                                    <button class="play-button" data-song="charli360" onclick="toggleMusic('charli360')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('charli360', 5)">+5s</button>
+                                    <button class="play-button" data-song="charli360" onclick="toggleMusic('charli360')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('charli360', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('charli360')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-charli360" preload="metadata" controls style="display: none;">
@@ -2331,9 +2501,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('oras', -5)">-5s</button>
-                                    <button class="play-button" data-song="oras" onclick="toggleMusic('oras')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('oras', 5)">+5s</button>
+                                    <button class="play-button" data-song="oras" onclick="toggleMusic('oras')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('oras', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('oras')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-oras" preload="metadata" controls style="display: none;">
@@ -2356,9 +2526,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('nailang', -5)">-5s</button>
-                                    <button class="play-button" data-song="nailang" onclick="toggleMusic('nailang')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('nailang', 5)">+5s</button>
+                                    <button class="play-button" data-song="nailang" onclick="toggleMusic('nailang')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('nailang', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('nailang')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-nailang" preload="metadata" controls style="display: none;">
@@ -2381,9 +2551,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('multo', -5)">-5s</button>
-                                    <button class="play-button" data-song="multo" onclick="toggleMusic('multo')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('multo', 5)">+5s</button>
+                                    <button class="play-button" data-song="multo" onclick="toggleMusic('multo')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('multo', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('multo')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-multo" preload="metadata" controls style="display: none;">
@@ -2406,9 +2576,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('confident', -5)">-5s</button>
-                                    <button class="play-button" data-song="confident" onclick="toggleMusic('confident')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('confident', 5)">+5s</button>
+                                    <button class="play-button" data-song="confident" onclick="toggleMusic('confident')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('confident', -5)">-5s</button>
                                     <button class="music-control-button" onclick="restartMusic('confident')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-confident" preload="metadata" controls style="display: none;">
@@ -2428,8 +2598,167 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     </div>
                 </div>
                 <div class="modal-buttons">
-                    <button class="modal-action-button btn-back" onclick="closeModal('music')">Back to Main Menu</button>
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Updates Modal -->
+    <div class="modal-overlay" id="updatesModal" onclick="closeModalOnOverlay(event, 'updates')">
+        <div class="modal-box modal-updates">
+            <button class="close-button-left" onclick="closeModal('updates')" title="Close">×</button>
+            <div class="modal-content">
+                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">UI REFORGE + MUSIC SYSTEM UPGRADE ⚡🎵</h2>
+                <div style="padding: 20px; line-height: 1.8; color: #555; font-size: 15px;">
+                    <p><strong>⏳ Loading Screen</strong></p>
+                    <p>📊 Moved percentage text below "Loading…"</p>
+                    <p>🔄 Added rotating smart messages (show once per session)</p>
+                    
+                    <p style="margin-top: 20px;"><strong>🎵 Music Player Update</strong></p>
+                    <p>Unified play/pause logic for smoother switching</p>
+                    <p>Added -5s / +5s skip buttons</p>
+                    <p>Loop & Repeat now use class-based toggle animations</p>
+                    <p>Draggable, touch-friendly progress bar</p>
+                    <p>Active song highlight improved</p>
+                    
+                    <p style="margin-top: 20px;"><strong>📱 Modal Upgrade (Mobile & Desktop)</strong></p>
+                    <p>Mobile landscape = fullscreen, no border-radius</p>
+                    <p>Desktop modal width refined</p>
+                    <p>Blur/shadow improved</p>
+                    <p>Close buttons repositioned</p>
+                    <p>Smoother internal scrolling</p>
+                    
+                    <p style="margin-top: 20px;"><strong>⚠️ "!" Button Enhancement</strong></p>
+                    <p>Turns red + performs a one-time rotation</p>
+                    <p>Animation fully resets when modal closes</p>
+                    <p>Faster activation response</p>
+                    
+                    <p style="margin-top: 20px;"><strong>🖼️ Layout & Styling</strong></p>
+                    <p>Improved spacing for all button groups</p>
+                    <p>Unified padding across modals</p>
+                    <p>Better responsive fonts</p>
+                    <p>Cleaner progress bar visuals</p>
+                    <p>Consistent hover/active states</p>
+                    
+                    <p style="margin-top: 20px;"><strong>🔧 JavaScript Improvements</strong></p>
+                    <p>Centralized modal logic</p>
+                    <p>Optimized music control functions</p>
+                    <p>Touch scrubbing support</p>
+                    <p>Cleaner event listeners</p>
+                    <p>Removed redundant state resets</p>
+                    
+                    <p style="margin-top: 20px;"><strong>🐛 Fixes, Changes & QOL</strong></p>
+                    <p>Fixed modal overflow on small screens</p>
+                    <p>Fixed audio desync on song change</p>
+                    <p>Removed unused CSS</p>
+                    <p>Improved volume consistency</p>
+                    <p>Minor UI glitch fixes</p>
+                    <p>Overall performance improvements</p>
+
+                    <p style="margin-top: 20px;"><strong>[To Be Fixed]</strong></p>
+                    <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">These changes will be applied in the next update.</p>
+                    <p>Fixing the blue button, because it's too big</p>
+                    <p>Fixing the title Facebook, Instagram, and etc. is clickable, it should be just a text message</p>
+                    <p>Fixing the scrolling effect on "Songs" and "What's New", because it shouldn't be like that</p>
+                    <p>Overall improvements and small fixes to be applied in the next update</p>
+
+                    <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
+                    <p>I received you all response on my form and most of it i applied it here</p>
+                    <p>Thank you so much for taking the time answering the form💖</p>
+
+                    <p style="margin-top: 20px;"><strong>🔜Coming Soon...</strong></p>
+                    <p>Big Update Coming On December 25!</p>
+                    <p>Get Ready for Something New!</p>
+                    <p>Thank You and Enjoy!🥰🫶🏻</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Singer Modal -->
+    <div class="modal-overlay" id="singerModal" onclick="closeModalOnOverlay(event, 'singer')">
+        <div class="modal-box modal-singer">
+            <button class="close-button-left" onclick="closeModal('singer')" title="Close">×</button>
+            <div class="modal-content">
+                <h2 style="text-align: center; font-size: 32px; margin-bottom: 30px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">SINGER</h2>
+                <div class="singer-modal-content" style="padding: 20px; line-height: 2; color: #333;">
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Sabrina Carpenter</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Sabrina because she's talented, inspiring, and her music is full of joy.</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/sabrinacarpenter" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/sabrinacarpenter</a></p>
+                            <p><a href="https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==</a></p>
+                            <p><a href="https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ</a></p>
+                            <p><a href="https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Taylor Swift</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Taylor because her songs tell stories that feel like they understand me</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/TaylorSwift" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/TaylorSwift</a></p>
+                            <p><a href="https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr</a></p>
+                            <p><a href="https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM</a></p>
+                            <p><a href="https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Ariana Grande</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Ariana because her voice is so powerful and sweet, it makes me happy every time I listen.</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/arianagrande" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/arianagrande</a></p>
+                            <p><a href="https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3</a></p>
+                            <p><a href="https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG</a></p>
+                            <p><a href="https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">The Weeknd</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like The Weeknd because his music is dark, emotional, and unforgettable.</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/theweeknd" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/theweeknd</a></p>
+                            <p><a href="https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk</a></p>
+                            <p><a href="https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI</a></p>
+                            <p><a href="https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Billie Eilish</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Billie because she's fearless and unique, and her music feels so real.</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/billieeilish" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/billieeilish</a></p>
+                            <p><a href="https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn</a></p>
+                            <p><a href="https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q</a></p>
+                            <p><a href="https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Lauv</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Lauv because his songs make my heart feel warm and hopeful.</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/lauvsongs" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/lauvsongs</a></p>
+                            <p><a href="https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==</a></p>
+                            <p><a href="https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv</a></p>
+                            <p><a href="https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Lana Del Rey</h3>
+                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Lana because her songs feel dreamy and transport me to another world.</p>
+                        <div style="font-size: 14px;">
+                            <p><a href="https://www.facebook.com/lanadelrey" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Facebook: https://www.facebook.com/lanadelrey</a></p>
+                            <p><a href="https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Instagram: https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==</a></p>
+                            <p><a href="https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Tiktok: https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO</a></p>
+                            <p><a href="https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Youtube: https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2448,6 +2777,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const loadingScreen = document.getElementById('loadingScreen');
             const loadingPercentage = document.getElementById('loadingPercentage');
             const progressBar = document.getElementById('progressBar');
+            const loadingMessage = document.getElementById('loadingMessage');
             const duration = 15000; // 15 seconds
             const updateInterval = 30; // Update every 30ms for smooth animation
             const totalSteps = duration / updateInterval;
@@ -2462,6 +2792,82 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const formLinkBelow = document.getElementById('formLinkBelow');
             let warningCountdownInterval = null;
             let targetNov15 = null;
+            let messageInterval = null;
+            
+            // Messages array
+            const messages = [
+                'One moment, making things ready...',
+                'Syncing data...',
+                'Booting system...',
+                'Decoding your personalized device...',
+                'Aligning digital coordinates...',
+                'Initiating advanced system protocols...'
+            ];
+            
+            // Track which messages have been shown (reset on page load/refresh)
+            let shownMessages = [];
+            
+            // Function to show random messages (only show each message once per session)
+            function showRandomMessage() {
+                if (!loadingMessage) return;
+                
+                // Get messages that haven't been shown yet
+                const availableMessages = messages.filter(msg => !shownMessages.includes(msg));
+                
+                // If all messages have been shown, stop showing new ones
+                if (availableMessages.length === 0) {
+                    stopMessageRotation();
+                    return;
+                }
+                
+                // Pick a random message from available ones
+                const randomIndex = Math.floor(Math.random() * availableMessages.length);
+                const message = availableMessages[randomIndex];
+                
+                // Mark this message as shown
+                shownMessages.push(message);
+                
+                // Fade out current message
+                loadingMessage.classList.remove('show');
+                
+                // After fade out, change text and fade in
+                setTimeout(function() {
+                    loadingMessage.textContent = message;
+                    loadingMessage.classList.add('show');
+                }, 500);
+            }
+            
+            // Start showing messages with random intervals (3 or 4 seconds)
+            function startMessageRotation() {
+                // Show first message immediately
+                showRandomMessage();
+                
+                // Function to schedule next message with random delay
+                function scheduleNextMessage() {
+                    // Randomly choose 3 or 4 seconds (3000 or 4000 milliseconds)
+                    const delay = Math.random() < 0.5 ? 3000 : 4000;
+                    
+                    messageInterval = setTimeout(function() {
+                        showRandomMessage();
+                        // Check if we should continue (if there are still available messages)
+                        const availableMessages = messages.filter(msg => !shownMessages.includes(msg));
+                        if (availableMessages.length > 0) {
+                            scheduleNextMessage();
+                        }
+                    }, delay);
+                }
+                
+                // Start the rotation with first random delay
+                scheduleNextMessage();
+            }
+            
+            // Stop message rotation when loading is complete
+            function stopMessageRotation() {
+                if (messageInterval) {
+                    clearTimeout(messageInterval);
+                    messageInterval = null;
+                }
+            }
             
             function updatePercentage() {
                 currentStep++;
@@ -2486,6 +2892,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     // Ensure it ends at exactly 100%
                     loadingPercentage.textContent = '100%';
                     progressBar.style.width = '100%';
+                    // Stop message rotation
+                    stopMessageRotation();
                     setTimeout(function() {
                         loadingScreen.classList.add('hidden');
                         // Show welcome intro box
@@ -2535,6 +2943,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             }
             
+            // Start the loading animation and message rotation
+            startMessageRotation();
             updatePercentage();
 
             function formatDhms(totalSeconds) {
@@ -2552,12 +2962,13 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
             function startWarningCountdown() {
                 if (!warningTimerEl) return;
-                // Determine target Nov 15 (current year or next if passed)
+                // Determine target December 25
                 if (!targetNov15) {
                     const now = new Date();
                     const currentYear = now.getFullYear();
-                    const tentative = new Date(currentYear, 10, 25, 0, 0, 0); // Month 10 = November, Day 25
-                    targetNov15 = (now <= tentative) ? tentative : new Date(currentYear + 1, 10, 25, 0, 0, 0);
+                    // Target: December 25 (month 11 = December, day 25)
+                    const tentative = new Date(currentYear, 11, 25, 0, 0, 0);
+                    targetNov15 = (now <= tentative) ? tentative : new Date(currentYear + 1, 11, 25, 0, 0, 0);
                 }
                 function updateCountdown() {
                     const now = new Date();
@@ -2668,7 +3079,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         audio.pause();
                         audio.currentTime = 0;
                         const playButton = document.querySelector(`button[data-song="${songId}"]`);
-                        if (playButton) playButton.textContent = '▶️';
+                        const songItem = playButton ? playButton.closest('.song-item') : null;
+                        if (playButton) {
+                            playButton.textContent = '▶️';
+                            playButton.classList.remove('paused', 'playing');
+                        }
+                        if (songItem) songItem.classList.remove('song-playing');
                         const progressContainer = document.getElementById('musicProgressContainer-' + songId);
                         if (progressContainer) progressContainer.classList.remove('active');
                         const progressBar = document.getElementById('musicProgressBar-' + songId);
@@ -2778,7 +3194,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
                     audio.addEventListener('ended', function() {
                         const playButton = document.querySelector(`button[data-song="${songId}"]`);
-                        if (playButton) playButton.textContent = '▶️';
+                        const songItem = playButton ? playButton.closest('.song-item') : null;
+                        if (playButton) {
+                            playButton.textContent = '▶️';
+                            playButton.classList.remove('paused', 'playing');
+                        }
+                        if (songItem) songItem.classList.remove('song-playing');
                         const progressContainer = document.getElementById('musicProgressContainer-' + songId);
                         if (progressContainer) progressContainer.classList.remove('active');
                         currentPlayingSong = null;
@@ -2800,12 +3221,16 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     });
                 }
             });
+            
+            // Setup progress bar seeking after all audio elements are initialized
+            setupProgressBarSeeking();
         });
 
         function toggleMusic(songId) {
             const audio = document.getElementById('musicPlayer-' + songId);
             const playButton = document.querySelector(`button[data-song="${songId}"]`);
             const progressContainer = document.getElementById('musicProgressContainer-' + songId);
+            const songItem = playButton ? playButton.closest('.song-item') : null;
 
             if (!audio || !playButton) return;
 
@@ -2814,11 +3239,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 const prevAudio = document.getElementById('musicPlayer-' + currentPlayingSong);
                 const prevButton = document.querySelector(`button[data-song="${currentPlayingSong}"]`);
                 const prevProgress = document.getElementById('musicProgressContainer-' + currentPlayingSong);
+                const prevSongItem = prevButton ? prevButton.closest('.song-item') : null;
+                
                 if (prevAudio) {
                     prevAudio.pause();
                     prevAudio.currentTime = 0;
                 }
-                if (prevButton) prevButton.textContent = '▶️';
+                if (prevButton) {
+                    prevButton.textContent = '▶️';
+                    prevButton.classList.remove('paused', 'playing');
+                }
+                if (prevSongItem) {
+                    prevSongItem.classList.remove('song-playing');
+                }
                 if (prevProgress) prevProgress.classList.remove('active');
                 const prevBar = document.getElementById('musicProgressBar-' + currentPlayingSong);
                 if (prevBar) prevBar.style.width = '0%';
@@ -2833,6 +3266,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     playPromise.then(() => {
                         // Audio started playing successfully
                         playButton.textContent = '⏸️';
+                        playButton.classList.remove('playing');
+                        playButton.classList.add('paused');
+                        if (songItem) songItem.classList.add('song-playing');
                         if (progressContainer) progressContainer.classList.add('active');
                         currentPlayingSong = songId;
                     }).catch(error => {
@@ -2840,16 +3276,23 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         console.error('Error playing audio:', error);
                         alert('Unable to play audio. Please click the play button again or check if the file exists.');
                         playButton.textContent = '▶️';
+                        playButton.classList.remove('paused', 'playing');
+                        if (songItem) songItem.classList.remove('song-playing');
                     });
                 } else {
                     // Fallback for older browsers
                     playButton.textContent = '⏸️';
+                    playButton.classList.remove('playing');
+                    playButton.classList.add('paused');
+                    if (songItem) songItem.classList.add('song-playing');
                     if (progressContainer) progressContainer.classList.add('active');
                     currentPlayingSong = songId;
                 }
             } else {
                 audio.pause();
                 playButton.textContent = '▶️';
+                playButton.classList.remove('paused', 'playing');
+                if (songItem) songItem.classList.remove('song-playing');
                 if (progressContainer) progressContainer.classList.remove('active');
                 currentPlayingSong = null;
             }
@@ -2873,10 +3316,104 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
+        // Make progress bars clickable and draggable
+        function setupProgressBarSeeking() {
+            const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
+            
+            songIds.forEach(songId => {
+                const progressWrapper = document.getElementById('musicProgressContainer-' + songId);
+                if (!progressWrapper) return;
+                
+                const progressBarWrapper = progressWrapper.querySelector('.music-progress-bar-wrapper');
+                const progressBar = document.getElementById('musicProgressBar-' + songId);
+                const audio = document.getElementById('musicPlayer-' + songId);
+                
+                if (!progressBarWrapper || !progressBar || !audio) return;
+                
+                let isDragging = false;
+                
+                function seekToPosition(event) {
+                    if (!audio.duration) return;
+                    
+                    const rect = progressBarWrapper.getBoundingClientRect();
+                    const clickX = event.clientX - rect.left;
+                    const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+                    const newTime = (percentage / 100) * audio.duration;
+                    
+                    audio.currentTime = newTime;
+                    progressBar.style.width = percentage + '%';
+                    
+                    const currentTimeSpan = document.getElementById('currentTime-' + songId);
+                    if (currentTimeSpan) {
+                        currentTimeSpan.textContent = formatTime(newTime);
+                    }
+                }
+                
+                progressBarWrapper.addEventListener('mousedown', function(e) {
+                    isDragging = true;
+                    progressBarWrapper.classList.add('dragging');
+                    seekToPosition(e);
+                });
+                
+                document.addEventListener('mousemove', function(e) {
+                    if (isDragging) {
+                        seekToPosition(e);
+                    }
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    if (isDragging) {
+                        isDragging = false;
+                        progressBarWrapper.classList.remove('dragging');
+                    }
+                });
+                
+                // Also handle touch events for mobile
+                progressBarWrapper.addEventListener('touchstart', function(e) {
+                    isDragging = true;
+                    progressBarWrapper.classList.add('dragging');
+                    const touch = e.touches[0];
+                    const fakeEvent = {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    };
+                    seekToPosition(fakeEvent);
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('touchmove', function(e) {
+                    if (isDragging) {
+                        const touch = e.touches[0];
+                        const fakeEvent = {
+                            clientX: touch.clientX,
+                            clientY: touch.clientY
+                        };
+                        seekToPosition(fakeEvent);
+                        e.preventDefault();
+                    }
+                });
+                
+                document.addEventListener('touchend', function() {
+                    if (isDragging) {
+                        isDragging = false;
+                        progressBarWrapper.classList.remove('dragging');
+                    }
+                });
+            });
+        }
+
         function toggleDisclaimer() {
             const disclaimer = document.getElementById('musicDisclaimer');
+            const infoButton = document.querySelector('.music-info-button');
             if (disclaimer) {
-                disclaimer.classList.toggle('show');
+                const isShowing = disclaimer.classList.toggle('show');
+                if (infoButton) {
+                    if (isShowing) {
+                        infoButton.classList.add('active');
+                    } else {
+                        infoButton.classList.remove('active');
+                    }
+                }
             }
         }
 
@@ -2979,7 +3516,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         const playButton = document.querySelector(`button[data-song="${currentPlayingSong}"]`);
                         if (audio && !audio.paused) {
                             audio.pause();
-                            if (playButton) playButton.textContent = '▶️';
+                            const songItem = playButton ? playButton.closest('.song-item') : null;
+                            if (playButton) {
+                                playButton.textContent = '▶️';
+                                playButton.classList.remove('paused', 'playing');
+                            }
+                            if (songItem) songItem.classList.remove('song-playing');
                         }
                     }
                 }
@@ -3157,10 +3699,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             const playButton = document.querySelector(`button[data-song="${currentPlayingSong}"]`);
                             if (audio && !audio.paused) {
                                 audio.pause();
-                                if (playButton) playButton.textContent = '▶️';
+                                const songItem = playButton ? playButton.closest('.song-item') : null;
+                                if (playButton) {
+                                    playButton.textContent = '▶️';
+                                    playButton.classList.remove('paused', 'playing');
+                                }
+                                if (songItem) songItem.classList.remove('song-playing');
                             }
                         }
                         closeModal('music');
+                    } else if (modal.id === 'singerModal') {
+                        closeModal('singer');
+                    } else if (modal.id === 'updatesModal') {
+                        closeModal('updates');
                     }
                 });
             }
