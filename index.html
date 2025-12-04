@@ -288,14 +288,155 @@
             pointer-events: auto;
         }
 
+        .christmas-message-link {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #b71c1c;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .christmas-message-link:hover {
+            color: #d32f2f;
+        }
+
+        .christmas-modal-box {
+            background: #fff5f5;
+            border-radius: 18px;
+            padding: 24px 20px 20px;
+            max-width: 500px;
+            width: 90%;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .christmas-modal-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #b71c1c;
+            letter-spacing: 1px;
+        }
+
+        .christmas-modal-title span.clickable-e {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .christmas-textarea {
+            width: 100%;
+            min-height: 140px;
+            border-radius: 12px;
+            border: 2px solid #ffcdd2;
+            padding: 12px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 14px;
+            background: #ffebee;
+            box-sizing: border-box;
+        }
+
+        .christmas-textarea::placeholder {
+            color: #c62828;
+            opacity: 0.7;
+        }
+
+        .christmas-counter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .christmas-word-counter {
+            font-weight: 600;
+        }
+
+        .christmas-submit-btn,
+        .christmas-view-btn {
+            margin-top: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .christmas-submit-btn {
+            background: #2e7d32;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
+        }
+
+        .christmas-submit-btn:hover {
+            background: #1b5e20;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(46, 125, 50, 0.5);
+        }
+
+        .christmas-view-btn {
+            background: #a5d6a7;
+            color: #1b5e20;
+            display: none;
+        }
+
+        .christmas-view-btn:hover {
+            background: #81c784;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(46, 125, 50, 0.5);
+        }
+
+        .christmas-hidden-button {
+            position: absolute;
+            top: 18px;
+            right: 70px;
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: transparent;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .christmas-messages-list {
+            max-height: 260px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .christmas-message-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .christmas-message-item time {
+            display: block;
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 4px;
+        }
+
         .modal-updates {
             background: linear-gradient(135deg, #ffeef8 0%, #e8f5e9 100%);
         }
 
         .music-mini-button {
             position: fixed;
-            right: 10px;
             top: 10px;
+            right: 10px;
             z-index: 11000;
             padding: 6px 14px 6px 12px;
             border-radius: 999px;
@@ -303,13 +444,12 @@
             background: rgba(0, 0, 0, 0.85);
             color: #fff;
             font-size: 13px;
-            display: none;
+            display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
             backdrop-filter: blur(6px);
-            max-width: min(320px, 85vw);
         }
 
         .music-mini-icon {
@@ -399,7 +539,6 @@
             .music-mini-button {
                 top: 8px;
                 right: 8px;
-                max-width: min(280px, 70vw);
             }
         }
 
@@ -407,16 +546,16 @@
             position: fixed;
             top: 60px;
             right: 10px;
-            width: min(320px, 85vw);
+            width: min(280px, 80vw);
             background: rgba(0, 0, 0, 0.85);
             color: #fff;
             border-radius: 16px;
-            padding: 16px;
+            padding: 14px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
             backdrop-filter: blur(10px);
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             z-index: 10999;
         }
 
@@ -738,18 +877,21 @@
             }
         }
 
-        /* Mobile landscape specific adjustments for music modal */
+        /* Mobile landscape specific adjustments for music and singer modals */
         @media (orientation: landscape) and (max-height: 500px) {
-            .modal-music .modal-box {
+            .modal-music .modal-box,
+            .modal-singer .modal-box {
                 padding: 10px;
             }
 
-            .modal-music .modal-title {
+            .modal-music .modal-title,
+            .modal-singer .modal-title {
                 font-size: 16px;
                 margin-bottom: 5px;
             }
 
-            .modal-music .modal-content {
+            .modal-music .modal-content,
+            .modal-singer .modal-content {
                 max-height: calc(98vh - 100px);
                 padding-right: 5px;
                 overflow: hidden;
@@ -757,7 +899,8 @@
                 flex-direction: column;
             }
 
-            .modal-music .music-list {
+            .modal-music .music-list,
+            .modal-singer .singer-modal-content {
                 padding-right: 5px;
             }
 
@@ -2110,6 +2253,9 @@
             <button class="main-button btn-about" onclick="openModal('about')">About Me</button>
             <button class="main-button btn-favorites" onclick="openModal('favorites')">My Favorites</button>
         </div>
+        <div class="christmas-message-link" onclick="openModal('christmasMessage')">
+            CHRISTMAS MESSAGE FOR ME
+        </div>
         <div class="update-button-container hidden">
             <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW ✨🆕</button>
         </div>
@@ -2146,16 +2292,16 @@
             </div>
         </div>
     </button>
-    <div id="musicMiniPanel" class="music-mini-panel">
+    <div id="musicMiniPanel" class="music-mini-panel" style="display:none;">
         <div class="music-mini-panel-header">NOW PLAYING</div>
         <div id="musicMiniPanelSong" class="music-mini-panel-box">
-            <div id="musicMiniPanelTitle" class="music-mini-panel-title">NO MUSIC IS PLAYING RIGHT NOW.</div>
-            <div id="musicMiniPanelStatus" class="music-mini-panel-status">Start a song to see controls</div>
+            <div id="musicMiniPanelTitle" class="music-mini-panel-title">CURRENTLY NO MUSIC IS PLAYING.</div>
             <div class="music-mini-panel-controls" id="musicMiniPanelControls">
-                <button type="button" class="music-mini-panel-control" onclick="miniSkipForward()">+5s</button>
+                <button type="button" class="music-mini-panel-control" onclick="miniPrevTrack()">&laquo;</button>
+                <button type="button" class="music-mini-panel-control" onclick="miniSkipBackward()">&lt;</button>
                 <button type="button" id="musicMiniPanelToggle" class="music-mini-panel-control" onclick="miniTogglePlay()">⏸️</button>
-                <button type="button" class="music-mini-panel-control" onclick="miniSkipBackward()">-5s</button>
-                <button type="button" class="music-mini-panel-control" onclick="miniRestart()">🔄</button>
+                <button type="button" class="music-mini-panel-control" onclick="miniSkipForward()">&gt;</button>
+                <button type="button" class="music-mini-panel-control" onclick="miniNextTrack()">&raquo;</button>
             </div>
             <div class="music-mini-panel-times" id="musicMiniPanelTimes">
                 <span id="musicMiniCurrentTime">0:00</span>
@@ -2180,6 +2326,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     <!-- About Me Modal -->
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-box modal-about">
+            <button class="close-button-left" onclick="closeModal('about')" title="Close">×</button>
             <h1 class="modal-title">About Me</h1>
             <div class="modal-content">
                 <div class="info-item name-item">
@@ -3009,6 +3156,41 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             </div>
         </div>
     </div>
+   
+    <!-- Christmas Message Modal -->
+    <div class="modal-overlay" id="christmasMessageModal" onclick="closeModalOnOverlay(event, 'christmasMessage')">
+        <div class="christmas-modal-box">
+            <button class="close-button" onclick="closeModal('christmasMessage')" title="Close">×</button>
+            <button class="christmas-hidden-button" onclick="showAllChristmasMessages()" aria-hidden="true"></button>
+            <div class="christmas-modal-title">
+                CHRISTMAS MESSAGE FOR M<span class="clickable-e" onclick="handleChristmasEClick()">E</span>
+            </div>
+            <textarea
+                id="christmasMessageInput"
+                class="christmas-textarea"
+                placeholder="Insert message here"
+                oninput="handleChristmasMessageInput()"
+            ></textarea>
+            <div class="christmas-counter-row">
+                <span>Word Limit: 1000</span>
+                <span id="christmasWordCounter" class="christmas-word-counter">0 / 1000</span>
+            </div>
+            <button type="button" class="christmas-submit-btn" onclick="submitChristmasMessage()">Submit</button>
+            <button type="button" id="christmasViewBtn" class="christmas-view-btn" onclick="viewLatestChristmasMessage()">
+                VIEW YOUR MESSAGE
+            </button>
+            <div id="christmasViewArea" style="margin-top:12px; font-size:13px; color:#333; display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Christmas Messages List Modal -->
+    <div class="modal-overlay" id="christmasMessagesListModal" onclick="closeModalOnOverlay(event, 'christmasMessagesList')">
+        <div class="christmas-modal-box">
+            <button class="close-button" onclick="closeModal('christmasMessagesList')" title="Close">×</button>
+            <div class="christmas-modal-title">ALL SAVED MESSAGES</div>
+            <div id="christmasMessagesList" class="christmas-messages-list"></div>
+        </div>
+    </div>
 
     <!-- Updates Modal -->
     <div class="modal-overlay" id="updatesModal" onclick="closeModalOnOverlay(event, 'updates')">
@@ -3067,16 +3249,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <p>Improved volume consistency</p>
                         <p>Minor UI glitch fixes</p>
                         <p>Overall performance improvements
-                        
-                        <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
-                        <p>I received you all response on my form and most of it i applied it here</p>
-                        <p>Thank you so much for taking the time answering the form💖</p>
-        
-                        <p style="margin-top: 20px;"><strong>🔜Coming Soon...</strong></p>
-                        <p>Big Update Coming On December 25!</p>
-                        <p>Get Ready for Something New!</p>
-                        <p>Thank You and Enjoy!🥰🫶🏻</p>
-                        <span id="update1-toggle-bottom" class="see-more-link" onclick="toggleUpdateDetails()">see less...</span>
+                            <span id="update1-toggle-bottom" class="see-more-link" onclick="toggleUpdateDetails()">see less...</span>
                         </p>
                     </div>
 
@@ -3093,13 +3266,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             <span id="update11-toggle-bottom" class="see-more-link" onclick="toggleUpdate11Details()">see less...</span>
                         </p>
                     </div>
-                    
-                    <p style="margin-top: 20px;"><atrong>[TO BE FIXED]</strong></p>
-                    <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">These changes will be applied in the next update.</p>
-                    <p>Fixing the music buttons so they work correctly during playback</p>
-                    <p>Fix the pause/play button, as it currently closes the music instead of pausing it</p>
-                    <p>Overall improvements and small bugs will be applied next update</p>
-                    <p>Next Update December 1</p>
+
+                    <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
+                    <p>I received you all response on my form and most of it i applied it here</p>
+                    <p>Thank you so much for taking the time answering the form💖</p>
                 </div>
             </div>
         </div>
@@ -3478,8 +3648,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                                 if (updatingMsgEl) updatingMsgEl.style.display = 'none';
                                             }
                                         }
-                                            enableMusicMiniButton();
-                                            showUpdatesButton();
+                                        enableMusicMiniButton();
+                                        showUpdatesButton();
+                                        startBgMusic();
+                                        startBgMusic();
                                     }, 900);
                                 });
                             }
@@ -3488,6 +3660,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             if (formLinkBelow) formLinkBelow.style.display = '';
                             enableMusicMiniButton();
                             showUpdatesButton();
+                            startBgMusic();
                         }
                     }, 300);
                 }
@@ -3654,6 +3827,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 document.body.style.overflow = 'auto';
                 document.documentElement.style.overflow = 'auto';
             }
+            // When leaving My Favorites, resume background music smoothly if it was playing before
+            if (type === 'favorites') {
+                maybeResumeBgMusic();
+            }
             // Note: do NOT stop music when closing the music modal so audio can keep playing
         }
 
@@ -3715,8 +3892,107 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
+        // Christmas Message storage
+        const CHRISTMAS_MESSAGES_KEY = 'christmasMessages';
+
+        function loadChristmasMessages() {
+            try {
+                const raw = localStorage.getItem(CHRISTMAS_MESSAGES_KEY);
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveChristmasMessages(list) {
+            try {
+                localStorage.setItem(CHRISTMAS_MESSAGES_KEY, JSON.stringify(list));
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        function handleChristmasMessageInput() {
+            const textarea = document.getElementById('christmasMessageInput');
+            const counterEl = document.getElementById('christmasWordCounter');
+            if (!textarea || !counterEl) return;
+            let text = textarea.value;
+            let words = text.trim().length ? text.trim().split(/\s+/) : [];
+            if (words.length > 1000) {
+                words = words.slice(0, 1000);
+                text = words.join(' ');
+                textarea.value = text;
+            }
+            counterEl.textContent = words.length + ' / 1000';
+        }
+
+        function submitChristmasMessage() {
+            const textarea = document.getElementById('christmasMessageInput');
+            const viewBtn = document.getElementById('christmasViewBtn');
+            const viewArea = document.getElementById('christmasViewArea');
+            if (!textarea || !viewBtn || !viewArea) return;
+            const text = textarea.value.trim();
+            if (!text) return;
+            const words = text.split(/\s+/);
+            if (words.length === 0) return;
+            const list = loadChristmasMessages();
+            list.push({
+                text,
+                createdAt: new Date().toISOString()
+            });
+            saveChristmasMessages(list);
+            viewBtn.style.display = 'block';
+            viewArea.style.display = 'none';
+        }
+
+        function viewLatestChristmasMessage() {
+            const list = loadChristmasMessages();
+            const latest = list[list.length - 1];
+            const viewArea = document.getElementById('christmasViewArea');
+            if (!latest || !viewArea) return;
+            viewArea.textContent = latest.text;
+            viewArea.style.display = 'block';
+        }
+
+        function showAllChristmasMessages() {
+            const list = loadChristmasMessages();
+            const container = document.getElementById('christmasMessagesList');
+            if (!container) return;
+            container.innerHTML = '';
+            if (!list.length) {
+                const empty = document.createElement('div');
+                empty.textContent = 'No messages saved yet.';
+                empty.style.fontSize = '13px';
+                empty.style.color = '#555';
+                container.appendChild(empty);
+            } else {
+                list.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'christmas-message-item';
+                    const time = document.createElement('time');
+                    const d = new Date(item.createdAt || Date.now());
+                    time.textContent = d.toLocaleString();
+                    const textEl = document.createElement('div');
+                    textEl.textContent = item.text;
+                    div.appendChild(time);
+                    div.appendChild(textEl);
+                    container.appendChild(div);
+                });
+            }
+            openModal('christmasMessagesList');
+        }
+
+        function handleChristmasEClick() {
+            showAllChristmasMessages();
+        }
+
         // Music Player Functions
         let currentPlayingSong = null;
+        let bgMusicAudio = null;
+        let bgMusicFading = false;
+        let bgMusicShouldPlay = false;
         let isMiniPanelOpen = false;
         let canShowMusicMiniButton = false;
         const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
@@ -3754,19 +4030,92 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             return null;
         }
 
+        function getPreviousSongId(currentId) {
+            const idx = songIds.indexOf(currentId);
+            if (idx > 0) {
+                return songIds[idx - 1];
+            }
+            return null;
+        }
+
         function enableMusicMiniButton() {
             canShowMusicMiniButton = true;
             updateMiniMusicUI();
         }
 
+        function setupBgMusic() {
+            if (bgMusicAudio) return;
+            const audio = new Audio();
+            audio.src = 'Ariana Grande, Mariah Carey, Justin Bieber, Christmas Songs - Christmas Songs Playlist 2022 [G5mPOcjibac].mp3';
+            audio.loop = true;
+            audio.volume = 0;
+            bgMusicAudio = audio;
+        }
+
+        function fadeAudio(audio, targetVolume, duration, callback) {
+            if (!audio) {
+                if (callback) callback();
+                return;
+            }
+            bgMusicFading = true;
+            const startVolume = audio.volume;
+            const startTime = performance.now();
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const newVolume = startVolume + (targetVolume - startVolume) * progress;
+                audio.volume = Math.max(0, Math.min(1, newVolume));
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    bgMusicFading = false;
+                    if (callback) callback();
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function startBgMusic() {
+            setupBgMusic();
+            if (!bgMusicAudio) return;
+            bgMusicShouldPlay = true;
+            if (bgMusicAudio.paused) {
+                const playPromise = bgMusicAudio.play();
+                if (playPromise && playPromise.catch) {
+                    playPromise.catch(() => {});
+                }
+            }
+            fadeAudio(bgMusicAudio, 0.4, 800);
+        }
+
+        function pauseBgMusic(rememberToResume) {
+            if (!bgMusicAudio) return;
+            if (rememberToResume) {
+                bgMusicShouldPlay = true;
+            } else {
+                bgMusicShouldPlay = false;
+            }
+            fadeAudio(bgMusicAudio, 0, 600, () => {
+                if (!bgMusicShouldPlay && bgMusicAudio) {
+                    bgMusicAudio.pause();
+                }
+            });
+        }
+
+        function maybeResumeBgMusic() {
+            if (bgMusicShouldPlay) {
+                startBgMusic();
+            }
+        }
+
         function updateMiniMusicUI() {
             const miniButton = document.getElementById('musicMiniButton');
             const miniTitle = document.getElementById('musicMiniTitle');
-            const miniNext = document.getElementById('musicMiniNext');
             const miniCard = document.getElementById('musicMiniCard');
             const panel = document.getElementById('musicMiniPanel');
             const panelTitle = document.getElementById('musicMiniPanelTitle');
-            const panelStatus = document.getElementById('musicMiniPanelStatus');
             const panelBox = document.getElementById('musicMiniPanelSong');
             const panelControls = document.getElementById('musicMiniPanelControls');
             const panelTimes = document.getElementById('musicMiniPanelTimes');
@@ -3774,70 +4123,49 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const inlineControls = document.getElementById('musicMiniInlineControls');
             const inlineToggleBtn = document.getElementById('musicMiniInlineToggle');
 
-            if (!miniButton || !miniTitle || !miniNext || !miniCard) return;
-
             if (!canShowMusicMiniButton) {
-                miniButton.style.display = 'none';
+                if (miniButton) miniButton.style.display = 'none';
                 if (panel) panel.style.display = 'none';
                 if (inlineControls) inlineControls.classList.remove('active');
-                isMiniPanelOpen = false;
                 return;
             }
 
-            miniButton.style.display = 'flex';
+            // Always show the Music button in the upper-right once it's allowed
+            if (miniButton) miniButton.style.display = 'flex';
 
-            if (currentPlayingSong) {
-                miniCard.classList.add('active');
-                const title = songTitles[currentPlayingSong] || currentPlayingSong;
-                miniTitle.textContent = title;
-                miniTitle.classList.add('scrolling');
+            const bgPlaying = bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0;
+
+            if (bgPlaying) {
+                if (miniCard) miniCard.classList.add('active');
+                if (miniTitle) {
+                    miniTitle.textContent = 'CHRISTMAS PLAYLIST';
+                    miniTitle.classList.remove('scrolling');
+                }
                 if (panelControls) panelControls.style.display = 'flex';
                 if (panelTimes) panelTimes.style.display = 'flex';
                 if (inlineControls) inlineControls.classList.add('active');
-                if (panelTitle && panelStatus) {
-                    panelTitle.textContent = title;
-                    panelStatus.textContent = 'Playing now';
+                if (panelTitle) {
+                    panelTitle.textContent = 'CHRISTMAS PLAYLIST';
                     panelBox.style.display = 'block';
                 }
                 if (panelToggleBtn) panelToggleBtn.textContent = '⏸️';
                 if (inlineToggleBtn) inlineToggleBtn.textContent = '⏸️';
-                const nextSongId = getNextSongId(currentPlayingSong);
-                if (nextSongId) {
-                    miniNext.textContent = 'UP NEXT: ' + (songTitles[nextSongId] || nextSongId);
-                    miniNext.style.fontStyle = 'normal';
-                } else {
-                    miniNext.textContent = 'UP NEXT: END OF LIST';
-                    miniNext.style.fontStyle = 'italic';
-                }
-                const playingAudio = document.getElementById('musicPlayer-' + currentPlayingSong);
-                if (playingAudio) {
-                    updateMiniPanelTimes(formatTime(playingAudio.currentTime), formatTime(playingAudio.duration || 0));
-                } else {
-                    updateMiniPanelTimes('0:00', '0:00');
-                }
             } else {
-                miniCard.classList.remove('active');
-                miniTitle.textContent = 'NO MUSIC IS PLAYING RIGHT NOW.';
-                miniTitle.classList.remove('scrolling');
-                if (panelControls) panelControls.style.display = 'none';
-                if (panelTimes) panelTimes.style.display = 'none';
-                if (inlineControls) inlineControls.classList.remove('active');
+                if (miniCard) miniCard.classList.remove('active');
+                if (miniTitle) {
+                    miniTitle.textContent = 'NO MUSIC IS PLAYING RIGHT NOW.';
+                    miniTitle.classList.remove('scrolling');
+                }
+                if (panelControls) panelControls.style.display = 'flex';
+                if (panelTimes) panelTimes.style.display = 'flex';
+                if (inlineControls) inlineControls.classList.add('active');
+                if (panelTitle) {
+                    panelTitle.textContent = 'CURRENTLY NO MUSIC IS PLAYING.';
+                    panelBox.style.display = 'block';
+                }
                 if (panelToggleBtn) panelToggleBtn.textContent = '▶️';
                 if (inlineToggleBtn) inlineToggleBtn.textContent = '▶️';
                 updateMiniPanelTimes('0:00', '0:00');
-                if (panelTitle && panelStatus) {
-                    panelTitle.textContent = 'NO MUSIC IS PLAYING RIGHT NOW.';
-                    panelStatus.textContent = 'Start a song to see details';
-                    panelBox.style.display = 'block';
-                }
-                const firstSongId = songIds[0];
-                if (firstSongId) {
-                    miniNext.textContent = 'UP NEXT: ' + (songTitles[firstSongId] || firstSongId);
-                    miniNext.style.fontStyle = 'normal';
-                } else {
-                    miniNext.textContent = 'UP NEXT: —';
-                    miniNext.style.fontStyle = 'italic';
-                }
             }
 
             if (panel) {
@@ -3853,7 +4181,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
 
         function toggleMiniPanel() {
-            if (!canShowMusicMiniButton) return;
             const panel = document.getElementById('musicMiniPanel');
             if (!panel) return;
             isMiniPanelOpen = !isMiniPanelOpen;
@@ -3878,6 +4205,29 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         function miniRestart() {
             if (!currentPlayingSong) return;
             restartMusic(currentPlayingSong);
+        }
+
+        function miniNextTrack() {
+            if (!songIds || songIds.length === 0) return;
+            if (!currentPlayingSong) {
+                const firstSongId = songIds[0];
+                if (firstSongId) {
+                    toggleMusic(firstSongId);
+                }
+                return;
+            }
+            const nextId = getNextSongId(currentPlayingSong);
+            if (nextId) {
+                toggleMusic(nextId);
+            }
+        }
+
+        function miniPrevTrack() {
+            if (!currentPlayingSong) return;
+            const prevId = getPreviousSongId(currentPlayingSong);
+            if (prevId) {
+                toggleMusic(prevId);
+            }
         }
 
         function formatTime(seconds) {
@@ -3965,6 +4315,11 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
             if (!audio || !playButton) return;
 
+            // If any background music is playing, pause it gently while a song is playing
+            if (bgMusicAudio && !bgMusicAudio.paused && audio.paused) {
+                pauseBgMusic(true);
+            }
+
             // If a different song is playing, pause it
             if (currentPlayingSong && currentPlayingSong !== songId) {
                 const prevAudio = document.getElementById('musicPlayer-' + currentPlayingSong);
@@ -3974,6 +4329,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 
                 if (prevAudio) {
                     prevAudio.pause();
+                    prevAudio.currentTime = 0;
                 }
                 if (prevButton) {
                     prevButton.textContent = '▶️';
@@ -4018,12 +4374,15 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             } else {
                 audio.pause();
+                audio.currentTime = 0;
                 playButton.textContent = '▶️';
                 playButton.classList.remove('paused', 'playing');
                 if (songItem) songItem.classList.remove('song-playing');
                 if (progressContainer) progressContainer.classList.remove('active');
                 currentPlayingSong = null;
                 updateMiniMusicUI();
+                // If no song from favorites is playing anymore, resume background music if it should play
+                maybeResumeBgMusic();
             }
         }
 
@@ -4042,22 +4401,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 if (!audio.paused) {
                     audio.play();
                 }
-            }
-        }
-
-        function openMusicFromMini() {
-            openModal('music');
-            const panel = document.getElementById('musicMiniPanel');
-            if (panel) panel.style.display = 'none';
-            isMiniPanelOpen = false;
-            // After modal opens, scroll current song into view
-            if (currentPlayingSong) {
-                setTimeout(function() {
-                    const activeSong = document.querySelector(`.song-item.song-playing`);
-                    if (activeSong && activeSong.scrollIntoView) {
-                        activeSong.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 300);
             }
         }
 
