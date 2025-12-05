@@ -12,11 +12,12 @@
         }
 
         body {
-            font-family: 'Poppins', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            background: #ffffff;
-            color: #333333;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            height: 100%;
+            width: 100%;
         }
 
         html {
@@ -144,27 +145,10 @@
 
         .loading-percentage {
             color: white;
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 1px;
+            font-size: 36px;
+            font-weight: 500;
+            letter-spacing: 2px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            margin-top: 5px;
-        }
-
-        .loading-message {
-            color: white;
-            font-size: 16px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-align: center;
-            margin-top: 20px;
-            min-height: 24px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .loading-message.show {
-            opacity: 1;
         }
 
         @keyframes pulse {
@@ -259,410 +243,6 @@
             color: white;
         }
 
-        .btn-updates {
-            background: #00bfff;
-            color: white;
-            padding: 10px 28px;
-            font-size: 16px;
-            border-radius: 999px;
-            letter-spacing: 0.5px;
-        }
-
-        .update-button-container {
-            position: absolute;
-            bottom: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            pointer-events: none;
-        }
-
-        .update-button-container.hidden {
-            display: none;
-        }
-
-        .update-button-container .btn-updates {
-            pointer-events: auto;
-        }
-
-        .christmas-message-link {
-            margin-top: 20px;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #b71c1c;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .christmas-message-link:hover {
-            color: #d32f2f;
-        }
-
-        .christmas-modal-box {
-            background: #fff5f5;
-            border-radius: 18px;
-            padding: 24px 20px 20px;
-            max-width: 500px;
-            width: 90%;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        .christmas-modal-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #b71c1c;
-            letter-spacing: 1px;
-        }
-
-        .christmas-modal-title span.clickable-e {
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .christmas-textarea {
-            width: 100%;
-            min-height: 140px;
-            border-radius: 12px;
-            border: 2px solid #ffcdd2;
-            padding: 12px;
-            resize: vertical;
-            font-family: inherit;
-            font-size: 14px;
-            background: #ffebee;
-            box-sizing: border-box;
-        }
-
-        .christmas-textarea::placeholder {
-            color: #c62828;
-            opacity: 0.7;
-        }
-
-        .christmas-counter-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-            font-size: 12px;
-            color: #555;
-        }
-
-        .christmas-word-counter {
-            font-weight: 600;
-        }
-
-        .christmas-submit-btn,
-        .christmas-view-btn {
-            margin-top: 12px;
-            width: 100%;
-            border: none;
-            border-radius: 999px;
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        .christmas-submit-btn {
-            background: #2e7d32;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
-        }
-
-        .christmas-submit-btn:hover {
-            background: #1b5e20;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(46, 125, 50, 0.5);
-        }
-
-        .christmas-view-btn {
-            background: #a5d6a7;
-            color: #1b5e20;
-            display: none;
-        }
-
-        .christmas-view-btn:hover {
-            background: #81c784;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(46, 125, 50, 0.5);
-        }
-
-        .christmas-hidden-button {
-            position: absolute;
-            top: 18px;
-            right: 70px;
-            width: 24px;
-            height: 24px;
-            border: none;
-            background: transparent;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .christmas-messages-list {
-            max-height: 260px;
-            overflow-y: auto;
-            padding-right: 6px;
-        }
-
-        .christmas-message-item {
-            background: #fff;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: #333;
-        }
-
-        .christmas-message-item time {
-            display: block;
-            font-size: 11px;
-            color: #777;
-            margin-bottom: 4px;
-        }
-
-        .modal-updates {
-            background: linear-gradient(135deg, #ffeef8 0%, #e8f5e9 100%);
-        }
-
-        .music-mini-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 11000;
-            padding: 6px 14px 6px 12px;
-            border-radius: 999px;
-            border: none;
-            background: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(6px);
-        }
-
-        .music-mini-icon {
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .music-mini-card {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 14px;
-            padding: 8px 12px;
-            min-width: 180px;
-            max-width: 230px;
-            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.08), 0 6px 20px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(4px);
-        }
-
-        .music-mini-card.active {
-            display: flex;
-        }
-
-        .music-mini-text-wrapper {
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .music-mini-title {
-            display: inline-block;
-            white-space: nowrap;
-            max-width: 100%;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .music-mini-subtext {
-            font-size: 11px;
-            color: #f0f0f0;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .music-mini-inline-controls {
-            display: none;
-            margin-top: 8px;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(40px, 1fr));
-            gap: 6px;
-        }
-
-        .music-mini-inline-controls.active {
-            display: flex;
-            gap: 10px;
-        }
-
-        .music-mini-inline-btn {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        @keyframes music-marquee {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
-        .music-mini-title.scrolling {
-            animation: music-marquee 12s linear infinite;
-        }
-
-        @media (orientation: landscape) and (max-height: 500px) {
-            .music-mini-button {
-                top: 8px;
-                right: 8px;
-            }
-        }
-
-        .music-mini-panel {
-            position: fixed;
-            top: 60px;
-            right: 10px;
-            width: min(280px, 80vw);
-            background: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            border-radius: 16px;
-            padding: 14px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(10px);
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 10999;
-        }
-
-        .music-mini-panel-header {
-            font-size: 14px;
-            letter-spacing: 1px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #ffd700;
-        }
-
-        .music-mini-panel-box {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.25);
-        }
-
-        .music-mini-panel-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .music-mini-panel-status {
-            font-size: 12px;
-            color: #e0e0e0;
-            letter-spacing: 0.5px;
-        }
-
-        .music-mini-panel-controls {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .music-mini-panel-control {
-            flex: 1 1 calc(50% - 8px);
-            min-width: 60px;
-            border: none;
-            border-radius: 10px;
-            padding: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #333;
-            background: #fff;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .music-mini-panel-control:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .music-mini-panel-times {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #f0f0f0;
-            margin-top: 8px;
-        }
-
-
-        .music-mini-button-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #4caf50;
-            box-shadow: 0 0 6px #4caf50;
-        }
-
-        .singer-social-list {
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .social-link {
-            color: #555;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .social-label {
-            color: #333;
-            font-weight: 700;
-            margin-right: 6px;
-        }
-
-        .social-link a {
-            color: #667eea;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            word-break: break-all;
-        }
-
-        .social-link a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-
         /* Modal Overlay */
         .modal-overlay {
             position: fixed;
@@ -716,10 +296,6 @@
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
         }
 
-        .modal-singer {
-            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
-        }
-
         .close-button {
             position: absolute;
             top: 20px;
@@ -746,31 +322,6 @@
             transform: rotate(90deg);
         }
 
-        .close-button-left {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 24px;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            z-index: 10003;
-        }
-
-        .close-button-left:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: rotate(90deg);
-        }
-
         .modal-content {
             margin-top: 20px;
             overflow-y: auto;
@@ -782,125 +333,25 @@
         /* Music modal content should use full available height */
         .modal-music .modal-content {
             max-height: calc(90vh - 200px);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding-right: 10px;
         }
 
-        /* Ensure What's New and Singer modals scroll the same way as Music */
-        .modal-updates .modal-content,
-        .modal-singer .modal-content {
-            max-height: calc(90vh - 180px);
-            padding-right: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .music-list,
-        .updates-scroll-body,
-        .singer-modal-content {
-            max-height: calc(90vh - 220px);
-            overflow-y: auto;
-            padding: 20px;
-            padding-right: 28px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .music-list,
-        .updates-scroll-body,
-        .singer-modal-content {
-            flex: 1;
-            width: 100%;
-        }
-
-        .music-list {
-            padding-top: 10px;
-            padding-left: 10px;
-        }
-
-        .updates-scroll-body {
-            line-height: 1.8;
-            color: #555;
-            font-size: 15px;
-        }
-
-        .singer-modal-content {
-            line-height: 2;
-            color: #333;
-        }
-
-        .music-list::-webkit-scrollbar,
-        .updates-scroll-body::-webkit-scrollbar,
-        .singer-modal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .music-list::-webkit-scrollbar-track,
-        .updates-scroll-body::-webkit-scrollbar-track,
-        .singer-modal-content::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-
-        .music-list::-webkit-scrollbar-thumb,
-        .updates-scroll-body::-webkit-scrollbar-thumb,
-        .singer-modal-content::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-        }
-
-        .music-list::-webkit-scrollbar-thumb:hover,
-        .updates-scroll-body::-webkit-scrollbar-thumb:hover,
-        .singer-modal-content::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-                line-height: 1.5;
-            }
-
-            .main-button {
-                font-size: 18px;
-            }
-
-            .modal-title {
-                font-size: 24px;
-            }
-
-            .info-label,
-            .info-value {
-                font-size: 14px;
-            }
-        }
-
-        /* Mobile landscape specific adjustments for music and singer modals */
+        /* Mobile landscape specific adjustments for music modal */
         @media (orientation: landscape) and (max-height: 500px) {
-            .modal-music .modal-box,
-            .modal-singer .modal-box {
+            .modal-music .modal-box {
                 padding: 10px;
             }
 
-            .modal-music .modal-title,
-            .modal-singer .modal-title {
+            .modal-music .modal-title {
                 font-size: 16px;
                 margin-bottom: 5px;
             }
 
-            .modal-music .modal-content,
-            .modal-singer .modal-content {
+            .modal-music .modal-content {
                 max-height: calc(98vh - 100px);
                 padding-right: 5px;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
             }
 
-            .modal-music .music-list,
-            .modal-singer .singer-modal-content {
+            .modal-music .music-list {
                 padding-right: 5px;
             }
 
@@ -1424,58 +875,8 @@
             font-size: 16px;
         }
 
-        /* Play button - Green when playing */
-        .play-button.playing {
-            background: #4caf50;
-            border-color: #45a049;
-        }
-
-        .play-button.playing:hover {
-            background: #45a049;
-        }
-
-        /* Pause button - Yellow when playing */
-        .play-button.paused {
-            background: #ffc107;
-            border-color: #ffb300;
-            color: #333;
-        }
-
-        .play-button.paused:hover {
-            background: #ffb300;
-        }
-
-        /* +5s button - Green when song is playing */
-        .song-playing .music-control-button[onclick*="5)"] {
-            background: #4caf50;
-            border-color: #45a049;
-        }
-
-        .song-playing .music-control-button[onclick*="5)"]:hover {
-            background: #45a049;
-        }
-
-        /* -5s button - Light Red when song is playing */
-        .song-playing .music-control-button[onclick*="-5)"] {
-            background: #ff6b6b;
-            border-color: #ff5252;
-        }
-
-        .song-playing .music-control-button[onclick*="-5)"]:hover {
-            background: #ff5252;
-        }
-
-        /* Repeat button - Purple when song is playing */
-        .song-playing .music-control-button[onclick*="restartMusic"] {
-            background: #9c27b0;
-            border-color: #7b1fa2;
-        }
-
-        .song-playing .music-control-button[onclick*="restartMusic"]:hover {
-            background: #7b1fa2;
-        }
-
         .play-button:hover, .music-control-button:hover {
+            background: #707070;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
@@ -1499,37 +900,16 @@
             height: 8px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            overflow: visible;
+            overflow: hidden;
             margin-bottom: 10px;
-            position: relative;
-            cursor: pointer;
         }
 
         .music-progress-bar {
             height: 100%;
-            background: black;
+            background: #808080;
             border-radius: 10px;
             width: 0%;
             transition: width 0.1s linear;
-            position: relative;
-        }
-
-        .music-progress-bar-wrapper.dragging .music-progress-bar {
-            transition: none;
-        }
-
-        .music-progress-bar::after {
-            content: '';
-            position: absolute;
-            right: -6px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .music-time {
@@ -1538,6 +918,11 @@
             font-size: 14px;
             color: #555;
             font-weight: 500;
+        }
+
+        .music-list {
+            overflow: visible;
+            padding-right: 10px;
         }
 
         .song-item {
@@ -1556,38 +941,32 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: rgba(255, 255, 255, 0.3);
+            width: 45px;
+            height: 45px;
+            border: 3px solid #ff6b6b;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
             border-radius: 50%;
             cursor: pointer;
             font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
             z-index: 10002;
         }
 
         .music-info-button:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: rotate(90deg);
+            background: linear-gradient(135deg, #ff5252 0%, #e53935 100%);
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+            border-color: #ff5252;
         }
 
-        .music-info-button.active {
-            background: rgba(255, 107, 107, 0.6);
-            backdrop-filter: blur(10px);
-            color: white;
-            transform: rotate(180deg);
-        }
-
-        .music-info-button.active:hover {
-            background: rgba(255, 107, 107, 0.8);
-            transform: rotate(180deg);
+        .music-info-button:active {
+            transform: scale(1.05);
         }
 
         .music-disclaimer-box {
@@ -2091,37 +1470,9 @@
                 transform: translate(-50%, -50%);
             }
 
-            .update-button-container {
-                position: static;
-                transform: none;
-                bottom: auto;
-                width: 100%;
-                justify-content: center;
-                margin-top: 20px;
-                pointer-events: auto;
-            }
-
             .main-button {
                 padding: 12px 30px;
                 font-size: 16px;
-            }
-
-            .btn-updates {
-                padding: 8px 22px;
-                font-size: 14px;
-            }
-
-            .modal-updates .modal-content,
-            .modal-singer .modal-content {
-                max-height: calc(100vh - 40px);
-                padding: 15px 20px;
-            }
-
-            .music-list,
-            .updates-scroll-body,
-            .singer-modal-content {
-                max-height: calc(100vh - 80px);
-                padding: 10px 18px 20px 10px;
             }
 
             .warning-message {
@@ -2131,23 +1482,9 @@
             }
 
             .modal-box {
-                width: 100%;
-                max-width: 100%;
-                height: 100vh;
-                max-height: 100vh;
-                min-height: 100vh;
-                padding: 0;
-                border-radius: 0;
-                margin: 0;
-            }
-
-            .modal-updates .modal-box,
-            .modal-singer .modal-box,
-            .modal-music .modal-box,
-            .modal-gaming .modal-box {
-                padding: 0;
-                margin: 0;
-                border-radius: 0;
+                max-height: 98vh;
+                padding: 15px;
+                width: 98%;
             }
 
             .modal-title {
@@ -2156,15 +1493,12 @@
             }
 
             .modal-content {
-                max-height: calc(100vh - 40px);
-                margin-top: 0;
-                height: auto;
-                padding: 15px;
+                max-height: calc(98vh - 120px);
+                margin-top: 10px;
             }
 
             .modal-music .modal-content {
-                max-height: calc(100vh - 40px);
-                padding: 15px 20px;
+                max-height: calc(98vh - 140px);
             }
 
             .music-info-button {
@@ -2215,22 +1549,6 @@
                 padding: 10px 20px;
                 font-size: 14px;
             }
-
-            .close-button-left {
-                top: 10px;
-                left: 10px;
-                width: 35px;
-                height: 35px;
-                font-size: 20px;
-            }
-
-            .close-button {
-                top: 10px;
-                right: 10px;
-                width: 35px;
-                height: 35px;
-                font-size: 20px;
-            }
         }
     </style>
 </head>
@@ -2239,11 +1557,10 @@
     <div class="loading-screen" id="loadingScreen">
         <div class="progress-container">
             <div class="loading-text">Loading<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
-            <div class="loading-percentage" id="loadingPercentage">0%</div>
             <div class="progress-bar-wrapper">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <div class="loading-message" id="loadingMessage"></div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
         </div>
     </div>
 
@@ -2252,12 +1569,6 @@
         <div class="button-container">
             <button class="main-button btn-about" onclick="openModal('about')">About Me</button>
             <button class="main-button btn-favorites" onclick="openModal('favorites')">My Favorites</button>
-        </div>
-        <div class="christmas-message-link" onclick="openModal('christmasMessage')">
-            CHRISTMAS MESSAGE FOR ME
-        </div>
-        <div class="update-button-container hidden">
-            <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW ✨🆕</button>
         </div>
         <div class="warning-message" id="mainWarning">
             THIS ISN'T OFFICIALLY FINISHED YET; I STILL HAVE MANY WORKS TO DO
@@ -2276,39 +1587,6 @@
             >ANSWER THIS FORM</a>
         </div>
     </div>
-    <!-- Floating mini music button -->
-    <button id="musicMiniButton" class="music-mini-button" type="button" onclick="toggleMiniPanel()">
-        <span class="music-mini-icon">♬</span>
-        <div id="musicMiniCard" class="music-mini-card">
-            <div class="music-mini-text-wrapper">
-                <span id="musicMiniTitle" class="music-mini-title"></span>
-                <span id="musicMiniNext" class="music-mini-subtext"></span>
-            </div>
-            <div class="music-mini-inline-controls" id="musicMiniInlineControls">
-                <div class="music-mini-inline-btn" role="button" onclick="miniSkipForward()">+5s</div>
-                <div class="music-mini-inline-btn" role="button" onclick="miniSkipBackward()">-5s</div>
-                <div id="musicMiniInlineToggle" class="music-mini-inline-btn" role="button" onclick="miniTogglePlay()">⏸️</div>
-                <div class="music-mini-inline-btn" role="button" onclick="miniRestart()">🔄</div>
-            </div>
-        </div>
-    </button>
-    <div id="musicMiniPanel" class="music-mini-panel" style="display:none;">
-        <div class="music-mini-panel-header">NOW PLAYING</div>
-        <div id="musicMiniPanelSong" class="music-mini-panel-box">
-            <div id="musicMiniPanelTitle" class="music-mini-panel-title">CURRENTLY NO MUSIC IS PLAYING.</div>
-            <div class="music-mini-panel-controls" id="musicMiniPanelControls">
-                <button type="button" class="music-mini-panel-control" onclick="miniPrevTrack()">&laquo;</button>
-                <button type="button" class="music-mini-panel-control" onclick="miniSkipBackward()">&lt;</button>
-                <button type="button" id="musicMiniPanelToggle" class="music-mini-panel-control" onclick="miniTogglePlay()">⏸️</button>
-                <button type="button" class="music-mini-panel-control" onclick="miniSkipForward()">&gt;</button>
-                <button type="button" class="music-mini-panel-control" onclick="miniNextTrack()">&raquo;</button>
-            </div>
-            <div class="music-mini-panel-times" id="musicMiniPanelTimes">
-                <span id="musicMiniCurrentTime">0:00</span>
-                <span id="musicMiniTotalTime">0:00</span>
-            </div>
-        </div>
-    </div>
     <!-- Welcome Intro Box -->
     <div id="introBox" class="intro-box" role="dialog" aria-live="polite">
         <div class="intro-title">WELCOME</div>
@@ -2319,14 +1597,14 @@ INSPIRED.
 
 FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         
-            !KIDLY REMAIN YOUR PHONE TO PORTRAIT</div>
+            !KIDLY ROTATE YOUR PHONE TO LANDSCAPE, FOR BETTER EXPERIENCE!</div>
         <button id="introSkip" class="intro-skip" title="Skip">Skip</button>
     </div>
 
     <!-- About Me Modal -->
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-box modal-about">
-            <button class="close-button-left" onclick="closeModal('about')" title="Close">×</button>
+            <!-- Close button removed per request -->
             <h1 class="modal-title">About Me</h1>
             <div class="modal-content">
                 <div class="info-item name-item">
@@ -2514,10 +1792,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-title">Music</div>
                         <div class="favorite-description">When I'm sleeping, eating, walking, etc., I play this music.</div>
                     </div>
-                    <div class="favorite-card clickable" onclick="openModal('singer')">
-                        <div class="favorite-icon">🎤</div>
-                        <div class="favorite-title">SINGER</div>
-                        <div class="favorite-description">i can't live without my fav singers😭.</div>
+                    <div class="favorite-card clickable" onclick="showComingSoon()">
+                        <div class="favorite-icon">🕒</div>
+                        <div class="favorite-title">Coming Soon</div>
+                        <div class="favorite-description">Stay tuned for updates</div>
                     </div>
                     <div class="favorite-card clickable" onclick="showComingSoon()">
                         <div class="favorite-icon">🕒</div>
@@ -2534,9 +1812,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     </div>
 
     <!-- Gaming Modal -->
-    <div class="modal-overlay" id="gamingModal" onclick="closeModalOnOverlay(event, 'gaming')">
+    <div class="modal-overlay" id="gamingModal">
         <div class="modal-box modal-gaming">
-            <button class="close-button-left" onclick="closeModal('gaming')" title="Close">×</button>
             <h1 class="modal-title">Gaming</h1>
             <div class="modal-content">
                 <div class="info-item">
@@ -2552,6 +1829,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     </div>
                 </div>
                 <div class="modal-buttons">
+                    <button class="modal-action-button btn-back" onclick="closeModal('gaming')">Back to Main Menu</button>
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
                 </div>
             </div>
@@ -2561,7 +1839,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     <!-- Music Modal -->
     <div class="modal-overlay" id="musicModal">
         <div class="modal-box modal-music">
-            <button class="close-button-left" onclick="closeModal('music')" title="Close">×</button>
             <button class="music-info-button" onclick="toggleDisclaimer()" title="Disclaimer">!</button>
             <div class="music-disclaimer-box" id="musicDisclaimer">
                 <p>I DON'T OWN THE RIGHTS TO THE MUSIC USED HERE. ALL CREDITS AND RIGHTS TO THE RESPECTIVE ARTISTS AND COPYRIGHT HOLDERS. SHARED PURELY FOR APPRECIATION AND INSPIRATION.</p>
@@ -2576,9 +1853,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('sabrina', 5)">+5s</button>
-                                    <button class="play-button" data-song="sabrina" onclick="toggleMusic('sabrina')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('sabrina', -5)">-5s</button>
+                                    <button class="play-button" data-song="sabrina" onclick="toggleMusic('sabrina')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('sabrina', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('sabrina')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-sabrina" preload="metadata" controls style="display: none;">
@@ -2601,9 +1878,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('positions', 5)">+5s</button>
-                                    <button class="play-button" data-song="positions" onclick="toggleMusic('positions')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('positions', -5)">-5s</button>
+                                    <button class="play-button" data-song="positions" onclick="toggleMusic('positions')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('positions', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('positions')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-positions" preload="metadata" controls style="display: none;">
@@ -2627,9 +1904,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('goodnightngo', 5)">+5s</button>
-                                    <button class="play-button" data-song="goodnightngo" onclick="toggleMusic('goodnightngo')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('goodnightngo', -5)">-5s</button>
+                                    <button class="play-button" data-song="goodnightngo" onclick="toggleMusic('goodnightngo')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('goodnightngo', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('goodnightngo')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-goodnightngo" preload="metadata" controls style="display: none;">
@@ -2652,9 +1929,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('ariintro', 5)">+5s</button>
-                                    <button class="play-button" data-song="ariintro" onclick="toggleMusic('ariintro')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('ariintro', -5)">-5s</button>
+                                    <button class="play-button" data-song="ariintro" onclick="toggleMusic('ariintro')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('ariintro', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('ariintro')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-ariintro" preload="metadata" controls style="display: none;">
@@ -2677,9 +1954,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('aripastlife', 5)">+5s</button>
-                                    <button class="play-button" data-song="aripastlife" onclick="toggleMusic('aripastlife')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('aripastlife', -5)">-5s</button>
+                                    <button class="play-button" data-song="aripastlife" onclick="toggleMusic('aripastlife')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('aripastlife', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('aripastlife')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-aripastlife" preload="metadata" controls style="display: none;">
@@ -2702,9 +1979,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('ariboyfriend', 5)">+5s</button>
-                                    <button class="play-button" data-song="ariboyfriend" onclick="toggleMusic('ariboyfriend')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('ariboyfriend', -5)">-5s</button>
+                                    <button class="play-button" data-song="ariboyfriend" onclick="toggleMusic('ariboyfriend')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('ariboyfriend', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('ariboyfriend')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-ariboyfriend" preload="metadata" controls style="display: none;">
@@ -2727,9 +2004,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('breakfree', 5)">+5s</button>
-                                    <button class="play-button" data-song="breakfree" onclick="toggleMusic('breakfree')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('breakfree', -5)">-5s</button>
+                                    <button class="play-button" data-song="breakfree" onclick="toggleMusic('breakfree')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('breakfree', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('breakfree')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-breakfree" preload="metadata" controls style="display: none;">
@@ -2752,9 +2029,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('opalite', 5)">+5s</button>
-                                    <button class="play-button" data-song="opalite" onclick="toggleMusic('opalite')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('opalite', -5)">-5s</button>
+                                    <button class="play-button" data-song="opalite" onclick="toggleMusic('opalite')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('opalite', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('opalite')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-opalite" preload="metadata" controls style="display: none;">
@@ -2778,9 +2055,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('blankspace', 5)">+5s</button>
-                                    <button class="play-button" data-song="blankspace" onclick="toggleMusic('blankspace')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('blankspace', -5)">-5s</button>
+                                    <button class="play-button" data-song="blankspace" onclick="toggleMusic('blankspace')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('blankspace', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('blankspace')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-blankspace" preload="metadata" controls style="display: none;">
@@ -2803,9 +2080,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('slut', 5)">+5s</button>
-                                    <button class="play-button" data-song="slut" onclick="toggleMusic('slut')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('slut', -5)">-5s</button>
+                                    <button class="play-button" data-song="slut" onclick="toggleMusic('slut')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('slut', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('slut')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-slut" preload="metadata" controls style="display: none;">
@@ -2828,9 +2105,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('opheila', 5)">+5s</button>
-                                    <button class="play-button" data-song="opheila" onclick="toggleMusic('opheila')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('opheila', -5)">-5s</button>
+                                    <button class="play-button" data-song="opheila" onclick="toggleMusic('opheila')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('opheila', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('opheila')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-opheila" preload="metadata" controls style="display: none;">
@@ -2853,9 +2130,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('weeknd', 5)">+5s</button>
-                                    <button class="play-button" data-song="weeknd" onclick="toggleMusic('weeknd')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('weeknd', -5)">-5s</button>
+                                    <button class="play-button" data-song="weeknd" onclick="toggleMusic('weeknd')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('weeknd', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('weeknd')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-weeknd" preload="metadata" controls style="display: none;">
@@ -2878,9 +2155,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('cooloff', 5)">+5s</button>
-                                    <button class="play-button" data-song="cooloff" onclick="toggleMusic('cooloff')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('cooloff', -5)">-5s</button>
+                                    <button class="play-button" data-song="cooloff" onclick="toggleMusic('cooloff')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('cooloff', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('cooloff')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-cooloff" preload="metadata" controls style="display: none;">
@@ -2904,9 +2181,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('happierthanever', 5)">+5s</button>
-                                    <button class="play-button" data-song="happierthanever" onclick="toggleMusic('happierthanever')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('happierthanever', -5)">-5s</button>
+                                    <button class="play-button" data-song="happierthanever" onclick="toggleMusic('happierthanever')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('happierthanever', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('happierthanever')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-happierthanever" preload="metadata" controls style="display: none;">
@@ -2929,9 +2206,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('wavetolove', 5)">+5s</button>
-                                    <button class="play-button" data-song="wavetolove" onclick="toggleMusic('wavetolove')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('wavetolove', -5)">-5s</button>
+                                    <button class="play-button" data-song="wavetolove" onclick="toggleMusic('wavetolove')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('wavetolove', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('wavetolove')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-wavetolove" preload="metadata" controls style="display: none;">
@@ -2954,9 +2231,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('superfar', 5)">+5s</button>
-                                    <button class="play-button" data-song="superfar" onclick="toggleMusic('superfar')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('superfar', -5)">-5s</button>
+                                    <button class="play-button" data-song="superfar" onclick="toggleMusic('superfar')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('superfar', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('superfar')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-superfar" preload="metadata" controls style="display: none;">
@@ -2979,9 +2256,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('backburner', 5)">+5s</button>
-                                    <button class="play-button" data-song="backburner" onclick="toggleMusic('backburner')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('backburner', -5)">-5s</button>
+                                    <button class="play-button" data-song="backburner" onclick="toggleMusic('backburner')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('backburner', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('backburner')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-backburner" preload="metadata" controls style="display: none;">
@@ -3004,9 +2281,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('aboutyou', 5)">+5s</button>
-                                    <button class="play-button" data-song="aboutyou" onclick="toggleMusic('aboutyou')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('aboutyou', -5)">-5s</button>
+                                    <button class="play-button" data-song="aboutyou" onclick="toggleMusic('aboutyou')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('aboutyou', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('aboutyou')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-aboutyou" preload="metadata" controls style="display: none;">
@@ -3029,9 +2306,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('charli360', 5)">+5s</button>
-                                    <button class="play-button" data-song="charli360" onclick="toggleMusic('charli360')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('charli360', -5)">-5s</button>
+                                    <button class="play-button" data-song="charli360" onclick="toggleMusic('charli360')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('charli360', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('charli360')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-charli360" preload="metadata" controls style="display: none;">
@@ -3054,9 +2331,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('oras', 5)">+5s</button>
-                                    <button class="play-button" data-song="oras" onclick="toggleMusic('oras')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('oras', -5)">-5s</button>
+                                    <button class="play-button" data-song="oras" onclick="toggleMusic('oras')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('oras', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('oras')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-oras" preload="metadata" controls style="display: none;">
@@ -3079,9 +2356,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('nailang', 5)">+5s</button>
-                                    <button class="play-button" data-song="nailang" onclick="toggleMusic('nailang')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('nailang', -5)">-5s</button>
+                                    <button class="play-button" data-song="nailang" onclick="toggleMusic('nailang')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('nailang', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('nailang')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-nailang" preload="metadata" controls style="display: none;">
@@ -3104,9 +2381,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('multo', 5)">+5s</button>
-                                    <button class="play-button" data-song="multo" onclick="toggleMusic('multo')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('multo', -5)">-5s</button>
+                                    <button class="play-button" data-song="multo" onclick="toggleMusic('multo')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('multo', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('multo')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-multo" preload="metadata" controls style="display: none;">
@@ -3129,9 +2406,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-value">
                             <div class="music-player-container">
                                 <div class="song-controls">
-                                    <button class="music-control-button" onclick="skipMusic('confident', 5)">+5s</button>
-                                    <button class="play-button" data-song="confident" onclick="toggleMusic('confident')">▶️</button>
                                     <button class="music-control-button" onclick="skipMusic('confident', -5)">-5s</button>
+                                    <button class="play-button" data-song="confident" onclick="toggleMusic('confident')">▶️</button>
+                                    <button class="music-control-button" onclick="skipMusic('confident', 5)">+5s</button>
                                     <button class="music-control-button" onclick="restartMusic('confident')">🔄</button>
                                 </div>
                                 <audio id="musicPlayer-confident" preload="metadata" controls style="display: none;">
@@ -3151,302 +2428,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     </div>
                 </div>
                 <div class="modal-buttons">
+                    <button class="modal-action-button btn-back" onclick="closeModal('music')">Back to Main Menu</button>
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-    <!-- Christmas Message Modal -->
-    <div class="modal-overlay" id="christmasMessageModal" onclick="closeModalOnOverlay(event, 'christmasMessage')">
-        <div class="christmas-modal-box">
-            <button class="close-button" onclick="closeModal('christmasMessage')" title="Close">×</button>
-            <button class="christmas-hidden-button" onclick="showAllChristmasMessages()" aria-hidden="true"></button>
-            <div class="christmas-modal-title">
-                CHRISTMAS MESSAGE FOR M<span class="clickable-e" onclick="handleChristmasEClick()">E</span>
-            </div>
-            <textarea
-                id="christmasMessageInput"
-                class="christmas-textarea"
-                placeholder="Insert message here"
-                oninput="handleChristmasMessageInput()"
-            ></textarea>
-            <div class="christmas-counter-row">
-                <span>Word Limit: 1000</span>
-                <span id="christmasWordCounter" class="christmas-word-counter">0 / 1000</span>
-            </div>
-            <button type="button" class="christmas-submit-btn" onclick="submitChristmasMessage()">Submit</button>
-            <button type="button" id="christmasViewBtn" class="christmas-view-btn" onclick="viewLatestChristmasMessage()">
-                VIEW YOUR MESSAGE
-            </button>
-            <div id="christmasViewArea" style="margin-top:12px; font-size:13px; color:#333; display:none;"></div>
-        </div>
-    </div>
-
-    <!-- Christmas Messages List Modal -->
-    <div class="modal-overlay" id="christmasMessagesListModal" onclick="closeModalOnOverlay(event, 'christmasMessagesList')">
-        <div class="christmas-modal-box">
-            <button class="close-button" onclick="closeModal('christmasMessagesList')" title="Close">×</button>
-            <div class="christmas-modal-title">ALL SAVED MESSAGES</div>
-            <div id="christmasMessagesList" class="christmas-messages-list"></div>
-        </div>
-    </div>
-
-    <!-- Updates Modal -->
-    <div class="modal-overlay" id="updatesModal" onclick="closeModalOnOverlay(event, 'updates')">
-        <div class="modal-box modal-updates">
-            <button class="close-button-left" onclick="closeModal('updates')" title="Close">×</button>
-            <div class="modal-content">
-                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">WHAT'S NEW ✨🆕</h2>
-                <div class="updates-scroll-body">
-                    <p style="margin-top: 20px;"><strong>UPDATE 1</strong></p>
-                    <p id="update1-summary" style="margin-bottom: 8px;">
-                        UI REFORGE + MUSIC SYSTEM UPGRADE ⚡🎵
-                        <span id="update1-toggle-top" class="see-more-link" onclick="toggleUpdateDetails()">see more...</span>
-                    </p>
-                    <div id="update1-details" style="display:none; margin-bottom: 15px;">
-                        <p><strong>⏳ Loading Screen</strong></p>
-                        <p>📊 Moved percentage text below "Loading…"</p>
-                        <p>🔄 Added rotating smart messages (show once per session)</p>
-                        
-                        <p style="margin-top: 20px;"><strong>🎵 Music Player Update</strong></p>
-                        <p>Unified play/pause logic for smoother switching</p>
-                        <p>Added -5s / +5s skip buttons</p>
-                        <p>Loop & Repeat now use class-based toggle animations</p>
-                        <p>Draggable, touch-friendly progress bar</p>
-                        <p>Active song highlight improved</p>
-                        
-                        <p style="margin-top: 20px;"><strong>📱 Modal Upgrade (Mobile & Desktop)</strong></p>
-                        <p>Mobile landscape = fullscreen, no border-radius</p>
-                        <p>Desktop modal width refined</p>
-                        <p>Blur/shadow improved</p>
-                        <p>Close buttons repositioned</p>
-                        <p>Smoother internal scrolling</p>
-                        
-                        <p style="margin-top: 20px;"><strong>⚠️ "!" Button Enhancement</strong></p>
-                        <p>Turns red + performs a one-time rotation</p>
-                        <p>Animation fully resets when modal closes</p>
-                        <p>Faster activation response</p>
-                        
-                        <p style="margin-top: 20px;"><strong>🖼️ Layout & Styling</strong></p>
-                        <p>Improved spacing for all button groups</p>
-                        <p>Unified padding across modals</p>
-                        <p>Better responsive fonts</p>
-                        <p>Cleaner progress bar visuals</p>
-                        <p>Consistent hover/active states</p>
-                        
-                        <p style="margin-top: 20px;"><strong>🔧 JavaScript Improvements</strong></p>
-                        <p>Centralized modal logic</p>
-                        <p>Optimized music control functions</p>
-                        <p>Touch scrubbing support</p>
-                        <p>Cleaner event listeners</p>
-                        <p>Removed redundant state resets</p>
-                        
-                        <p style="margin-top: 20px;"><strong>🐛 Fixes, Changes & QOL</strong></p>
-                        <p>Fixed modal overflow on small screens</p>
-                        <p>Fixed audio desync on song change</p>
-                        <p>Removed unused CSS</p>
-                        <p>Improved volume consistency</p>
-                        <p>Minor UI glitch fixes</p>
-                        <p>Overall performance improvements
-                            <span id="update1-toggle-bottom" class="see-more-link" onclick="toggleUpdateDetails()">see less...</span>
-                        </p>
-                    </div>
-
-                    <p style="margin-top: 20px;"><strong>UPDATE 1.1 [FIXED]</strong></p>
-                    <p id="update11-summary" style="font-style: italic; font-size: 16px; margin-bottom: 10px; color: #555;">
-                        These fixes are now applied in this version
-                        <span id="update11-toggle-top" class="see-more-link" onclick="toggleUpdate11Details()">see more...</span>
-                    </p>
-                    <div id="update11-details" style="display:none; margin-bottom: 10px;">
-                        <p>Fixed the blue button, because it's too big</p>
-                        <p>Fixed the title “Facebook, Instagram, etc.” so it is no longer clickable and is displayed as plain text</p>
-                        <p>Fixed the scrolling effect on “Songs” and “What's New” because it wasn't supposed to scroll that way</p>
-                        <p>Overall improvements and small fixes have been applied
-                            <span id="update11-toggle-bottom" class="see-more-link" onclick="toggleUpdate11Details()">see less...</span>
-                        </p>
-                    </div>
-
-                    <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
-                    <p>I received you all response on my form and most of it i applied it here</p>
-                    <p>Thank you so much for taking the time answering the form💖</p>
-
-                    <p style="margin-top: 20px;"><strong>🚫Errors...</strong></p>
-                    <p>My sincere apologies for the errors and bugs. I'm currently working on fixing them.</p>
-                    <p>It’s just a bit difficult since I have school and we have our research defense going on right now, but I will fix everything as soon as I'm free.</p>
-                    <p>Thank you for understanding and see you soon...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Singer Modal -->
-    <div class="modal-overlay" id="singerModal" onclick="closeModalOnOverlay(event, 'singer')">
-        <div class="modal-box modal-singer">
-            <button class="close-button-left" onclick="closeModal('singer')" title="Close">×</button>
-            <div class="modal-content">
-                <h2 style="text-align: center; font-size: 32px; margin-bottom: 30px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">SINGER</h2>
-                <div class="singer-modal-content">
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Sabrina Carpenter</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Sabrina because she's talented, inspiring, and her music is full of joy.</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/sabrinacarpenter" target="_blank" rel="noopener noreferrer">https://www.facebook.com/sabrinacarpenter</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==" target="_blank" rel="noopener noreferrer">https://www.instagram.com/sabrinacarpenter?igsh=MWFiZ2dkMWRhbnF2MQ==</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@sabrinacarpenter?_r=1&_t=ZS-91chUYgCmkZ</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N" target="_blank" rel="noopener noreferrer">https://youtube.com/@sabrinacarpenter?si=uLKDOthydUEtEs8N</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Taylor Swift</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Taylor because her songs tell stories that feel like they understand me</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/TaylorSwift" target="_blank" rel="noopener noreferrer">https://www.facebook.com/TaylorSwift</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr" target="_blank" rel="noopener noreferrer">https://www.instagram.com/taylorswift?igsh=czY3azdjMmhobDNr</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@taylorswift?_r=1&_t=ZS-91chQXElUYM</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7" target="_blank" rel="noopener noreferrer">https://youtube.com/@taylorswift?si=hDhx7neEDQb_UKO7</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Ariana Grande</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Ariana because her voice is so powerful and sweet, it makes me happy every time I listen.</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/arianagrande" target="_blank" rel="noopener noreferrer">https://www.facebook.com/arianagrande</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3" target="_blank" rel="noopener noreferrer">https://www.instagram.com/arianagrande?igsh=bm82aXlhYjZ3bWo3</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@arianagrande?_r=1&_t=ZS-91chLckaoZG</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4" target="_blank" rel="noopener noreferrer">https://youtube.com/@arianagrande?si=1g0w6hb84A4qnj_4</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">The Weeknd</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like The Weeknd because his music is dark, emotional, and unforgettable.</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/theweeknd" target="_blank" rel="noopener noreferrer">https://www.facebook.com/theweeknd</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk" target="_blank" rel="noopener noreferrer">https://www.instagram.com/theweeknd?igsh=cDlheDBpMTB0bzdk</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@theweeknd?_r=1&_t=ZS-91chUfVhtFI</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla" target="_blank" rel="noopener noreferrer">https://youtube.com/@theweeknd?si=2RtKP_rF_aAuZkla</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Billie Eilish</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Billie because she's fearless and unique, and her music feels so real.</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/billieeilish" target="_blank" rel="noopener noreferrer">https://www.facebook.com/billieeilish</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn" target="_blank" rel="noopener noreferrer">https://www.instagram.com/billieeilish?igsh=dmpmaDlqb2NyY3hn</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@billieeilish?_r=1&_t=ZS-91chN2nN02q</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt" target="_blank" rel="noopener noreferrer">https://youtube.com/@billieeilish?si=h5PMfGnHQ6JOGoGt</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Lauv</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Lauv because his songs make my heart feel warm and hopeful.</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/lauvsongs" target="_blank" rel="noopener noreferrer">https://www.facebook.com/lauvsongs</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==" target="_blank" rel="noopener noreferrer">https://www.instagram.com/lauvsongs?igsh=MTEwZzdtbHFld2lydw==</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@lauvsongs?_r=1&_t=ZS-91chVfvU8fv</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm" target="_blank" rel="noopener noreferrer">https://youtube.com/@lauvsongs?si=k68QRD1cqtW7ipjm</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Lana Del Rey</h3>
-                        <p style="font-style: italic; font-size: 16px; margin-bottom: 15px; color: #555;">I like Lana because her songs feel dreamy and transport me to another world.</p>
-                        <div class="singer-social-list">
-                            <p class="social-link">
-                                <span class="social-label">Facebook:</span>
-                                <a href="https://www.facebook.com/lanadelrey" target="_blank" rel="noopener noreferrer">https://www.facebook.com/lanadelrey</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Instagram:</span>
-                                <a href="https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==" target="_blank" rel="noopener noreferrer">https://www.instagram.com/honeymoon?igsh=MTYwaWNzNHJsOGR5eQ==</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Tiktok:</span>
-                                <a href="https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO" target="_blank" rel="noopener noreferrer">https://www.tiktok.com/@lanadelrey?_r=1&_t=ZS-91chPTeIORO</a>
-                            </p>
-                            <p class="social-link">
-                                <span class="social-label">Youtube:</span>
-                                <a href="https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA" target="_blank" rel="noopener noreferrer">https://youtube.com/@lanadelrey?si=SjZQsBZJqPGEWIxA</a>
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -3465,7 +2448,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const loadingScreen = document.getElementById('loadingScreen');
             const loadingPercentage = document.getElementById('loadingPercentage');
             const progressBar = document.getElementById('progressBar');
-            const loadingMessage = document.getElementById('loadingMessage');
             const duration = 15000; // 15 seconds
             const updateInterval = 30; // Update every 30ms for smooth animation
             const totalSteps = duration / updateInterval;
@@ -3478,105 +2460,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const warningTimerLine = document.getElementById('warningTimerLine');
             const updatingMsgEl = document.getElementById('updatingMsg');
             const formLinkBelow = document.getElementById('formLinkBelow');
-            const updatesButtonContainer = document.querySelector('.update-button-container');
             let warningCountdownInterval = null;
             let targetNov15 = null;
-            let messageInterval = null;
-            const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
-            let countdownAlreadyDone = false;
-            let updatesButtonShown = false;
-            try {
-                countdownAlreadyDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
-            } catch (error) {
-                countdownAlreadyDone = false;
-            }
-            if (countdownAlreadyDone) {
-                if (warningTimerLine) warningTimerLine.style.display = 'none';
-                if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-            }
-
-            function showUpdatesButton() {
-                if (updatesButtonShown) return;
-                if (updatesButtonContainer) {
-                    updatesButtonContainer.classList.remove('hidden');
-                    updatesButtonShown = true;
-                }
-            }
-            
-            // Messages array
-            const messages = [
-                'One moment, making things ready...',
-                'Syncing data...',
-                'Booting system...',
-                'Decoding your personalized device...',
-                'Aligning digital coordinates...',
-                'Initiating advanced system protocols...'
-            ];
-            
-            // Track which messages have been shown (reset on page load/refresh)
-            let shownMessages = [];
-            
-            // Function to show random messages (only show each message once per session)
-            function showRandomMessage() {
-                if (!loadingMessage) return;
-                
-                // Get messages that haven't been shown yet
-                const availableMessages = messages.filter(msg => !shownMessages.includes(msg));
-                
-                // If all messages have been shown, stop showing new ones
-                if (availableMessages.length === 0) {
-                    stopMessageRotation();
-                    return;
-                }
-                
-                // Pick a random message from available ones
-                const randomIndex = Math.floor(Math.random() * availableMessages.length);
-                const message = availableMessages[randomIndex];
-                
-                // Mark this message as shown
-                shownMessages.push(message);
-                
-                // Fade out current message
-                loadingMessage.classList.remove('show');
-                
-                // After fade out, change text and fade in
-                setTimeout(function() {
-                    loadingMessage.textContent = message;
-                    loadingMessage.classList.add('show');
-                }, 500);
-            }
-            
-            // Start showing messages with random intervals (3 or 4 seconds)
-            function startMessageRotation() {
-                // Show first message immediately
-                showRandomMessage();
-                
-                // Function to schedule next message with random delay
-                function scheduleNextMessage() {
-                    // Randomly choose 3 or 4 seconds (3000 or 4000 milliseconds)
-                    const delay = Math.random() < 0.5 ? 3000 : 4000;
-                    
-                    messageInterval = setTimeout(function() {
-                        showRandomMessage();
-                        // Check if we should continue (if there are still available messages)
-                        const availableMessages = messages.filter(msg => !shownMessages.includes(msg));
-                        if (availableMessages.length > 0) {
-                            scheduleNextMessage();
-                        }
-                    }, delay);
-                }
-                
-                // Start the rotation with first random delay
-                scheduleNextMessage();
-            }
-            
-            // Stop message rotation when loading is complete
-            function stopMessageRotation() {
-                if (messageInterval) {
-                    clearTimeout(messageInterval);
-                    messageInterval = null;
-                }
-            }
             
             function updatePercentage() {
                 currentStep++;
@@ -3601,8 +2486,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     // Ensure it ends at exactly 100%
                     loadingPercentage.textContent = '100%';
                     progressBar.style.width = '100%';
-                    // Stop message rotation
-                    stopMessageRotation();
                     setTimeout(function() {
                         loadingScreen.classList.add('hidden');
                         // Show welcome intro box
@@ -3622,14 +2505,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                     // Show warning and start countdown
                                     if (mainWarning) {
                                         mainWarning.style.display = '';
+                                        // countdown already running
                                         if (formLinkBelow) formLinkBelow.style.display = '';
-                                        if (countdownAlreadyDone) {
-                                            if (warningTimerLine) warningTimerLine.style.display = 'none';
-                                            if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                                        }
                                     }
-                                        enableMusicMiniButton();
-                                        showUpdatesButton();
                                 }, 900);
                             }, 30000);
                             if (introSkip) {
@@ -3644,35 +2522,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                         // Show warning and start countdown
                                         if (mainWarning) {
                                             mainWarning.style.display = '';
+                                            // countdown already running
+                                            if (warningTimerLine) warningTimerLine.style.display = '';
+                                            if (updatingMsgEl) updatingMsgEl.style.display = 'none';
                                             if (formLinkBelow) formLinkBelow.style.display = '';
-                                            if (countdownAlreadyDone) {
-                                                if (warningTimerLine) warningTimerLine.style.display = 'none';
-                                                if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                                            } else {
-                                                if (warningTimerLine) warningTimerLine.style.display = '';
-                                                if (updatingMsgEl) updatingMsgEl.style.display = 'none';
-                                            }
                                         }
-                                        enableMusicMiniButton();
-                                        showUpdatesButton();
-                                        startBgMusic();
-                                        startBgMusic();
                                     }, 900);
                                 });
                             }
-                        } else {
-                            if (mainWarning) mainWarning.style.display = '';
-                            if (formLinkBelow) formLinkBelow.style.display = '';
-                            enableMusicMiniButton();
-                            showUpdatesButton();
-                            startBgMusic();
                         }
                     }, 300);
                 }
             }
             
-            // Start the loading animation and message rotation
-            startMessageRotation();
             updatePercentage();
 
             function formatDhms(totalSeconds) {
@@ -3690,18 +2552,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
             function startWarningCountdown() {
                 if (!warningTimerEl) return;
-                if (countdownAlreadyDone) {
-                    if (warningTimerLine) warningTimerLine.style.display = 'none';
-                    if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                    return;
-                }
-                // Determine target December 25
+                // Determine target Nov 15 (current year or next if passed)
                 if (!targetNov15) {
                     const now = new Date();
                     const currentYear = now.getFullYear();
-                    // Target: December 25 (month 11 = December, day 25)
-                    const tentative = new Date(currentYear, 11, 25, 0, 0, 0);
-                    targetNov15 = (now <= tentative) ? tentative : new Date(currentYear + 1, 11, 25, 0, 0, 0);
+                    const tentative = new Date(currentYear, 10, 25, 0, 0, 0); // Month 10 = November, Day 25
+                    targetNov15 = (now <= tentative) ? tentative : new Date(currentYear + 1, 10, 25, 0, 0, 0);
                 }
                 function updateCountdown() {
                     const now = new Date();
@@ -3715,14 +2571,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         // Swap timer with "UPDATING..."
                         if (warningTimerLine) warningTimerLine.style.display = 'none';
                         if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                        if (!countdownAlreadyDone) {
-                            countdownAlreadyDone = true;
-                            try {
-                                localStorage.setItem(COUNTDOWN_DONE_KEY, 'true');
-                            } catch (error) {
-                                // ignore storage errors
-                            }
-                        }
                     }
                 }
                 updateCountdown();
@@ -3730,28 +2578,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 warningCountdownInterval = setInterval(updateCountdown, 1000);
             }
         });
-
-        function toggleUpdateDetails() {
-            const details = document.getElementById('update1-details');
-            const topToggle = document.getElementById('update1-toggle-top');
-            const bottomToggle = document.getElementById('update1-toggle-bottom');
-            if (!details || !topToggle || !bottomToggle) return;
-            const isHidden = details.style.display === 'none' || details.style.display === '';
-            details.style.display = isHidden ? 'block' : 'none';
-            topToggle.style.display = isHidden ? 'none' : 'inline';
-            bottomToggle.style.display = isHidden ? 'inline' : 'none';
-        }
-
-        function toggleUpdate11Details() {
-            const details = document.getElementById('update11-details');
-            const topToggle = document.getElementById('update11-toggle-top');
-            const bottomToggle = document.getElementById('update11-toggle-bottom');
-            if (!details || !topToggle || !bottomToggle) return;
-            const isHidden = details.style.display === 'none' || details.style.display === '';
-            details.style.display = isHidden ? 'block' : 'none';
-            topToggle.style.display = isHidden ? 'none' : 'inline';
-            bottomToggle.style.display = isHidden ? 'inline' : 'none';
-        }
 
         // Orientation Detection and Handling
         function detectOrientation() {
@@ -3832,11 +2658,26 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 document.body.style.overflow = 'auto';
                 document.documentElement.style.overflow = 'auto';
             }
-            // When leaving My Favorites, resume background music smoothly if it was playing before
-            if (type === 'favorites') {
-                maybeResumeBgMusic();
+            
+            // Stop all music if closing music modal
+            if (type === 'music') {
+                const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
+                songIds.forEach(songId => {
+                    const audio = document.getElementById('musicPlayer-' + songId);
+                    if (audio && !audio.paused) {
+                        audio.pause();
+                        audio.currentTime = 0;
+                        const playButton = document.querySelector(`button[data-song="${songId}"]`);
+                        if (playButton) playButton.textContent = '▶️';
+                        const progressContainer = document.getElementById('musicProgressContainer-' + songId);
+                        if (progressContainer) progressContainer.classList.remove('active');
+                        const progressBar = document.getElementById('musicProgressBar-' + songId);
+                        if (progressBar) progressBar.style.width = '0%';
+                        const currentTime = document.getElementById('currentTime-' + songId);
+                        if (currentTime) currentTime.textContent = '0:00';
+                    }
+                });
             }
-            // Note: do NOT stop music when closing the music modal so audio can keep playing
         }
 
         function closeModalOnOverlay(event, type) {
@@ -3897,343 +2738,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
-        // Christmas Message storage
-        const CHRISTMAS_MESSAGES_KEY = 'christmasMessages';
-
-        function loadChristmasMessages() {
-            try {
-                const raw = localStorage.getItem(CHRISTMAS_MESSAGES_KEY);
-                if (!raw) return [];
-                const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed : [];
-            } catch (e) {
-                return [];
-            }
-        }
-
-        function saveChristmasMessages(list) {
-            try {
-                localStorage.setItem(CHRISTMAS_MESSAGES_KEY, JSON.stringify(list));
-            } catch (e) {
-                // ignore
-            }
-        }
-
-        function handleChristmasMessageInput() {
-            const textarea = document.getElementById('christmasMessageInput');
-            const counterEl = document.getElementById('christmasWordCounter');
-            if (!textarea || !counterEl) return;
-            let text = textarea.value;
-            let words = text.trim().length ? text.trim().split(/\s+/) : [];
-            if (words.length > 1000) {
-                words = words.slice(0, 1000);
-                text = words.join(' ');
-                textarea.value = text;
-            }
-            counterEl.textContent = words.length + ' / 1000';
-        }
-
-        function submitChristmasMessage() {
-            const textarea = document.getElementById('christmasMessageInput');
-            const viewBtn = document.getElementById('christmasViewBtn');
-            const viewArea = document.getElementById('christmasViewArea');
-            if (!textarea || !viewBtn || !viewArea) return;
-            const text = textarea.value.trim();
-            if (!text) return;
-            const words = text.split(/\s+/);
-            if (words.length === 0) return;
-            const list = loadChristmasMessages();
-            list.push({
-                text,
-                createdAt: new Date().toISOString()
-            });
-            saveChristmasMessages(list);
-            viewBtn.style.display = 'block';
-            viewArea.style.display = 'none';
-        }
-
-        function viewLatestChristmasMessage() {
-            const list = loadChristmasMessages();
-            const latest = list[list.length - 1];
-            const viewArea = document.getElementById('christmasViewArea');
-            if (!latest || !viewArea) return;
-            viewArea.textContent = latest.text;
-            viewArea.style.display = 'block';
-        }
-
-        function showAllChristmasMessages() {
-            const list = loadChristmasMessages();
-            const container = document.getElementById('christmasMessagesList');
-            if (!container) return;
-            container.innerHTML = '';
-            if (!list.length) {
-                const empty = document.createElement('div');
-                empty.textContent = 'No messages saved yet.';
-                empty.style.fontSize = '13px';
-                empty.style.color = '#555';
-                container.appendChild(empty);
-            } else {
-                list.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'christmas-message-item';
-                    const time = document.createElement('time');
-                    const d = new Date(item.createdAt || Date.now());
-                    time.textContent = d.toLocaleString();
-                    const textEl = document.createElement('div');
-                    textEl.textContent = item.text;
-                    div.appendChild(time);
-                    div.appendChild(textEl);
-                    container.appendChild(div);
-                });
-            }
-            openModal('christmasMessagesList');
-        }
-
-        function handleChristmasEClick() {
-            showAllChristmasMessages();
-        }
-
         // Music Player Functions
         let currentPlayingSong = null;
-        let bgMusicAudio = null;
-        let bgMusicFading = false;
-        let bgMusicShouldPlay = false;
-        let isMiniPanelOpen = false;
-        let canShowMusicMiniButton = false;
-        const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
-        const songTitles = {
-            sabrina: 'SABRINA CARPENTER - WHEN DID YOU GET HOT',
-            positions: 'ARIANA GRANDE - POSITIONS',
-            goodnightngo: 'ARIANA GRANDE - GOODNIGHT N GO',
-            ariintro: 'ARIANA GRANDE - INTRO ( EXTENDED )',
-            aripastlife: 'ARIANA GRANDE - PAST LIFE',
-            ariboyfriend: 'ARIANA GRANDE & SOCIAL HOUSE - BOYFRIEND',
-            breakfree: 'ARIANA GRANDE - BREAK FREE',
-            opalite: 'TAYLOR SWIFT - OPALITE',
-            blankspace: 'TAYLOR SWIFT - BLANK SPACE',
-            slut: 'TAYLOR SWIFT - SLUT!',
-            opheila: 'TAYLOR SWIFT - THE FATE OF OPHELIA',
-            weeknd: 'THE WEEKND - SAVE YOUR TEARS',
-            cooloff: 'NIALL HORAN - TOO MUCH TO ASK',
-            happierthanever: 'BILLIE EILISH - HAPPIER THAN EVER',
-            wavetolove: 'LAUV - I LIKE ME BETTER',
-            superfar: 'LANY - SUPER FAR',
-            backburner: 'NIKI - BACKBURNER',
-            aboutyou: 'THE 1975 - ABOUT YOU',
-            charli360: 'CHARLI XCX - 360',
-            oras: 'CALEIN - ORAS',
-            nailang: 'LE JOHN - NAIILANG',
-            multo: 'CUP OF JOE - MULTO',
-            confident: 'JUSTIN BIEBER - CONFIDENT'
-        };
-
-        function getNextSongId(currentId) {
-            const idx = songIds.indexOf(currentId);
-            if (idx >= 0 && idx < songIds.length - 1) {
-                return songIds[idx + 1];
-            }
-            return null;
-        }
-
-        function getPreviousSongId(currentId) {
-            const idx = songIds.indexOf(currentId);
-            if (idx > 0) {
-                return songIds[idx - 1];
-            }
-            return null;
-        }
-
-        function enableMusicMiniButton() {
-            canShowMusicMiniButton = true;
-            updateMiniMusicUI();
-        }
-
-        function setupBgMusic() {
-            if (bgMusicAudio) return;
-            const audio = new Audio();
-            audio.src = 'Ariana Grande, Mariah Carey, Justin Bieber, Christmas Songs - Christmas Songs Playlist 2022 [G5mPOcjibac].mp3';
-            audio.loop = true;
-            audio.volume = 0;
-            bgMusicAudio = audio;
-        }
-
-        function fadeAudio(audio, targetVolume, duration, callback) {
-            if (!audio) {
-                if (callback) callback();
-                return;
-            }
-            bgMusicFading = true;
-            const startVolume = audio.volume;
-            const startTime = performance.now();
-
-            function step(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const newVolume = startVolume + (targetVolume - startVolume) * progress;
-                audio.volume = Math.max(0, Math.min(1, newVolume));
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    bgMusicFading = false;
-                    if (callback) callback();
-                }
-            }
-
-            requestAnimationFrame(step);
-        }
-
-        function startBgMusic() {
-            setupBgMusic();
-            if (!bgMusicAudio) return;
-            bgMusicShouldPlay = true;
-            if (bgMusicAudio.paused) {
-                const playPromise = bgMusicAudio.play();
-                if (playPromise && playPromise.catch) {
-                    playPromise.catch(() => {});
-                }
-            }
-            fadeAudio(bgMusicAudio, 0.4, 800);
-        }
-
-        function pauseBgMusic(rememberToResume) {
-            if (!bgMusicAudio) return;
-            if (rememberToResume) {
-                bgMusicShouldPlay = true;
-            } else {
-                bgMusicShouldPlay = false;
-            }
-            fadeAudio(bgMusicAudio, 0, 600, () => {
-                if (!bgMusicShouldPlay && bgMusicAudio) {
-                    bgMusicAudio.pause();
-                }
-            });
-        }
-
-        function maybeResumeBgMusic() {
-            if (bgMusicShouldPlay) {
-                startBgMusic();
-            }
-        }
-
-        function updateMiniMusicUI() {
-            const miniButton = document.getElementById('musicMiniButton');
-            const miniTitle = document.getElementById('musicMiniTitle');
-            const miniCard = document.getElementById('musicMiniCard');
-            const panel = document.getElementById('musicMiniPanel');
-            const panelTitle = document.getElementById('musicMiniPanelTitle');
-            const panelBox = document.getElementById('musicMiniPanelSong');
-            const panelControls = document.getElementById('musicMiniPanelControls');
-            const panelTimes = document.getElementById('musicMiniPanelTimes');
-            const panelToggleBtn = document.getElementById('musicMiniPanelToggle');
-            const inlineControls = document.getElementById('musicMiniInlineControls');
-            const inlineToggleBtn = document.getElementById('musicMiniInlineToggle');
-
-            if (!canShowMusicMiniButton) {
-                if (miniButton) miniButton.style.display = 'none';
-                if (panel) panel.style.display = 'none';
-                if (inlineControls) inlineControls.classList.remove('active');
-                return;
-            }
-
-            // Always show the Music button in the upper-right once it's allowed
-            if (miniButton) miniButton.style.display = 'flex';
-
-            const bgPlaying = bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0;
-
-            if (bgPlaying) {
-                if (miniCard) miniCard.classList.add('active');
-                if (miniTitle) {
-                    miniTitle.textContent = 'CHRISTMAS PLAYLIST';
-                    miniTitle.classList.remove('scrolling');
-                }
-                if (panelControls) panelControls.style.display = 'flex';
-                if (panelTimes) panelTimes.style.display = 'flex';
-                if (inlineControls) inlineControls.classList.add('active');
-                if (panelTitle) {
-                    panelTitle.textContent = 'CHRISTMAS PLAYLIST';
-                    panelBox.style.display = 'block';
-                }
-                if (panelToggleBtn) panelToggleBtn.textContent = '⏸️';
-                if (inlineToggleBtn) inlineToggleBtn.textContent = '⏸️';
-            } else {
-                if (miniCard) miniCard.classList.remove('active');
-                if (miniTitle) {
-                    miniTitle.textContent = 'NO MUSIC IS PLAYING RIGHT NOW.';
-                    miniTitle.classList.remove('scrolling');
-                }
-                if (panelControls) panelControls.style.display = 'flex';
-                if (panelTimes) panelTimes.style.display = 'flex';
-                if (inlineControls) inlineControls.classList.add('active');
-                if (panelTitle) {
-                    panelTitle.textContent = 'CURRENTLY NO MUSIC IS PLAYING.';
-                    panelBox.style.display = 'block';
-                }
-                if (panelToggleBtn) panelToggleBtn.textContent = '▶️';
-                if (inlineToggleBtn) inlineToggleBtn.textContent = '▶️';
-                updateMiniPanelTimes('0:00', '0:00');
-            }
-
-            if (panel) {
-                panel.style.display = isMiniPanelOpen ? 'flex' : 'none';
-            }
-        }
-
-        function updateMiniPanelTimes(current, total) {
-            const curEl = document.getElementById('musicMiniCurrentTime');
-            const totalEl = document.getElementById('musicMiniTotalTime');
-            if (curEl) curEl.textContent = current || '0:00';
-            if (totalEl) totalEl.textContent = total || '0:00';
-        }
-
-        function toggleMiniPanel() {
-            const panel = document.getElementById('musicMiniPanel');
-            if (!panel) return;
-            isMiniPanelOpen = !isMiniPanelOpen;
-            panel.style.display = isMiniPanelOpen ? 'flex' : 'none';
-        }
-
-        function miniSkipForward() {
-            if (!currentPlayingSong) return;
-            skipMusic(currentPlayingSong, 5);
-        }
-
-        function miniSkipBackward() {
-            if (!currentPlayingSong) return;
-            skipMusic(currentPlayingSong, -5);
-        }
-
-        function miniTogglePlay() {
-            if (!currentPlayingSong) return;
-            toggleMusic(currentPlayingSong);
-        }
-
-        function miniRestart() {
-            if (!currentPlayingSong) return;
-            restartMusic(currentPlayingSong);
-        }
-
-        function miniNextTrack() {
-            if (!songIds || songIds.length === 0) return;
-            if (!currentPlayingSong) {
-                const firstSongId = songIds[0];
-                if (firstSongId) {
-                    toggleMusic(firstSongId);
-                }
-                return;
-            }
-            const nextId = getNextSongId(currentPlayingSong);
-            if (nextId) {
-                toggleMusic(nextId);
-            }
-        }
-
-        function miniPrevTrack() {
-            if (!currentPlayingSong) return;
-            const prevId = getPreviousSongId(currentPlayingSong);
-            if (prevId) {
-                toggleMusic(prevId);
-            }
-        }
 
         function formatTime(seconds) {
             if (isNaN(seconds)) return '0:00';
@@ -4244,6 +2750,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
         // Set up event handlers for all audio players
         window.addEventListener('load', function() {
+            const songIds = ['sabrina', 'positions', 'goodnightngo', 'ariintro', 'aripastlife', 'ariboyfriend', 'breakfree', 'opalite', 'blankspace', 'slut', 'opheila', 'weeknd', 'cooloff', 'happierthanever', 'wavetolove', 'superfar', 'backburner', 'aboutyou', 'charli360', 'oras', 'nailang', 'multo', 'confident'];
             songIds.forEach(songId => {
                 const audio = document.getElementById('musicPlayer-' + songId);
                 if (audio) {
@@ -4251,9 +2758,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         const totalTimeSpan = document.getElementById('totalTime-' + songId);
                         if (totalTimeSpan) {
                             totalTimeSpan.textContent = formatTime(audio.duration);
-                        }
-                        if (currentPlayingSong === songId) {
-                            updateMiniPanelTimes(formatTime(audio.currentTime), formatTime(audio.duration || 0));
                         }
                     });
 
@@ -4269,26 +2773,15 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             if (totalTimeSpan && totalTimeSpan.textContent === '0:00') {
                                 totalTimeSpan.textContent = formatTime(audio.duration);
                             }
-                            if (currentPlayingSong === songId) {
-                                updateMiniPanelTimes(formatTime(audio.currentTime), formatTime(audio.duration || 0));
-                            }
                         }
                     });
 
                     audio.addEventListener('ended', function() {
                         const playButton = document.querySelector(`button[data-song="${songId}"]`);
-                        const songItem = playButton ? playButton.closest('.song-item') : null;
-                        if (playButton) {
-                            playButton.textContent = '▶️';
-                            playButton.classList.remove('paused', 'playing');
-                        }
-                        if (songItem) songItem.classList.remove('song-playing');
+                        if (playButton) playButton.textContent = '▶️';
                         const progressContainer = document.getElementById('musicProgressContainer-' + songId);
                         if (progressContainer) progressContainer.classList.remove('active');
-                        if (currentPlayingSong === songId) {
-                            currentPlayingSong = null;
-                            updateMiniMusicUI();
-                        }
+                        currentPlayingSong = null;
                     });
 
                     audio.addEventListener('error', function(e) {
@@ -4307,43 +2800,30 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     });
                 }
             });
-            
-            // Setup progress bar seeking after all audio elements are initialized
-            setupProgressBarSeeking();
         });
 
         function toggleMusic(songId) {
             const audio = document.getElementById('musicPlayer-' + songId);
             const playButton = document.querySelector(`button[data-song="${songId}"]`);
             const progressContainer = document.getElementById('musicProgressContainer-' + songId);
-            const songItem = playButton ? playButton.closest('.song-item') : null;
 
             if (!audio || !playButton) return;
-
-            // If any background music is playing, pause it gently while a song is playing
-            if (bgMusicAudio && !bgMusicAudio.paused && audio.paused) {
-                pauseBgMusic(true);
-            }
 
             // If a different song is playing, pause it
             if (currentPlayingSong && currentPlayingSong !== songId) {
                 const prevAudio = document.getElementById('musicPlayer-' + currentPlayingSong);
                 const prevButton = document.querySelector(`button[data-song="${currentPlayingSong}"]`);
                 const prevProgress = document.getElementById('musicProgressContainer-' + currentPlayingSong);
-                const prevSongItem = prevButton ? prevButton.closest('.song-item') : null;
-                
                 if (prevAudio) {
                     prevAudio.pause();
                     prevAudio.currentTime = 0;
                 }
-                if (prevButton) {
-                    prevButton.textContent = '▶️';
-                    prevButton.classList.remove('paused', 'playing');
-                }
-                if (prevSongItem) {
-                    prevSongItem.classList.remove('song-playing');
-                }
+                if (prevButton) prevButton.textContent = '▶️';
                 if (prevProgress) prevProgress.classList.remove('active');
+                const prevBar = document.getElementById('musicProgressBar-' + currentPlayingSong);
+                if (prevBar) prevBar.style.width = '0%';
+                const prevTime = document.getElementById('currentTime-' + currentPlayingSong);
+                if (prevTime) prevTime.textContent = '0:00';
             }
 
             if (audio.paused) {
@@ -4353,41 +2833,25 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     playPromise.then(() => {
                         // Audio started playing successfully
                         playButton.textContent = '⏸️';
-                        playButton.classList.remove('playing');
-                        playButton.classList.add('paused');
-                        if (songItem) songItem.classList.add('song-playing');
                         if (progressContainer) progressContainer.classList.add('active');
                         currentPlayingSong = songId;
-                        updateMiniMusicUI();
                     }).catch(error => {
                         // Auto-play was prevented or failed
                         console.error('Error playing audio:', error);
                         alert('Unable to play audio. Please click the play button again or check if the file exists.');
                         playButton.textContent = '▶️';
-                        playButton.classList.remove('paused', 'playing');
-                        if (songItem) songItem.classList.remove('song-playing');
                     });
                 } else {
                     // Fallback for older browsers
                     playButton.textContent = '⏸️';
-                    playButton.classList.remove('playing');
-                    playButton.classList.add('paused');
-                    if (songItem) songItem.classList.add('song-playing');
                     if (progressContainer) progressContainer.classList.add('active');
                     currentPlayingSong = songId;
-                    updateMiniMusicUI();
                 }
             } else {
                 audio.pause();
-                audio.currentTime = 0;
                 playButton.textContent = '▶️';
-                playButton.classList.remove('paused', 'playing');
-                if (songItem) songItem.classList.remove('song-playing');
                 if (progressContainer) progressContainer.classList.remove('active');
                 currentPlayingSong = null;
-                updateMiniMusicUI();
-                // If no song from favorites is playing anymore, resume background music if it should play
-                maybeResumeBgMusic();
             }
         }
 
@@ -4409,102 +2873,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
-        // Make progress bars clickable and draggable
-        function setupProgressBarSeeking() {
-            songIds.forEach(songId => {
-                const progressWrapper = document.getElementById('musicProgressContainer-' + songId);
-                if (!progressWrapper) return;
-                
-                const progressBarWrapper = progressWrapper.querySelector('.music-progress-bar-wrapper');
-                const progressBar = document.getElementById('musicProgressBar-' + songId);
-                const audio = document.getElementById('musicPlayer-' + songId);
-                
-                if (!progressBarWrapper || !progressBar || !audio) return;
-                
-                let isDragging = false;
-                
-                function seekToPosition(event) {
-                    if (!audio.duration) return;
-                    
-                    const rect = progressBarWrapper.getBoundingClientRect();
-                    const clickX = event.clientX - rect.left;
-                    const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
-                    const newTime = (percentage / 100) * audio.duration;
-                    
-                    audio.currentTime = newTime;
-                    progressBar.style.width = percentage + '%';
-                    
-                    const currentTimeSpan = document.getElementById('currentTime-' + songId);
-                    if (currentTimeSpan) {
-                        currentTimeSpan.textContent = formatTime(newTime);
-                    }
-                }
-                
-                progressBarWrapper.addEventListener('mousedown', function(e) {
-                    isDragging = true;
-                    progressBarWrapper.classList.add('dragging');
-                    seekToPosition(e);
-                });
-                
-                document.addEventListener('mousemove', function(e) {
-                    if (isDragging) {
-                        seekToPosition(e);
-                    }
-                });
-                
-                document.addEventListener('mouseup', function() {
-                    if (isDragging) {
-                        isDragging = false;
-                        progressBarWrapper.classList.remove('dragging');
-                    }
-                });
-                
-                // Also handle touch events for mobile
-                progressBarWrapper.addEventListener('touchstart', function(e) {
-                    isDragging = true;
-                    progressBarWrapper.classList.add('dragging');
-                    const touch = e.touches[0];
-                    const fakeEvent = {
-                        clientX: touch.clientX,
-                        clientY: touch.clientY
-                    };
-                    seekToPosition(fakeEvent);
-                    e.preventDefault();
-                });
-                
-                document.addEventListener('touchmove', function(e) {
-                    if (isDragging) {
-                        const touch = e.touches[0];
-                        const fakeEvent = {
-                            clientX: touch.clientX,
-                            clientY: touch.clientY
-                        };
-                        seekToPosition(fakeEvent);
-                        e.preventDefault();
-                    }
-                });
-                
-                document.addEventListener('touchend', function() {
-                    if (isDragging) {
-                        isDragging = false;
-                        progressBarWrapper.classList.remove('dragging');
-                    }
-                });
-            });
-        }
-
         function toggleDisclaimer() {
             const disclaimer = document.getElementById('musicDisclaimer');
-            const infoButton = document.querySelector('.music-info-button');
             if (disclaimer) {
-                const isShowing = disclaimer.classList.toggle('show');
-                if (infoButton) {
-                    if (isShowing) {
-                        infoButton.classList.add('active');
-                    } else {
-                        infoButton.classList.remove('active');
-                    }
-                }
+                disclaimer.classList.toggle('show');
             }
         }
 
@@ -4607,12 +2979,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         const playButton = document.querySelector(`button[data-song="${currentPlayingSong}"]`);
                         if (audio && !audio.paused) {
                             audio.pause();
-                            const songItem = playButton ? playButton.closest('.song-item') : null;
-                            if (playButton) {
-                                playButton.textContent = '▶️';
-                                playButton.classList.remove('paused', 'playing');
-                            }
-                            if (songItem) songItem.classList.remove('song-playing');
+                            if (playButton) playButton.textContent = '▶️';
                         }
                     }
                 }
@@ -4790,19 +3157,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             const playButton = document.querySelector(`button[data-song="${currentPlayingSong}"]`);
                             if (audio && !audio.paused) {
                                 audio.pause();
-                                const songItem = playButton ? playButton.closest('.song-item') : null;
-                                if (playButton) {
-                                    playButton.textContent = '▶️';
-                                    playButton.classList.remove('paused', 'playing');
-                                }
-                                if (songItem) songItem.classList.remove('song-playing');
+                                if (playButton) playButton.textContent = '▶️';
                             }
                         }
                         closeModal('music');
-                    } else if (modal.id === 'singerModal') {
-                        closeModal('singer');
-                    } else if (modal.id === 'updatesModal') {
-                        closeModal('updates');
                     }
                 });
             }
