@@ -17,6 +17,10 @@
             color: #333333;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
+            -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
         html {
@@ -25,6 +29,12 @@
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+
+        body {
+            -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
         }
 
         /* Loading Screen */
@@ -220,6 +230,9 @@
             letter-spacing: 1px;
             position: relative;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
         }
 
         .main-button::before {
@@ -298,7 +311,7 @@
             letter-spacing: 0.5px;
             color: #b71c1c;
             cursor: pointer;
-            text-decoration: underline;
+            text-decoration: none;
             transition: color 0.2s ease;
             pointer-events: auto;
             position: relative;
@@ -1063,8 +1076,52 @@
                 line-height: 1.5;
             }
 
+            .main-content {
+                min-height: 100vh;
+                padding: 20px 15px;
+                justify-content: flex-start;
+                padding-top: 60px;
+                padding-bottom: 180px;
+            }
+
+            .button-container {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                gap: 20px;
+            }
+
             .main-button {
                 font-size: 18px;
+                width: 100%;
+                max-width: 100%;
+                padding: 16px 30px;
+            }
+
+            .update-button-container {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            .warning-message {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 20px auto 0;
+                padding: 12px 20px;
+                font-size: 12px;
             }
 
             .modal-title {
@@ -1074,6 +1131,17 @@
             .info-label,
             .info-value {
                 font-size: 14px;
+            }
+
+            .christmas-message-link-wrapper {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .christmas-message-link {
+                width: 100%;
+                padding: 12px;
+                font-size: 11px;
             }
         }
 
@@ -1198,6 +1266,9 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
         }
 
         .btn-exit {
@@ -2134,13 +2205,13 @@
         @media (max-width: 768px) {
             .modal-box {
                 width: 95%;
-                padding: 30px 20px;
+                padding: 25px 18px;
                 min-height: 70vh;
+                max-height: 90vh;
             }
 
-
             .modal-title {
-                font-size: 28px;
+                font-size: 24px;
                 margin-bottom: 15px;
             }
 
@@ -2152,11 +2223,6 @@
                 font-size: 12px;
             }
 
-            .main-button {
-                padding: 15px 40px;
-                font-size: 18px;
-            }
-
             .modal-buttons {
                 flex-direction: column;
                 gap: 10px;
@@ -2164,6 +2230,8 @@
 
             .modal-action-button {
                 width: 100%;
+                padding: 12px 25px;
+                font-size: 15px;
             }
 
             .progress-container {
@@ -2200,10 +2268,113 @@
             .back-button-box {
                 padding: 12px;
             }
+
+            .modal-content {
+                max-height: calc(90vh - 150px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-right: 5px;
+            }
+
+            .favorites-grid {
+                gap: 15px;
+            }
+
+            .favorite-card {
+                padding: 20px 15px;
+            }
+
+            .favorite-title {
+                font-size: 18px;
+            }
+
+            .favorite-description {
+                font-size: 13px;
+            }
         }
 
-        /* Portrait Orientation Styles */
-        @media (orientation: portrait) {
+        /* Portrait Orientation Styles - Mobile */
+        @media (orientation: portrait) and (max-width: 768px) {
+            .main-content {
+                justify-content: flex-start;
+                padding: 20px 15px;
+                padding-top: 50px;
+                padding-bottom: 200px;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .button-container {
+                width: 100%;
+                max-width: 100%;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: 0 auto;
+                gap: 20px;
+            }
+
+            .main-button {
+                width: 100%;
+                max-width: 100%;
+                padding: 16px 25px;
+                font-size: 17px;
+            }
+
+            .update-button-container {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+
+            .warning-message {
+                width: 100%;
+                max-width: 100%;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin: 20px auto 0;
+                padding: 12px 18px;
+                font-size: 11px;
+            }
+
+            .modal-box {
+                width: 95%;
+                max-height: 90vh;
+                padding: 25px 18px;
+                margin: 10px auto;
+            }
+
+            .favorites-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .modal-title {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .modal-content {
+                max-height: calc(90vh - 150px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .christmas-message-link {
+                font-size: 10px;
+                padding: 10px;
+            }
+        }
+
+        /* Portrait Orientation Styles - Desktop */
+        @media (orientation: portrait) and (min-width: 769px) {
             .main-content {
                 justify-content: center;
                 padding-top: 40px;
@@ -2246,8 +2417,94 @@
             }
         }
 
-        /* Landscape Orientation Styles */
-        @media (orientation: landscape) {
+        /* Landscape Orientation Styles - Mobile */
+        @media (orientation: landscape) and (max-width: 768px) {
+            .main-content {
+                justify-content: flex-start;
+                min-height: 100vh;
+                padding: 15px 10px;
+                padding-top: 40px;
+                padding-bottom: 150px;
+                overflow-y: auto;
+            }
+
+            .button-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .main-button {
+                flex: 1 1 calc(50% - 10px);
+                min-width: 140px;
+                max-width: 200px;
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+
+            .update-button-container {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 20px;
+                margin-bottom: 15px;
+            }
+
+            .warning-message {
+                width: 100%;
+                max-width: 100%;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin: 15px auto 0;
+                padding: 10px 15px;
+                font-size: 10px;
+            }
+
+            .modal-box {
+                max-height: 95vh;
+                padding: 20px 15px;
+                width: 98%;
+            }
+
+            .favorites-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .modal-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .modal-content {
+                max-height: calc(95vh - 120px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .progress-container {
+                bottom: 15%;
+            }
+
+            .christmas-message-link {
+                font-size: 9px;
+                padding: 8px;
+            }
+        }
+
+        /* Landscape Orientation Styles - Desktop */
+        @media (orientation: landscape) and (min-width: 769px) {
             .main-content {
                 justify-content: center;
                 min-height: 100vh;
@@ -2294,57 +2551,76 @@
             }
         }
 
-        /* Landscape on mobile devices */
-        @media (orientation: landscape) and (max-height: 500px) {
+        /* Landscape on mobile devices with low height */
+        @media (orientation: landscape) and (max-height: 500px) and (max-width: 768px) {
             .main-content {
-                padding: 10px;
+                padding: 8px 10px;
+                padding-top: 30px;
+                padding-bottom: 120px;
+                min-height: 100vh;
+                overflow-y: auto;
             }
 
             .button-container {
-                gap: 15px;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                gap: 12px;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin: 0 auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .update-button-container {
-                position: static;
+                position: relative;
                 transform: none;
                 bottom: auto;
                 width: 100%;
                 justify-content: center;
-                margin-top: 20px;
+                margin-top: 15px;
+                margin-bottom: 10px;
                 pointer-events: auto;
             }
 
             .main-button {
-                padding: 12px 30px;
-                font-size: 16px;
+                padding: 10px 20px;
+                font-size: 14px;
+                flex: 1 1 calc(50% - 8px);
+                min-width: 120px;
+                max-width: 180px;
             }
 
             .btn-updates {
-                padding: 8px 22px;
-                font-size: 14px;
+                padding: 8px 18px;
+                font-size: 12px;
+            }
+
+            .warning-message {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 12px auto 0;
+                padding: 8px 12px;
+                font-size: 9px;
             }
 
             .modal-updates .modal-content,
             .modal-singer .modal-content {
                 max-height: calc(100vh - 40px);
-                padding: 15px 20px;
+                padding: 12px 15px;
             }
 
             .music-list,
             .updates-scroll-body,
             .singer-modal-content {
                 max-height: calc(100vh - 80px);
-                padding: 10px 18px 20px 10px;
-            }
-
-            .warning-message {
-                padding: 10px 15px;
-                font-size: 12px;
-                bottom: 20px;
+                padding: 8px 15px 15px 8px;
             }
 
             .modal-box {
@@ -2353,7 +2629,7 @@
                 height: 100vh;
                 max-height: 100vh;
                 min-height: 100vh;
-                padding: 0;
+                padding: 10px;
                 border-radius: 0;
                 margin: 0;
             }
@@ -2362,14 +2638,20 @@
             .modal-singer .modal-box,
             .modal-music .modal-box,
             .modal-gaming .modal-box {
-                padding: 0;
+                padding: 10px;
                 margin: 0;
                 border-radius: 0;
             }
 
             .modal-title {
-                font-size: 18px;
-                margin-bottom: 8px;
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+
+            .modal-content {
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .modal-content {
@@ -2453,14 +2735,14 @@
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
+    <div class="loading-screen" id="loadingScreen" style="cursor: pointer;">
         <div class="progress-container">
-            <div class="loading-text">Loading<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
-            <div class="loading-percentage" id="loadingPercentage">0%</div>
-            <div class="progress-bar-wrapper">
+            <div class="loading-text" id="loadingText" style="display: none;">Loading<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+            <div class="loading-percentage" id="loadingPercentage" style="display: none;">0%</div>
+            <div class="progress-bar-wrapper" id="progressBarWrapper" style="display: none;">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <div class="loading-message" id="loadingMessage"></div>
+            <div class="loading-message" id="loadingMessage" style="display: none;"></div>
         </div>
     </div>
 
@@ -2474,7 +2756,7 @@
             <div class="christmas-message-link-wrapper" id="christmasLinkWrapper">
                 <div class="christmas-message-link" onclick="openModal('christmasMessage')">
                     <span class="christmas-warning-btn" onclick="toggleChristmasWarning(event); event.stopPropagation();" title="YOU CAN ONLY SEND 1 MESSAGE">!</span>
-                    CHRISTMAS MESSAGE FOR M<span class="clickable-e-refresh" onclick="event.stopPropagation(); handleChristmasERefresh();" style="cursor: pointer; text-decoration: none;">E</span>
+                    CHRISTMAS MESSAGE FOR <span style="white-space: nowrap;">ME</span>
                 </div>
             </div>
             <div id="comingSoonMainLink" class="christmas-message-link-wrapper" style="display:none;">
@@ -2508,12 +2790,6 @@
             <div class="music-mini-text-wrapper">
                 <span id="musicMiniTitle" class="music-mini-title"></span>
                 <span id="musicMiniNext" class="music-mini-subtext"></span>
-            </div>
-            <div class="music-mini-inline-controls" id="musicMiniInlineControls">
-                <div class="music-mini-inline-btn" role="button" onclick="miniSkipForward()">+5s</div>
-                <div class="music-mini-inline-btn" role="button" onclick="miniSkipBackward()">-5s</div>
-                <div id="musicMiniInlineToggle" class="music-mini-inline-btn" role="button" onclick="miniTogglePlay()">⏸️</div>
-                <div class="music-mini-inline-btn" role="button" onclick="miniRestart()">🔄</div>
             </div>
         </div>
     </button>
@@ -2738,21 +3014,38 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-description">i can't live without my fav singers😭.</div>
                     </div>
                     <div class="favorite-card clickable" id="comingSoonCard" onclick="showComingSoon()">
-                        <div class="favorite-icon">🎄</div>
-                        <div class="favorite-title">Christmas</div>
+                        <div class="favorite-icon">🕑</div>
+                        <div class="favorite-title">Coming Soon</div>
                         <div class="favorite-description">Stay tuned for updates</div>
-                        <div id="christmasMessageLinkInComingSoon" style="display:none; margin-top: 12px;">
-                            <div style="background: white; border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0;">
-                                <div class="christmas-message-link" onclick="event.stopPropagation(); openModal('christmasMessage');" style="font-size: 12px; padding: 8px 12px;">
-                                    <span class="christmas-warning-btn" onclick="toggleChristmasWarning(event); event.stopPropagation();" title="YOU CAN ONLY SEND 1 MESSAGE">!</span>
-                                    CHRISTMAS MESSAGE FOR M<span class="clickable-e-refresh" onclick="event.stopPropagation(); handleChristmasERefresh();" style="cursor: pointer; text-decoration: none;">E</span>
+                        <div id="christmasMessageBoxInFavorites" style="display:none; margin-top: 20px;">
+                            <div style="background: rgb(170, 1, 1); border-radius: 12px; padding: 20px; border: 2px solid #b40202; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <h3 style="text-align: center; color: #b71c1c; margin-bottom: 15px; font-size: 18px; font-weight: 600;">YOUR CHRISTMAS MESSAGE</h3>
+                                <textarea
+                                    id="christmasMessageInputFavorites"
+                                    class="christmas-textarea"
+                                    placeholder="Insert message here"
+                                    style="width: 100%; min-height: 120px; margin-bottom: 10px;"
+                                    oninput="handleChristmasMessageInputFavorites()"
+                                ></textarea>
+                                <div class="christmas-counter-row" style="margin-bottom: 10px;">
+                                    <span style="font-size: 12px;">Letter Limit: 1000</span>
+                                    <span id="christmasWordCounterFavorites" class="christmas-word-counter" style="font-size: 12px;">0 / 1000</span>
                                 </div>
+                                <button type="button" class="christmas-submit-btn" onclick="submitChristmasMessageFromFavorites()" style="width: 100%; margin-bottom: 10px;">Submit</button>
+                                <button type="button" id="christmasViewBtnFavorites" class="christmas-view-btn" onclick="viewLatestChristmasMessageFromFavorites()" style="width: 100%; display: none;">
+                                    VIEW YOUR MESSAGE
+                                </button>
+                                <div id="christmasViewAreaFavorites" class="christmas-message-display" style="margin-top:12px; display:none; position: relative;">
+                                    <div id="christmasMessageContentFavorites"></div>
+                                </div>
+                                <div id="christmasErrorMsgFavorites" class="christmas-error-message" style="display:none; margin-top: 10px;">YOU CAN ONLY SEND A MESSAGE ONCE</div>
+                                <h2 style="text-align: center; color: #b40202; margin-bottom: 15px;">YOU CAN ONLY SEND MESSAGE ONCE</h2>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="christmasMessageDisplay" style="display:none; margin-top: 30px; padding: 20px; background: #fff5f5; border-radius: 12px; border: 2px solid #ffcdd2;">
-                    <h2 style="text-align: center; color: #b71c1c; margin-bottom: 15px;">Your Christmas Message</h2>
+                    <h3 style="text-align: center; color: #b71c1c; margin-bottom: 15px;">Your Christmas Message</h3>
                     <div id="userChristmasMessage" class="christmas-message-display" style="min-height: 100px; max-height: 300px;"></div>
                 </div>
                 <div class="modal-buttons">
@@ -3393,7 +3686,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             <button class="close-button" onclick="closeModal('christmasMessage')" title="Close">×</button>
             <button class="christmas-hidden-button" onclick="showAllChristmasMessages()" aria-hidden="true"></button>
             <div class="christmas-modal-title">
-                CHRI<span class="clickable-s" onclick="handleChristmasSClick(); adminClickHandler();">S</span>TMAS MESSAGE FOR M<span class="clickable-e" onclick="handleChristmasERefresh()">E</span>
+                CHRI<span class="clickable-s" onclick="christmasSClickHandler();">S</span>TMAS MESSAGE FOR <span style="white-space: nowrap;">ME</span>
             </div>
             <textarea
                 id="christmasMessageInput"
@@ -3410,7 +3703,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 VIEW YOUR MESSAGE
             </button>
             <div id="christmasViewArea" class="christmas-message-display" style="margin-top:12px; display:none; position: relative;">
-                <button class="christmas-message-close-btn" onclick="closeChristmasMessageView()" title="Close">×</button>
                 <div id="christmasMessageContent"></div>
             </div>
             <div id="christmasErrorMsg" class="christmas-error-message" style="display:none;">YOU CAN ONLY SEND A MESSAGE ONCE</div>
@@ -3501,14 +3793,14 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         </p>
                     </div>
 
+                    <p style="margin-top: 20px;"><strong>🚫 BUGS AND ERRORS</strong></p>
+                    <P>My sincerely apologies for the errors and bugs. I'm currently working on fixing them.</p>
+                    <p>It's just a bit difficult since I have school and we have our research defense going on right now, but I will fix everything as soon as I'm free again.</p>
+                    <p></p>Thank you for understanding and see you soon...</p>
+
                     <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
                     <p>I received you all response on my form and most of it i applied it here</p>
                     <p>Thank you so much for taking the time answering the form💖</p>
-                
-                    <p style="margin-top: 20px;"><strong>🚫Bug and Errors...</strong></p>
-                    <p>My sincerely apologies for the errors and bugs. I'm currently working on fixing them.</p>
-                    <p>It's just a bit difficult since I have school and we have our research defense going on right now, but I will fix everything as soon as I'm free again.</p>
-                    <p>Thank you for understanding and see you soon...</p>
                 </div>
             </div>
         </div>
@@ -3700,10 +3992,68 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const loadingPercentage = document.getElementById('loadingPercentage');
             const progressBar = document.getElementById('progressBar');
             const loadingMessage = document.getElementById('loadingMessage');
+            const clickToStartMessage = document.getElementById('clickToStartMessage');
+            const loadingText = document.getElementById('loadingText');
+            const progressBarWrapper = document.getElementById('progressBarWrapper');
             const duration = 15000; // 15 seconds
             const updateInterval = 30; // Update every 30ms for smooth animation
             const totalSteps = duration / updateInterval;
             let currentStep = 0;
+            let loadingStarted = false;
+            
+            // Function to start loading when clicked
+            function startLoading() {
+                if (loadingStarted) return;
+                loadingStarted = true;
+                
+                // Hide click to start message
+                if (clickToStartMessage) {
+                    clickToStartMessage.style.display = 'none';
+                }
+                
+                // Show loading elements
+                if (loadingText) loadingText.style.display = 'block';
+                if (loadingPercentage) loadingPercentage.style.display = 'block';
+                if (progressBarWrapper) progressBarWrapper.style.display = 'block';
+                if (loadingMessage) loadingMessage.style.display = 'block';
+                
+                // Start the loading animation
+                startMessageRotation();
+                updatePercentage();
+            }
+            
+            // Add click event to loading screen (make sure it works)
+            if (loadingScreen) {
+                loadingScreen.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    startLoading();
+                });
+                loadingScreen.style.cursor = 'pointer';
+                
+                // Also add click to the message itself
+                if (clickToStartMessage) {
+                    clickToStartMessage.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        startLoading();
+                    });
+                }
+            }
+            
+            // Also allow keyboard to start loading (press any key)
+            document.addEventListener('keydown', function(e) {
+                if (!loadingStarted) {
+                    startLoading();
+                }
+            });
+            
+            // Fallback: Auto-start after 0.5 seconds if user hasn't clicked
+            setTimeout(function() {
+                if (!loadingStarted) {
+                    startLoading();
+                }
+            }, 500);
             const introBox = document.getElementById('introBox');
             const introSkip = document.getElementById('introSkip');
             let introHideTimer = null;
@@ -3914,9 +4264,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             }
             
-            // Start the loading animation and message rotation
-            startMessageRotation();
-            updatePercentage();
+            // Don't start loading automatically - wait for user click
+            // Loading will start when user clicks on the loading screen
 
             function formatDhms(totalSeconds) {
                 const days = Math.floor(totalSeconds / 86400);
@@ -4068,13 +4417,15 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 if (type === 'about') {
                     setTimeout(initializeDescriptions, 300);
                     
-                    // Show Christmas message link in Coming Soon if timer hit zero
+                    // Show Christmas message box in Favorites if timer hit zero or admin
                     const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
                     const countdownDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
-                    if (countdownDone) {
-                        const christmasMessageLinkInComingSoon = document.getElementById('christmasMessageLinkInComingSoon');
-                        if (christmasMessageLinkInComingSoon) {
-                            christmasMessageLinkInComingSoon.style.display = 'block';
+                    const adminAccess = localStorage.getItem(ADMIN_ACCESS_KEY) === 'true';
+                    if (countdownDone || adminAccess) {
+                        const christmasMessageBoxInFavorites = document.getElementById('christmasMessageBoxInFavorites');
+                        if (christmasMessageBoxInFavorites) {
+                            christmasMessageBoxInFavorites.style.display = 'block';
+                            initializeChristmasBoxInFavorites();
                         }
                     }
                 }
@@ -4085,15 +4436,37 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     const textarea = document.getElementById('christmasMessageInput');
                     const submitBtn = document.querySelector('.christmas-submit-btn');
                     const errorMsg = document.getElementById('christmasErrorMsg');
+                    const viewBtn = document.getElementById('christmasViewBtn');
+                    const viewArea = document.getElementById('christmasViewArea');
+                    const messageContent = document.getElementById('christmasMessageContent');
                     
                     if (hasSubmitted) {
                         if (textarea) textarea.disabled = true;
                         if (submitBtn) submitBtn.disabled = true;
                         if (errorMsg) errorMsg.style.display = 'none';
+                        
+                        // Automatically load and show user's message when modal opens
+                        if (viewBtn && viewArea && messageContent) {
+                            const userId = getUserId();
+                            const list = loadChristmasMessages();
+                            const userMessage = list.find(msg => msg.userId === userId);
+                            
+                            if (userMessage) {
+                                // Pre-load the message content (but don't auto-show, let user click to view)
+                                messageContent.textContent = userMessage.text;
+                                viewBtn.style.display = 'block';
+                                viewArea.style.display = 'none'; // Hidden by default, user clicks to view
+                            } else {
+                                viewBtn.style.display = 'block';
+                                viewArea.style.display = 'none';
+                            }
+                        }
                     } else {
                         if (textarea) textarea.disabled = false;
                         if (submitBtn) submitBtn.disabled = false;
                         if (errorMsg) errorMsg.style.display = 'none';
+                        if (viewBtn) viewBtn.style.display = 'none';
+                        if (viewArea) viewArea.style.display = 'none';
                     }
                 }
             }
@@ -4158,37 +4531,18 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
         // Coming soon message using same overlay
         function showComingSoon() {
-            const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
-            const countdownDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
-            const isPreviewUnlocked = checkPreviewUnlock();
-            const adminAccess = localStorage.getItem(ADMIN_ACCESS_KEY) === 'true';
-            
-            // Admin access unlocks Coming Soon in About Me modal only
-            if (countdownDone || isPreviewUnlocked || adminAccess) {
-                // Show user's Christmas message
-                displayUserChristmasMessage();
-                
-                // Show Christmas message link in Coming Soon if timer hit zero
-                if (countdownDone) {
-                    const christmasMessageLinkInComingSoon = document.getElementById('christmasMessageLinkInComingSoon');
-                    if (christmasMessageLinkInComingSoon) {
-                        christmasMessageLinkInComingSoon.style.display = 'block';
-                    }
-                }
+            // Always show "stay tuned" message when clicking Coming Soon
+            const overlay = document.getElementById('unavailableOverlay');
+            const message = document.getElementById('unavailableMessage');
+            if (overlay && message) {
+                const msgText = message.querySelector('div');
+                if (msgText) msgText.textContent = 'stay tuned';
+                overlay.classList.add('show');
+                message.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
             } else {
-                // Show coming soon message
-                const overlay = document.getElementById('unavailableOverlay');
-                const message = document.getElementById('unavailableMessage');
-                if (overlay && message) {
-                    const msgText = message.querySelector('div');
-                    if (msgText) msgText.textContent = 'coming soon stay tuned';
-                    overlay.classList.add('show');
-                    message.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                    document.documentElement.style.overflow = 'hidden';
-                } else {
-                    alert('coming soon stay tuned');
-                }
+                alert('stay tuned');
             }
         }
         
@@ -4248,17 +4602,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
         
         function unlockComingSoonPreview() {
-            // Hide Christmas message link
-            const christmasLinkWrapper = document.getElementById('christmasLinkWrapper');
-            if (christmasLinkWrapper) {
-                christmasLinkWrapper.style.display = 'none';
-            }
-            
-            // Show Coming Soon link
-            const comingSoonLink = document.getElementById('comingSoonMainLink');
-            if (comingSoonLink) {
-                comingSoonLink.style.display = 'flex';
-            }
+            // Preview unlock only unlocks Coming Soon in About Me modal, NOT main menu
+            // Main menu only changes when timer hits zero or admin (handled by unlockChristmasFeatures)
+            // This function is for temporary preview access only - no main menu changes
+            // The showComingSoon() function will handle showing the Christmas box in Favorites
         }
         
         // Admin access unlocks Coming Soon in About Me modal only, not main menu
@@ -4266,9 +4613,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         function lockComingSoonPreview() {
             const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
             const countdownDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
+            const adminAccess = localStorage.getItem(ADMIN_ACCESS_KEY) === 'true';
             
-            if (!countdownDone) {
-                // Hide Coming Soon link if main timer hasn't hit 0
+            // Only lock if timer hasn't hit 0 and not admin
+            // Main menu should only change when timer hits zero or admin
+            if (!countdownDone && !adminAccess) {
+                // Hide Coming Soon link if main timer hasn't hit 0 and not admin
                 const comingSoonLink = document.getElementById('comingSoonMainLink');
                 if (comingSoonLink) {
                     comingSoonLink.style.display = 'none';
@@ -4284,7 +4634,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         
         // Admin function to view all messages
         function checkAdminAccess() {
-            // Secret admin code: Click the S in CHRISTMAS 5 times quickly
+            // Secret admin code: Click the S in CHRISTMAS 10 times quickly (only for admin)
             let clickCount = 0;
             let lastClickTime = 0;
             const clickWindow = 3000; // 3 seconds window
@@ -4297,7 +4647,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 clickCount++;
                 lastClickTime = now;
                 
-                if (clickCount >= 5) {
+                if (clickCount >= 10) {
                     localStorage.setItem(ADMIN_ACCESS_KEY, 'true');
                     showAdminPanel();
                     // Admin access granted - Coming Soon will be unlocked in About Me modal only
@@ -4305,14 +4655,41 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             };
         }
+
+        // Click handler for regular clickable letters (requires 3 clicks)
+        function createClickableLetterHandler(actionFunction) {
+            let clickCount = 0;
+            let lastClickTime = 0;
+            const clickWindow = 3000; // 3 seconds window
+            
+            return function() {
+                const now = Date.now();
+                if (now - lastClickTime > clickWindow) {
+                    clickCount = 0;
+                }
+                clickCount++;
+                lastClickTime = now;
+                
+                if (clickCount >= 3) {
+                    actionFunction();
+                    clickCount = 0;
+                }
+            };
+        }
         
         const adminClickHandler = checkAdminAccess();
+        
+        // Create click handlers for clickable letters (3 clicks required)
+        const christmasSClickHandler = createClickableLetterHandler(function() {
+            handleChristmasSClick();
+            adminClickHandler(); // Also check for admin (10 clicks)
+        });
         
         function showAdminPanel() {
             // Check if admin access is granted
             const adminAccess = localStorage.getItem(ADMIN_ACCESS_KEY) === 'true';
             if (!adminAccess) {
-                alert('Admin access required. Click the S in CHRISTMAS 5 times quickly to gain access.');
+                alert('Admin access required. Click the S in CHRISTMAS 10 times quickly to gain access.');
                 return;
             }
             
@@ -4368,22 +4745,30 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
         
         function unlockChristmasFeatures() {
-            // Hide Christmas message link wrapper from main menu
-            const christmasLinkWrapper = document.getElementById('christmasLinkWrapper');
-            if (christmasLinkWrapper) {
-                christmasLinkWrapper.style.display = 'none';
-            }
+            const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
+            const countdownDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
+            const adminAccess = localStorage.getItem(ADMIN_ACCESS_KEY) === 'true';
             
-            // Show Coming Soon link in its place on main menu
-            const comingSoonLink = document.getElementById('comingSoonMainLink');
-            if (comingSoonLink) {
-                comingSoonLink.style.display = 'flex';
-            }
-            
-            // Show Christmas message link in Coming Soon section of About Me
-            const christmasMessageLinkInComingSoon = document.getElementById('christmasMessageLinkInComingSoon');
-            if (christmasMessageLinkInComingSoon) {
-                christmasMessageLinkInComingSoon.style.display = 'block';
+            // Only change "coming soon" to "christmas" when timer hits zero or admin
+            if (countdownDone || adminAccess) {
+                // Hide Christmas message link wrapper from main menu
+                const christmasLinkWrapper = document.getElementById('christmasLinkWrapper');
+                if (christmasLinkWrapper) {
+                    christmasLinkWrapper.style.display = 'none';
+                }
+                
+                // Show Coming Soon link in its place on main menu
+                const comingSoonLink = document.getElementById('comingSoonMainLink');
+                if (comingSoonLink) {
+                    comingSoonLink.style.display = 'flex';
+                }
+                
+                // Show Christmas message box in Coming Soon section of About Me
+                const christmasMessageBoxInFavorites = document.getElementById('christmasMessageBoxInFavorites');
+                if (christmasMessageBoxInFavorites) {
+                    christmasMessageBoxInFavorites.style.display = 'block';
+                    initializeChristmasBoxInFavorites();
+                }
             }
         }
         
@@ -4438,7 +4823,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
-        // Clear all saved Christmas messages
+        // Clear all saved Christmas messages (only used for admin/testing purposes)
         function clearChristmasMessages() {
             try {
                 localStorage.removeItem(CHRISTMAS_MESSAGES_KEY);
@@ -4447,8 +4832,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
-        // Clear saved messages on page load
-        clearChristmasMessages();
+        // Messages now persist forever - removed auto-clear on page load for privacy
 
         function handleChristmasMessageInput() {
             const textarea = document.getElementById('christmasMessageInput');
@@ -4468,6 +4852,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const textarea = document.getElementById('christmasMessageInput');
             const viewBtn = document.getElementById('christmasViewBtn');
             const viewArea = document.getElementById('christmasViewArea');
+            const messageContent = document.getElementById('christmasMessageContent');
             const counterEl = document.getElementById('christmasWordCounter');
             const errorMsg = document.getElementById('christmasErrorMsg');
             const submitBtn = document.querySelector('.christmas-submit-btn');
@@ -4492,11 +4877,25 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
             const list = loadChristmasMessages();
             const userId = getUserId();
-            list.push({
-                text,
-                userId: userId,
-                createdAt: new Date().toISOString()
-            });
+            
+            // Check if user already has a message and update it, otherwise create new one
+            const existingMessageIndex = list.findIndex(msg => msg.userId === userId);
+            if (existingMessageIndex !== -1) {
+                // Update existing message
+                list[existingMessageIndex] = {
+                    text,
+                    userId: userId,
+                    createdAt: list[existingMessageIndex].createdAt, // Keep original creation date
+                    updatedAt: new Date().toISOString()
+                };
+            } else {
+                // Create new message
+                list.push({
+                    text,
+                    userId: userId,
+                    createdAt: new Date().toISOString()
+                });
+            }
             saveChristmasMessages(list);
             
             // Mark as submitted
@@ -4507,14 +4906,27 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             textarea.placeholder = 'Insert message here...';
             if (counterEl) counterEl.textContent = '0 / 1000';
             
-            // Disable textarea and submit button
+            // Disable textarea and submit button (permanently disabled after submission)
             textarea.disabled = true;
-            if (submitBtn) submitBtn.disabled = true;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.style.pointerEvents = 'none';
+                submitBtn.style.opacity = '0.6';
+                submitBtn.style.cursor = 'not-allowed';
+            }
             
             // Keep view button always visible (don't hide it)
             if (viewBtn) viewBtn.style.display = 'block';
-            // Don't auto-show the message area, let user click button to view
-            if (viewArea) viewArea.style.display = 'none';
+            // Pre-load message content but don't auto-show, let user click button to view
+            if (viewArea && messageContent) {
+                const userId = getUserId();
+                const updatedList = loadChristmasMessages();
+                const userMessage = updatedList.find(msg => msg.userId === userId);
+                if (userMessage && messageContent) {
+                    messageContent.textContent = userMessage.text;
+                }
+                viewArea.style.display = 'none';
+            }
             if (errorMsg) errorMsg.style.display = 'none';
         }
 
@@ -4547,8 +4959,188 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             if (viewArea) {
                 viewArea.style.display = 'none';
             }
-            // Navigate to Coming Soon
-            openComingSoonInAboutMe();
+        }
+
+        // Functions for Christmas message box in Favorites
+        function initializeChristmasBoxInFavorites() {
+            const textarea = document.getElementById('christmasMessageInputFavorites');
+            const viewBtn = document.getElementById('christmasViewBtnFavorites');
+            const viewArea = document.getElementById('christmasViewAreaFavorites');
+            const messageContent = document.getElementById('christmasMessageContentFavorites');
+            const submitBtn = document.querySelector('#christmasMessageBoxInFavorites .christmas-submit-btn');
+            const errorMsg = document.getElementById('christmasErrorMsgFavorites');
+            
+            if (!textarea) return;
+            
+            // Check if user has already submitted
+            const hasSubmitted = localStorage.getItem(CHRISTMAS_SUBMITTED_KEY) === 'true';
+            if (hasSubmitted) {
+                if (textarea) textarea.disabled = true;
+                if (submitBtn) submitBtn.disabled = true;
+                if (errorMsg) errorMsg.style.display = 'none';
+                
+                // Load and show user's message
+                if (viewBtn && viewArea && messageContent) {
+                    const userId = getUserId();
+                    const list = loadChristmasMessages();
+                    const userMessage = list.find(msg => msg.userId === userId);
+                    
+                    if (userMessage) {
+                        messageContent.textContent = userMessage.text;
+                        viewBtn.style.display = 'block';
+                        viewArea.style.display = 'none';
+                    } else {
+                        viewBtn.style.display = 'block';
+                        viewArea.style.display = 'none';
+                    }
+                }
+            } else {
+                if (textarea) textarea.disabled = false;
+                if (submitBtn) submitBtn.disabled = false;
+                if (errorMsg) errorMsg.style.display = 'none';
+                if (viewBtn) viewBtn.style.display = 'none';
+                if (viewArea) viewArea.style.display = 'none';
+            }
+        }
+
+        function handleChristmasMessageInputFavorites() {
+            const textarea = document.getElementById('christmasMessageInputFavorites');
+            const counterEl = document.getElementById('christmasWordCounterFavorites');
+            if (!textarea || !counterEl) return;
+            let text = textarea.value;
+            let charCount = text.length;
+            if (charCount > 1000) {
+                text = text.substring(0, 1000);
+                textarea.value = text;
+                charCount = 1000;
+            }
+            counterEl.textContent = charCount + ' / 1000';
+        }
+
+        function submitChristmasMessageFromFavorites() {
+            const textarea = document.getElementById('christmasMessageInputFavorites');
+            const viewBtn = document.getElementById('christmasViewBtnFavorites');
+            const viewArea = document.getElementById('christmasViewAreaFavorites');
+            const messageContent = document.getElementById('christmasMessageContentFavorites');
+            const counterEl = document.getElementById('christmasWordCounterFavorites');
+            const errorMsg = document.getElementById('christmasErrorMsgFavorites');
+            const submitBtn = document.querySelector('#christmasMessageBoxInFavorites .christmas-submit-btn');
+            
+            if (!textarea || !viewBtn || !viewArea) return;
+            
+            // Prevent double submission - check if already submitted
+            constSubmitted = localStorage.getItem(CHRISTMAS_SUBMITTED_KEY) === 'true';
+            if (hasSubmitted) {
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                    errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                // Ensure button is disabled
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.style.pointerEvents = 'none';
+                    submitBtn.style.opacity = '0.6';
+                }
+                return;
+            }
+            
+            if (!textarea || !viewBtn || !viewArea) return;
+            
+            // Check if user has already submitted
+            const hasSubmitted = localStorage.getItem(CHRISTMAS_SUBMITTED_KEY) === 'true';
+            if (hasSubmitted) {
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                    errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                return;
+            }
+            
+            let text = textarea.value.trim();
+            if (!text || text.length === 0) return;
+            if (text.length > 1000) {
+                text = text.substring(0, 1000);
+                textarea.value = text;
+            }
+            const list = loadChristmasMessages();
+            const userId = getUserId();
+            
+            // Check if user already has a message and update it, otherwise create new one
+            const existingMessageIndex = list.findIndex(msg => msg.userId === userId);
+            if (existingMessageIndex !== -1) {
+                // Update existing message
+                list[existingMessageIndex] = {
+                    text,
+                    userId: userId,
+                    createdAt: list[existingMessageIndex].createdAt,
+                    updatedAt: new Date().toISOString()
+                };
+            } else {
+                // Create new message
+                list.push({
+                    text,
+                    userId: userId,
+                    createdAt: new Date().toISOString()
+                });
+            }
+            saveChristmasMessages(list);
+            
+            // Mark as submitted
+            localStorage.setItem(CHRISTMAS_SUBMITTED_KEY, 'true');
+            
+            // Clear textarea and show placeholder
+            textarea.value = '';
+            textarea.placeholder = 'Insert message here...';
+            if (counterEl) counterEl.textContent = '0 / 1000';
+            
+            // Disable textarea and submit button (permanently disabled after submission)
+            textarea.disabled = true;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.style.pointerEvents = 'none';
+                submitBtn.style.opacity = '0.6';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+            
+            // Show view button and pre-load message
+            if (viewBtn) viewBtn.style.display = 'block';
+            if (viewArea && messageContent) {
+                const userId = getUserId();
+                const updatedList = loadChristmasMessages();
+                const userMessage = updatedList.find(msg => msg.userId === userId);
+                if (userMessage) {
+                    messageContent.textContent = userMessage.text;
+                }
+                viewArea.style.display = 'none';
+            }
+            if (errorMsg) errorMsg.style.display = 'none';
+            
+            // Update the "Your Christmas Message" display in favorites
+            displayUserChristmasMessage();
+        }
+
+        function viewLatestChristmasMessageFromFavorites() {
+            const userId = getUserId();
+            const list = loadChristmasMessages();
+            const userMessage = list.find(msg => msg.userId === userId);
+            const viewArea = document.getElementById('christmasViewAreaFavorites');
+            const messageContent = document.getElementById('christmasMessageContentFavorites');
+            if (!viewArea || !messageContent) return;
+            
+            // Toggle display
+            if (viewArea.style.display === 'none' || viewArea.style.display === '') {
+                // Show message
+                if (userMessage) {
+                    messageContent.textContent = userMessage.text;
+                    viewArea.style.display = 'block';
+                } else {
+                    messageContent.textContent = 'No message found.';
+                    viewArea.style.display = 'block';
+                }
+            } else {
+                // Hide message
+                viewArea.style.display = 'none';
+            }
         }
 
         function showAllChristmasMessages() {
@@ -4626,8 +5218,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 popup.className = 'christmas-warning-popup';
                 popup.innerHTML = `
                     <p>YOU CAN ONLY SEND 1 MESSAGE</p>
-                    <p>DON'T WORRY YOUR MESSAGES WILL BE SAVED HERE AND ONLY TWO OF US CAN SEE IT</P>
-                    <P>THERE IS A BUG HERE IN THE "VIEW YOUR MESSAGE", IM FIXING IT NOW, SORRY FOR THE INCONVINIENCE."</p>   
                     <button class="close-warning-btn" onclick="closeChristmasWarning()">×</button>
                 `;
                 document.body.appendChild(popup);
@@ -4814,10 +5404,21 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 return;
             }
 
-            // Always show the Music button in the upper-right once it's allowed
-            if (miniButton) miniButton.style.display = 'flex';
+            // Only show mini panel for background music, not for favorites songs
+            // If a favorites song is playing, hide the mini panel
+            const favoritesSongPlaying = currentPlayingSong !== null;
+            const bgPlaying = bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0 && !favoritesSongPlaying;
 
-            const bgPlaying = bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0;
+            // Hide mini panel if favorites song is playing
+            if (favoritesSongPlaying) {
+                if (miniButton) miniButton.style.display = 'none';
+                if (panel) panel.style.display = 'none';
+                if (inlineControls) inlineControls.classList.remove('active');
+                return;
+            }
+
+            // Always show the Music button in the upper-right once it's allowed (only for background music)
+            if (miniButton) miniButton.style.display = 'flex';
 
             if (bgPlaying) {
                 if (miniCard) miniCard.classList.add('active');
@@ -5030,6 +5631,11 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
 
             if (audio.paused) {
+                // Stop background music when favorites song starts playing
+                if (bgMusicAudio && !bgMusicAudio.paused) {
+                    pauseBgMusic(true); // Remember to resume later
+                }
+                
                 const playPromise = audio.play();
                 
                 if (playPromise !== undefined) {
@@ -5041,6 +5647,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         if (songItem) songItem.classList.add('song-playing');
                         if (progressContainer) progressContainer.classList.add('active');
                         currentPlayingSong = songId;
+                        // Don't show mini panel for favorites songs
                         updateMiniMusicUI();
                     }).catch(error => {
                         // Auto-play was prevented or failed
@@ -5052,12 +5659,17 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     });
                 } else {
                     // Fallback for older browsers
+                    // Stop background music when favorites song starts playing
+                    if (bgMusicAudio && !bgMusicAudio.paused) {
+                        pauseBgMusic(true); // Remember to resume later
+                    }
                     playButton.textContent = '⏸️';
                     playButton.classList.remove('playing');
                     playButton.classList.add('paused');
                     if (songItem) songItem.classList.add('song-playing');
                     if (progressContainer) progressContainer.classList.add('active');
                     currentPlayingSong = songId;
+                    // Don't show mini panel for favorites songs
                     updateMiniMusicUI();
                 }
             } else {
