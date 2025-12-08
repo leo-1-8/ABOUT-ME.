@@ -3017,37 +3017,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-icon">🕑</div>
                         <div class="favorite-title">Coming Soon</div>
                         <div class="favorite-description">Stay tuned for updates</div>
-                        <div id="christmasMessageBoxInFavorites" style="display:none; margin-top: 20px;">
-                            <div style="background: rgb(170, 1, 1); border-radius: 12px; padding: 20px; border: 2px solid #b40202; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                <h3 style="text-align: center; color: #b71c1c; margin-bottom: 15px; font-size: 18px; font-weight: 600;">YOUR CHRISTMAS MESSAGE</h3>
-                                <textarea
-                                    id="christmasMessageInputFavorites"
-                                    class="christmas-textarea"
-                                    placeholder="Insert message here"
-                                    style="width: 100%; min-height: 120px; margin-bottom: 10px;"
-                                    oninput="handleChristmasMessageInputFavorites()"
-                                ></textarea>
-                                <div class="christmas-counter-row" style="margin-bottom: 10px;">
-                                    <span style="font-size: 12px;">Letter Limit: 1000</span>
-                                    <span id="christmasWordCounterFavorites" class="christmas-word-counter" style="font-size: 12px;">0 / 1000</span>
-                                </div>
-                                <button type="button" class="christmas-submit-btn" onclick="submitChristmasMessageFromFavorites()" style="width: 100%; margin-bottom: 10px;">Submit</button>
-                                <button type="button" id="christmasViewBtnFavorites" class="christmas-view-btn" onclick="viewLatestChristmasMessageFromFavorites()" style="width: 100%; display: none;">
-                                    VIEW YOUR MESSAGE
-                                </button>
-                                <div id="christmasViewAreaFavorites" class="christmas-message-display" style="margin-top:12px; display:none; position: relative;">
-                                    <div id="christmasMessageContentFavorites"></div>
-                                </div>
-                                <div id="christmasErrorMsgFavorites" class="christmas-error-message" style="display:none; margin-top: 10px;">YOU CAN ONLY SEND A MESSAGE ONCE</div>
-                                <h2 style="text-align: center; color: #b40202; margin-bottom: 15px;">YOU CAN ONLY SEND MESSAGE ONCE</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="christmasMessageDisplay" style="display:none; margin-top: 30px; padding: 20px; background: #fff5f5; border-radius: 12px; border: 2px solid #ffcdd2;">
-                    <h3 style="text-align: center; color: #b71c1c; margin-bottom: 15px;">Your Christmas Message</h3>
-                    <div id="userChristmasMessage" class="christmas-message-display" style="min-height: 100px; max-height: 300px;"></div>
-                </div>
                 <div class="modal-buttons">
                     <button class="modal-action-button btn-back" onclick="closeModal('favorites')">Back to Main Menu</button>
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
