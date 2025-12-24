@@ -578,9 +578,10 @@
             transition: color 0.2s ease;
             pointer-events: auto;
             position: relative;
-            display: inline-flex;
+            display: block;
+            width: 100%;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
         }
 
         .christmas-message-link:hover {
@@ -630,6 +631,7 @@
             justify-content: center;
             gap: 8px;
             margin-bottom: 15px;
+            width: 100%;
         }
 
         .christmas-warning-btn {
@@ -1470,6 +1472,15 @@
             .christmas-message-link-wrapper {
                 width: 100%;
                 margin-bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .christmas-message-link {
+                text-align: center;
+                width: auto;
+                display: inline-block;
             }
 
             .warning-message {
@@ -2844,6 +2855,15 @@
             .christmas-message-link-wrapper {
                 width: 100%;
                 margin-bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .christmas-message-link {
+                text-align: center;
+                width: auto;
+                display: inline-block;
             }
 
             .warning-message {
@@ -3040,6 +3060,15 @@
             .christmas-message-link-wrapper {
                 width: 100%;
                 margin-bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .christmas-message-link {
+                text-align: center;
+                width: auto;
+                display: inline-block;
             }
 
             .warning-message {
