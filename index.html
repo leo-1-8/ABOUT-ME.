@@ -272,6 +272,70 @@
             }
         }
 
+        .countdown-container {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            min-width: 280px;
+            max-width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .countdown-title {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .countdown-timer {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-timer span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #4A90E2 0%, #50C878 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+            font-weight: 700;
+            margin: 0 3px;
+        }
+
+        .countdown-timer .time-label {
+            color: #ff6b6b;
+            font-size: 20px;
+            font-weight: 700;
+            margin-left: 3px;
+            text-transform: uppercase;
+        }
+
         .button-container {
             display: flex;
             flex-direction: column;
@@ -1308,15 +1372,54 @@
             }
 
             .main-content {
-                min-height: 100vh;
+                height: 100vh;
+                max-height: 100vh;
                 padding: 20px 15px;
                 justify-content: flex-start;
                 padding-top: 60px;
-                padding-bottom: 200px;
+                padding-bottom: 20px;
                 width: 100%;
                 box-sizing: border-box;
                 overflow-x: hidden;
+                overflow-y: hidden;
                 gap: 25px;
+            }
+
+            .countdown-container {
+                position: absolute;
+                top: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 12px 18px;
+                min-width: 240px;
+                max-width: 95%;
+                box-sizing: border-box;
+            }
+
+            .countdown-title {
+                font-size: 14px;
+                margin-bottom: 8px;
+                letter-spacing: 1.5px;
+            }
+
+            .countdown-timer {
+                font-size: 20px;
+                letter-spacing: 1.5px;
+                gap: 4px;
+            }
+
+            .countdown-timer span {
+                min-width: 35px;
+                padding: 6px 8px;
+                font-size: 16px;
+                margin: 0 2px;
+                background: linear-gradient(135deg, #4A90E2 0%, #50C878 100%);
+            }
+
+            .countdown-timer .time-label {
+                font-size: 16px;
+                color: #ff6b6b;
+                font-weight: 700;
             }
 
             .button-container {
@@ -1327,7 +1430,7 @@
                 width: 100%;
                 max-width: 100%;
                 margin: 0 auto;
-                margin-top: 50px;
+                margin-top: 20px;
                 gap: 30px;
                 box-sizing: border-box;
                 padding: 0 10px;
@@ -2638,13 +2741,51 @@
                 justify-content: flex-start;
                 padding: 20px 15px;
                 padding-top: 50px;
-                padding-bottom: 200px;
-                min-height: 100vh;
-                overflow-y: auto;
+                padding-bottom: 20px;
+                height: 100vh;
+                max-height: 100vh;
+                overflow-y: hidden;
                 overflow-x: hidden;
                 width: 100%;
                 box-sizing: border-box;
                 gap: 25px;
+            }
+
+            .countdown-container {
+                position: absolute;
+                top: 50px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 15px;
+                min-width: 220px;
+                max-width: 95%;
+                box-sizing: border-box;
+            }
+
+            .countdown-title {
+                font-size: 12px;
+                margin-bottom: 6px;
+                letter-spacing: 1px;
+            }
+
+            .countdown-timer {
+                font-size: 18px;
+                letter-spacing: 1px;
+                gap: 3px;
+            }
+
+            .countdown-timer span {
+                min-width: 30px;
+                padding: 5px 7px;
+                font-size: 14px;
+                margin: 0 2px;
+                background: linear-gradient(135deg, #4A90E2 0%, #50C878 100%);
+            }
+
+            .countdown-timer .time-label {
+                font-size: 14px;
+                color: #ff6b6b;
+                font-weight: 700;
             }
 
             .button-container {
@@ -2655,7 +2796,7 @@
                 left: auto;
                 transform: none;
                 margin: 0 auto;
-                margin-top: 50px;
+                margin-top: 20px;
                 gap: 30px;
                 box-sizing: border-box;
                 padding: 0 10px;
@@ -2993,9 +3134,11 @@
             .main-content {
                 padding: 8px 10px;
                 padding-top: 30px;
-                padding-bottom: 120px;
-                min-height: 100vh;
-                overflow-y: auto;
+                padding-bottom: 20px;
+                height: 100vh;
+                max-height: 100vh;
+                overflow-y: hidden;
+                overflow-x: hidden;
             }
             
             .christmas-modal-box {
@@ -3022,6 +3165,43 @@
                 font-size: 13px;
             }
 
+            .countdown-container {
+                position: absolute;
+                top: 40px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 6px 10px;
+                min-width: 200px;
+                max-width: 95%;
+                box-sizing: border-box;
+            }
+
+            .countdown-title {
+                font-size: 11px;
+                margin-bottom: 4px;
+                letter-spacing: 1px;
+            }
+
+            .countdown-timer {
+                font-size: 14px;
+                letter-spacing: 1px;
+                gap: 2px;
+            }
+
+            .countdown-timer span {
+                min-width: 25px;
+                padding: 3px 5px;
+                font-size: 12px;
+                margin: 0 1px;
+                background: linear-gradient(135deg, #4A90E2 0%, #50C878 100%);
+            }
+
+            .countdown-timer .time-label {
+                font-size: 12px;
+                color: #ff6b6b;
+                font-weight: 700;
+            }
+
             .button-container {
                 gap: 12px;
                 position: relative;
@@ -3030,7 +3210,7 @@
                 transform: none;
                 width: 100%;
                 margin: 0 auto;
-                margin-top: 20px;
+                margin-top: 10px;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
@@ -3242,6 +3422,15 @@
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
+        <div class="countdown-container" id="countdownContainer" style="display: none;">
+            <div class="countdown-title">COUNTDOWN TO 2026</div>
+            <div class="countdown-timer" id="countdownTimer">
+                <span id="days">00</span><span class="time-label">D</span>
+                <span id="hours">00</span><span class="time-label">H</span>
+                <span id="minutes">00</span><span class="time-label">M</span>
+                <span id="seconds">00</span><span class="time-label">S</span>
+            </div>
+        </div>
         <div class="button-container" id="mainButtonContainer" style="display: none;">
             <button class="main-button btn-about" onclick="openModal('about')">
                 <span class="christmas-deco-left">🎁</span>
@@ -4601,9 +4790,50 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             
             function showMainButtons() {
                 const mainButtonContainer = document.getElementById('mainButtonContainer');
+                const countdownContainer = document.getElementById('countdownContainer');
                 if (mainButtonContainer) {
                     mainButtonContainer.style.display = '';
                 }
+                if (countdownContainer) {
+                    countdownContainer.style.display = '';
+                    startCountdown();
+                }
+            }
+
+            // Countdown Timer Function
+            function startCountdown() {
+                // Target date: January 1, 2026 12:00 AM (midnight)
+                const targetDate = new Date('2026-01-01T00:00:00');
+                const countdownContainer = document.getElementById('countdownContainer');
+                
+                function updateCountdown() {
+                    const now = new Date();
+                    const timeDifference = targetDate - now;
+                    
+                    if (timeDifference <= 0) {
+                        // Countdown finished - hide the countdown container
+                        if (countdownContainer) {
+                            countdownContainer.style.display = 'none';
+                        }
+                        return;
+                    }
+                    
+                    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('days').textContent = String(days).padStart(2, '0');
+                    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+                }
+                
+                // Update immediately
+                updateCountdown();
+                
+                // Update every second
+                setInterval(updateCountdown, 1000);
             }
             
             // Messages array
@@ -4809,10 +5039,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     if (updatingMsgEl) updatingMsgEl.style.display = 'block';
                     return;
                 }
-                // Determine target December 31, 2025 at 11:59 PM
+                // Determine target January 1, 2026 at 11:59 PM (add 1 day from original)
                 if (!targetNov15) {
-                    // Target: December 31, 2025 at 11:59:59 PM (month 11 = December, day 31, hour 23, minute 59, second 59)
-                    targetNov15 = new Date(2025, 11, 31, 23, 59, 59);
+                    // Target: January 1, 2026 at 11:59:59 PM (month 0 = January, day 1, hour 23, minute 59, second 59)
+                    targetNov15 = new Date(2026, 0, 1, 23, 59, 59);
                 }
                 function updateCountdown() {
                     const now = new Date();
@@ -5255,6 +5485,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         
         function clearMessagesAndResetSubmission() {
             // Reset submission flag to allow sending another message (without clearing saved messages)
+            // IMPORTANT: This function does NOT clear messages - messages persist in localStorage
+            // Only clears the submission flag to allow resubmission
             localStorage.removeItem(CHRISTMAS_SUBMITTED_KEY);
             
             // Re-enable textarea and submit button
@@ -5468,6 +5700,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
 
         function saveChristmasMessages(list) {
+            // Save messages to localStorage - messages persist permanently
+            // This function only saves, never clears existing messages
             try {
                 localStorage.setItem(CHRISTMAS_MESSAGES_KEY, JSON.stringify(list));
             } catch (e) {
@@ -5476,6 +5710,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
 
         // Clear all saved Christmas messages (only used for admin/testing purposes)
+        // IMPORTANT: This function should NEVER be called automatically on page load or update
+        // Messages are stored permanently and should persist across all code updates
         function clearChristmasMessages() {
             try {
                 localStorage.removeItem(CHRISTMAS_MESSAGES_KEY);
@@ -5485,6 +5721,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
 
         // Messages now persist forever - removed auto-clear on page load for privacy
+        // Messages are NEVER cleared on page load, refresh, or code updates
+        // They remain in localStorage until manually cleared by admin function only
 
         function handleChristmasMessageInput() {
             const textarea = document.getElementById('christmasMessageInput');
