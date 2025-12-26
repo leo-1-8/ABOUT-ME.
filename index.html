@@ -279,14 +279,15 @@
             transform: translateX(-50%);
             text-align: center;
             padding: 15px 25px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px);
+            /* Remove white card background so only the timer is visible */
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
             z-index: 100;
             min-width: 280px;
             max-width: 90%;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: none;
         }
 
         .countdown-title {
@@ -334,6 +335,25 @@
             font-weight: 700;
             margin-left: 3px;
             text-transform: uppercase;
+        }
+
+        /* Make sure countdown fits on one line on small screens so the last "S" doesn't drop below */
+        @media (max-width: 420px) {
+            .countdown-timer {
+                font-size: 22px;
+                gap: 4px;
+                flex-wrap: nowrap;
+            }
+
+            .countdown-timer span {
+                min-width: 38px;
+                padding: 6px 8px;
+            }
+
+            .countdown-timer .time-label {
+                font-size: 16px;
+                margin-left: 2px;
+            }
         }
 
         .button-container {
@@ -1026,9 +1046,16 @@
 
         @media (orientation: landscape) and (max-height: 500px) {
             .music-mini-button {
-                top: 8px;
-                right: 8px;
-                max-width: calc(100vw - 16px);
+                top: 6px;
+                right: 6px;
+                padding: 4px 10px 4px 8px;
+                font-size: 11px;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+                max-width: calc(100vw - 14px);
+            }
+
+            .music-mini-icon {
+                font-size: 14px;
             }
         }
 
@@ -3609,8 +3636,8 @@
             >ANSWER THIS FORM</a>
         </div>
     </div>
-    <!-- Floating mini music button -->
-    <button id="musicMiniButton" class="music-mini-button" type="button" onclick="toggleMiniPanel()">
+    <!-- Floating mini music button (hidden until loading/intro is finished) -->
+    <button id="musicMiniButton" class="music-mini-button" type="button" onclick="toggleMiniPanel()" style="display:none;">
         <span class="music-mini-icon">♬</span>
         <div id="musicMiniCard" class="music-mini-card">
             <div class="music-mini-text-wrapper">
@@ -3622,7 +3649,13 @@
     <div id="musicMiniPanel" class="music-mini-panel" style="display:none;">
         <div class="music-mini-panel-header">NOW PLAYING</div>
         <div id="musicMiniPanelSong" class="music-mini-panel-box">
-            <div id="musicMiniPanelTitle" class="music-mini-panel-title">CHRISTMAS SONGS</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div id="musicMiniPanelTitle" class="music-mini-panel-title">CHRISTMAS SONGS</div>
+                <button id="musicMiniPanelToggle" type="button" onclick="toggleBgMusicFromPanel()" title="Play/Pause"
+                    style="min-width:34px;height:24px;border-radius:999px;border:none;cursor:pointer;background:#222;box-shadow:0 3px 10px rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:0 10px;">
+                    <span id="musicMiniPanelToggleIcon" style="color:#2e7dff;font-size:14px;">▶️</span>
+                </button>
+            </div>
             <div class="music-mini-panel-times" id="musicMiniPanelTimes">
                 <span id="musicMiniCurrentTime">0:00</span>
                 <span id="musicMiniTotalTime">0:00</span>
@@ -6298,6 +6331,17 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             updateMiniMusicUI();
         }
 
+        function updatePanelToggleButton() {
+            const icon = document.getElementById('musicMiniPanelToggleIcon');
+            if (icon && bgMusicAudio) {
+                if (isBgMusicPlaying()) {
+                    icon.textContent = '⏸️';
+                } else {
+                    icon.textContent = '▶️';
+                }
+            }
+        }
+
         function setupBgMusic() {
             if (bgMusicAudio) return;
             const audio = new Audio();
@@ -6313,7 +6357,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             });
             
-            // Update mini panel times during playback
+            // Update mini panel times during playback (only when playing)
             audio.addEventListener('timeupdate', function() {
                 if (bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0) {
                     // Only update if no individual song is playing
@@ -6323,12 +6367,26 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             });
             
+            // Update button icon when audio plays
+            audio.addEventListener('play', function() {
+                updatePanelToggleButton();
+            });
+            
+            // Update button icon when audio pauses
+            audio.addEventListener('pause', function() {
+                updatePanelToggleButton();
+            });
+            
             // Handle play errors
             audio.addEventListener('error', function(e) {
                 console.error('Audio error:', e);
             });
-            
+
             bgMusicAudio = audio;
+        }
+
+        function isBgMusicPlaying() {
+            return bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0;
         }
 
         function fadeAudio(audio, targetVolume, duration, callback) {
@@ -6380,10 +6438,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     } else {
                         // If play() returns undefined (already playing), fade in
                         fadeAudio(bgMusicAudio, 0.4, 800);
+                        updatePanelToggleButton();
                     }
                 } else {
                     // Already playing, just fade in
                     fadeAudio(bgMusicAudio, 0.4, 800);
+                    updatePanelToggleButton();
                 }
             }
             
@@ -6419,6 +6479,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             fadeAudio(bgMusicAudio, 0, 600, () => {
                 if (!bgMusicShouldPlay && bgMusicAudio) {
                     bgMusicAudio.pause();
+                    // Update button icon when paused
+                    updatePanelToggleButton();
                 }
             });
         }
@@ -6534,6 +6596,30 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         function miniTogglePlay() {
             if (!currentPlayingSong) return;
             toggleMusic(currentPlayingSong);
+        }
+
+        function toggleBgMusicFromPanel() {
+            setupBgMusic();
+            if (!bgMusicAudio) return;
+
+            if (isBgMusicPlaying()) {
+                // Hard pause: stop audio and stop timer
+                bgMusicShouldPlay = false;
+                bgMusicAudio.pause();
+            } else {
+                // Play at normal volume
+                bgMusicShouldPlay = true;
+                bgMusicAudio.volume = 0.4;
+                const playPromise = bgMusicAudio.play();
+                if (playPromise && playPromise.catch) {
+                    playPromise.catch((err) => {
+                        console.log('Background music play failed from panel:', err);
+                    });
+                }
+            }
+
+            // Update button icon shortly after toggling
+            setTimeout(updatePanelToggleButton, 50);
         }
 
         function miniRestart() {
