@@ -362,9 +362,9 @@
             gap: 25px;
             align-items: center;
             position: absolute;
-            top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
+            bottom: 80px; /* Move main buttons lower so content sits closer to bottom */
         }
         
         /* Christmas decorations around buttons */
@@ -4546,8 +4546,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         <div class="christmas-modal-box">
             <button class="close-button" onclick="closeModal('christmasMessage')" title="Close">×</button>
             <div class="christmas-modal-title">
-                <span class="christmas-warning-btn" onclick="toggleChristmasWarning(event); event.stopPropagation();" title="YOU CAN ONLY SEE YOUR OWN MESSAGE">!</span>
-                MESSAG<span class="clickable-e" onclick="christmasEClickHandler();" title="Click 4 times to reset and send another">E</span> FOR ME
+                <span class="christmas-warning-btn" onclick="toggleChristmasWarning(event); event.stopPropagation();">!</span>
+                MESSAG<span class="clickable-e" onclick="christmasEClickHandler();">E</span> FOR ME
             </div>
             <textarea
                 id="christmasMessageInput"
