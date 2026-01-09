@@ -200,29 +200,10 @@
             position: relative;
         }
         
-        /* Christmas decorations floating around the page */
-        .main-content::before {
-            content: '🎄';
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 50px;
-            animation: float 4s ease-in-out infinite;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        
+        /* (Removed) Christmas decorations that floated around the page */
+        .main-content::before,
         .main-content::after {
-            content: '🎅';
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 50px;
-            animation: float 4s ease-in-out infinite 2s;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.7;
+            content: none;
         }
         
         /* Additional floating Christmas elements */
@@ -241,29 +222,13 @@
             }
         }
         
-        /* Add more Christmas decorations using body pseudo-elements */
+        /* Disable floating Christmas decoration on body */
         body::before {
-            content: '❄️';
-            position: fixed;
-            top: 80px;
-            left: 10%;
-            font-size: 30px;
-            animation: floatAround 5s ease-in-out infinite;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.6;
+            content: none;
         }
         
         body::after {
-            content: '🎁';
-            position: fixed;
-            bottom: 100px;
-            right: 10%;
-            font-size: 35px;
-            animation: floatAround 6s ease-in-out infinite 1s;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.6;
+            content: none;
         }
 
         @keyframes fadeIn {
@@ -367,25 +332,10 @@
             bottom: 80px; /* Move main buttons lower so content sits closer to bottom */
         }
         
-        /* Christmas decorations around buttons */
-        .button-container::before {
-            content: '🎄';
-            position: absolute;
-            top: -60px;
-            left: -40px;
-            font-size: 40px;
-            animation: float 3s ease-in-out infinite;
-            z-index: 1;
-        }
-        
+        /* Christmas decorations around buttons (disabled) */
+        .button-container::before,
         .button-container::after {
-            content: '🎅';
-            position: absolute;
-            top: -60px;
-            right: -40px;
-            font-size: 40px;
-            animation: float 3s ease-in-out infinite 1.5s;
-            z-index: 1;
+            content: none;
         }
         
         @keyframes float {
@@ -416,6 +366,12 @@
             animation: spin 3s linear infinite;
             z-index: 2;
             pointer-events: none;
+        }
+
+        /* Hide decorative emojis on main buttons */
+        .christmas-deco-left,
+        .christmas-deco-right {
+            display: none;
         }
         
         @keyframes bounce {
@@ -468,17 +424,9 @@
             z-index: 0;
         }
         
-        /* Christmas hat on top of buttons */
+        /* Christmas hat on top of buttons (disabled) */
         .main-button::after {
-            content: '🎄';
-            position: absolute;
-            top: -45px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 32px;
-            animation: float 3s ease-in-out infinite;
-            z-index: 3;
-            pointer-events: none;
+            content: none;
         }
 
         .main-button:hover::before {
@@ -528,50 +476,16 @@
             pointer-events: none;
         }
         
-        /* Christmas decorations around update button container */
-        .update-button-container::before {
-            content: '🎅';
-            position: absolute;
-            top: -50px;
-            left: -30px;
-            font-size: 35px;
-            animation: float 3s ease-in-out infinite;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
+        /* Christmas decorations around update button container (disabled) */
+        .update-button-container::before,
         .update-button-container::after {
-            content: '🎄';
-            position: absolute;
-            top: -50px;
-            right: -30px;
-            font-size: 35px;
-            animation: float 3s ease-in-out infinite 1.5s;
-            z-index: 1;
-            pointer-events: none;
+            content: none;
         }
         
-        /* Christmas decorations for update button */
-        .btn-updates::before {
-            content: '🎁';
-            position: absolute;
-            top: -40px;
-            left: 15px;
-            font-size: 24px;
-            animation: bounce 2s ease-in-out infinite;
-            z-index: 2;
-            pointer-events: none;
-        }
-        
+        /* Christmas decorations for update button (disabled) */
+        .btn-updates::before,
         .btn-updates::after {
-            content: '❄️';
-            position: absolute;
-            top: -40px;
-            right: 15px;
-            font-size: 24px;
-            animation: spin 3s linear infinite;
-            z-index: 2;
-            pointer-events: none;
+            content: none;
         }
         
         .btn-updates {
@@ -3616,16 +3530,15 @@
             </div>
             <div id="comingSoonMainLink" class="christmas-message-link-wrapper" style="display:none;">
                 <div class="christmas-message-link" onclick="openComingSoonInAboutMe()">
-                    Christmas
+                    MESSAGE FOR MYSELF
                 </div>
             </div>
-            <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW ✨🆕</button>
+            <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW</button>
         </div>
         <div class="warning-message" id="mainWarning" style="display: none;">
             THIS ISN'T OFFICIALLY FINISHED YET; I STILL HAVE MANY WORKS TO DO
-            <div id="warningTimerLine" style="margin-top:6px;font-weight:700;">UPDATES IN <span id="warningTimer">15:00:00:00</span></div>
-            <div id="updatingMsg" style="display:none;margin-top:6px;font-weight:700;">
-                UPDATING<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+            <div id="warningTimerLine" style="margin-top:6px;font-weight:700;">
+                UPDATES IN <span id="warningTimer">84:00:00:00</span>
             </div>
         </div>
         <!-- Outside the box link below the warning + timer -->
@@ -3636,32 +3549,6 @@
                 rel="noopener noreferrer"
                 style="color:#2e7d32; font-weight:700; font-style:italic; text-decoration:none; cursor:pointer;"
             >ANSWER THIS FORM</a>
-        </div>
-    </div>
-    <!-- Floating mini music button (hidden until loading/intro is finished) -->
-    <button id="musicMiniButton" class="music-mini-button" type="button" onclick="toggleMiniPanel()" style="display:none;">
-        <span class="music-mini-icon">♬</span>
-        <div id="musicMiniCard" class="music-mini-card">
-            <div class="music-mini-text-wrapper">
-                <span id="musicMiniTitle" class="music-mini-title"></span>
-                <span id="musicMiniNext" class="music-mini-subtext"></span>
-            </div>
-        </div>
-    </button>
-    <div id="musicMiniPanel" class="music-mini-panel" style="display:none;">
-        <div class="music-mini-panel-header">NOW PLAYING</div>
-        <div id="musicMiniPanelSong" class="music-mini-panel-box">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-                <div id="musicMiniPanelTitle" class="music-mini-panel-title">CHRISTMAS SONGS</div>
-                <button id="musicMiniPanelToggle" type="button" onclick="toggleBgMusicFromPanel()" title="Play/Pause"
-                    style="min-width:34px;height:24px;border-radius:999px;border:none;cursor:pointer;background:#222;box-shadow:0 3px 10px rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:0 10px;">
-                    <span id="musicMiniPanelToggleIcon" style="color:#2e7dff;font-size:14px;">▶️</span>
-                </button>
-            </div>
-            <div class="music-mini-panel-times" id="musicMiniPanelTimes">
-                <span id="musicMiniCurrentTime">0:00</span>
-                <span id="musicMiniTotalTime">0:00</span>
-            </div>
         </div>
     </div>
     <!-- Welcome Intro Box -->
@@ -3874,35 +3761,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-title">SINGER</div>
                         <div class="favorite-description">i can't live without my fav singers😭.</div>
                     </div>
-                    <div class="favorite-card clickable" id="comingSoonCard" onclick="showComingSoon()">
-                        <div class="favorite-icon">🕑</div>
+                    <div class="favorite-card clickable" id="comingSoonCard" onclick="showStayTunedMessage()">
+                        <div class="favorite-icon">⏳</div>
                         <div class="favorite-title">Coming Soon</div>
-                        <div class="favorite-description">Stay tuned for updates</div>
-                        <div id="christmasMessageBoxInFavorites" style="display:none; margin-top: 20px;">
-                            <div style="background: rgb(170, 1, 1); border-radius: 12px; padding: 20px; border: 2px solid #b40202; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                <h3 style="text-align: center; color: #b71c1c; margin-bottom: 15px; font-size: 18px; font-weight: 600;">YOUR CHRISTMAS MESSAGE</h3>
-                                <textarea
-                                    id="christmasMessageInputFavorites"
-                                    class="christmas-textarea"
-                                    placeholder="Insert message here"
-                                    style="width: 100%; min-height: 120px; margin-bottom: 10px;"
-                                    oninput="handleChristmasMessageInputFavorites()"
-                                ></textarea>
-                                <div class="christmas-counter-row" style="margin-bottom: 10px;">
-                                    <span style="font-size: 12px;">Letter Limit: 1000</span>
-                                    <span id="christmasWordCounterFavorites" class="christmas-word-counter" style="font-size: 12px;">0 / 1000</span>
-                                </div>
-                                <button type="button" class="christmas-submit-btn" onclick="submitChristmasMessageFromFavorites()" style="width: 100%; margin-bottom: 10px;">Submit</button>
-                                <button type="button" id="christmasViewBtnFavorites" class="christmas-view-btn" onclick="viewLatestChristmasMessageFromFavorites()" style="width: 100%; display: none;">
-                                    VIEW YOUR MESSAGE
-                                </button>
-                                <div id="christmasViewAreaFavorites" class="christmas-message-display" style="margin-top:12px; display:none; position: relative;">
-                                    <div id="christmasMessageContentFavorites"></div>
-                                </div>
-                                <div id="christmasErrorMsgFavorites" class="christmas-error-message" style="display:none; margin-top: 10px;">YOU CAN ONLY SEND 1 MESSAGE!</div>
-                                <h2 style="text-align: center; color: #b40202; margin-bottom: 15px;">YOU CAN ONLY SEND 1 MESSAGE!</h2>
-                            </div>
-                        </div>
+                        <div class="favorite-description">Click to see more...</div>
                     </div>
                 </div>
                 <div id="christmasMessageDisplay" style="display:none; margin-top: 30px; padding: 20px; background: #fff5f5; border-radius: 12px; border: 2px solid #ffcdd2;">
@@ -4583,11 +4445,11 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         <div class="modal-box modal-updates">
             <button class="close-button-left" onclick="closeModal('updates')" title="Close">×</button>
             <div class="modal-content">
-                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">WHAT'S NEW ✨🆕</h2>
+                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">WHAT'S NEW</h2>
                 <div class="updates-scroll-body">
                     <p style="margin-top: 20px;"><strong>UPDATE 1</strong></p>
                     <p id="update1-summary" style="margin-bottom: 8px;">
-                        UI REFORGE + MUSIC SYSTEM UPGRADE ⚡🎵
+                        UI REFORGE + MUSIC SYSTEM UPGRADE
                         <span id="update1-toggle-top" class="see-more-link" onclick="toggleUpdateDetails()">see more...</span>
                     </p>
                     <div id="update1-details" style="display:none; margin-bottom: 15px;">
@@ -4927,27 +4789,13 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             let targetNov15 = null;
             let messageInterval = null;
             const COUNTDOWN_DONE_KEY = 'updatesCountdownDone';
+            // Always treat countdown as active so the timer is visible
             let countdownAlreadyDone = false;
             let updatesButtonShown = false;
-            try {
-                countdownAlreadyDone = localStorage.getItem(COUNTDOWN_DONE_KEY) === 'true';
-            } catch (error) {
-                countdownAlreadyDone = false;
-            }
-            // Don't show update button container until intro closes
-            
-            if (countdownAlreadyDone) {
-                if (warningTimerLine) warningTimerLine.style.display = 'none';
-                if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                // Unlock features if countdown already done
-                unlockChristmasFeatures();
-            } else {
-                // Check if preview unlock is active
-                const isPreviewUnlocked = checkPreviewUnlock();
-                if (isPreviewUnlocked) {
-                    unlockComingSoonPreview();
-                }
-                // Admin access doesn't change main menu - only unlocks Coming Soon in About Me modal
+            // Check if preview unlock is active (no longer tied to timer finishing)
+            const isPreviewUnlocked = checkPreviewUnlock();
+            if (isPreviewUnlocked) {
+                unlockComingSoonPreview();
             }
 
             function showUpdatesButton() {
@@ -5210,18 +5058,17 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     if (updatingMsgEl) updatingMsgEl.style.display = 'block';
                     return;
                 }
-                // Determine target January 1, 2026 at 11:59 PM (add 1 day from original)
-                // Use local time to ensure it matches user's clock
+                // Determine target for updates: March 15, 2026 at 12:00 AM local time
+                // Use local time to ensure it matches the user's clock
                 if (!targetNov15) {
-                    // Target: January 1, 2026 at 11:59:59 PM in user's local timezone
-                    // month 0 = January, day 1, hour 23, minute 59, second 59
-                    targetNov15 = new Date(2026, 0, 1, 23, 59, 59);
+                    // month index: 2 = March, day: 15, hour 0, minute 0, second 0
+                    targetNov15 = new Date(2026, 2, 15, 0, 0, 0);
                 }
                 function updateCountdown() {
                     // Always use current local time
                     const now = new Date();
                     // Recalculate target to ensure it uses local timezone
-                    const targetDate = new Date(2026, 0, 1, 23, 59, 59);
+                    const targetDate = new Date(2026, 2, 15, 0, 0, 0);
                     let diff = Math.floor((targetDate.getTime() - now.getTime()) / 1000);
                     if (diff < 0) diff = 0;
                     if (warningTimerEl) warningTimerEl.textContent = formatDhms(diff);
@@ -5469,6 +5316,22 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 document.documentElement.style.overflow = 'hidden';
             } else {
                 alert('stay tuned');
+            }
+        }
+        
+        function showStayTunedMessage() {
+            // Show "stay tuned" message with emoji when clicking Coming Soon in favorites
+            const overlay = document.getElementById('unavailableOverlay');
+            const message = document.getElementById('unavailableMessage');
+            if (overlay && message) {
+                const msgText = message.querySelector('div');
+                if (msgText) msgText.textContent = 'stay tuned ✨';
+                overlay.classList.add('show');
+                message.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            } else {
+                alert('stay tuned ✨');
             }
         }
         
@@ -5833,13 +5696,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
         
         function openComingSoonInAboutMe() {
-            openModal('about');
-            setTimeout(function() {
-                const comingSoonCard = document.getElementById('comingSoonCard');
-                if (comingSoonCard) {
-                    comingSoonCard.click();
-                }
-            }, 300);
+            // Open Favorites directly to the "Message For Myself" card
+            openModal('favorites');
         }
 
         // Christmas Message storage
@@ -6346,46 +6204,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }
 
         function setupBgMusic() {
-            if (bgMusicAudio) return;
-            const audio = new Audio();
-            audio.src = 'Ariana Grande, Mariah Carey, Justin Bieber, Christmas Songs - Christmas Songs Playlist 2022 [G5mPOcjibac].mp3';
-            audio.loop = true;
-            audio.volume = 0;
-            audio.preload = 'auto';
-            
-            // Update mini panel times when metadata loads
-            audio.addEventListener('loadedmetadata', function() {
-                if (bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0) {
-                    updateMiniPanelTimes(formatTime(bgMusicAudio.currentTime), formatTime(bgMusicAudio.duration || 0));
-                }
-            });
-            
-            // Update mini panel times during playback (only when playing)
-            audio.addEventListener('timeupdate', function() {
-                if (bgMusicAudio && !bgMusicAudio.paused && bgMusicAudio.currentTime > 0) {
-                    // Only update if no individual song is playing
-                    if (!currentPlayingSong) {
-                        updateMiniPanelTimes(formatTime(bgMusicAudio.currentTime), formatTime(bgMusicAudio.duration || 0));
-                    }
-                }
-            });
-            
-            // Update button icon when audio plays
-            audio.addEventListener('play', function() {
-                updatePanelToggleButton();
-            });
-            
-            // Update button icon when audio pauses
-            audio.addEventListener('pause', function() {
-                updatePanelToggleButton();
-            });
-            
-            // Handle play errors
-            audio.addEventListener('error', function(e) {
-                console.error('Audio error:', e);
-            });
-
-            bgMusicAudio = audio;
+            // Background Christmas playlist has been disabled.
+            // Keep this function as a no-op so other code can safely call it.
+            return;
         }
 
         function isBgMusicPlaying() {
