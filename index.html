@@ -327,7 +327,7 @@
         }
 
         .button-container {
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             gap: 25px;
             align-items: center;
@@ -335,6 +335,9 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 80px; /* Move main buttons lower so content sits closer to bottom */
+            z-index: 100;
+            visibility: visible;
+            opacity: 1;
         }
         
         /* Christmas decorations around buttons (disabled) */
@@ -1376,10 +1379,11 @@
             }
 
             .button-container {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                bottom: auto !important;
+                transform: none !important;
                 width: 100%;
                 max-width: 100%;
                 margin: 0 auto 25px auto;
@@ -2767,10 +2771,11 @@
             .button-container {
                 width: 100%;
                 max-width: 100%;
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                bottom: auto !important;
+                transform: none !important;
                 margin: 0 auto 20px auto;
                 gap: 20px;
                 box-sizing: border-box;
@@ -2978,10 +2983,11 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 15px;
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                bottom: auto !important;
+                transform: none !important;
                 width: 100%;
                 margin: 0 auto 15px auto;
                 box-sizing: border-box;
@@ -3263,10 +3269,11 @@
 
             .button-container {
                 gap: 10px;
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                bottom: auto !important;
+                transform: none !important;
                 width: 100%;
                 margin: 0 auto 10px auto;
                 flex-direction: row;
@@ -3532,7 +3539,7 @@
                 <span id="seconds">00</span><span class="time-label">S</span>
             </div>
         </div>
-        <div class="button-container" id="mainButtonContainer" style="display: flex;">
+        <div class="button-container" id="mainButtonContainer" style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
             <button class="main-button btn-about" onclick="openModal('about')">
                 <span class="christmas-deco-left">🎁</span>
                 <span class="christmas-deco-right">❄️</span>
@@ -4834,12 +4841,21 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 const countdownContainer = document.getElementById('countdownContainer');
                 if (mainButtonContainer) {
                     mainButtonContainer.style.display = 'flex';
+                    mainButtonContainer.style.visibility = 'visible';
+                    mainButtonContainer.style.opacity = '1';
+                    mainButtonContainer.style.zIndex = '100';
+                    mainButtonContainer.style.position = ''; // Reset position to use CSS
                 }
                 if (countdownContainer) {
                     countdownContainer.style.display = '';
                     startCountdown();
                 }
             }
+            
+            // Show buttons immediately after load
+            setTimeout(function() {
+                showMainButtons();
+            }, 100);
 
             // Countdown Timer Function
             function startCountdown() {
