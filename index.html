@@ -39,6 +39,16 @@
             background: #ffffff;
         }
 
+        @media (orientation: portrait) and (max-width: 768px) {
+            html, body {
+                overflow: hidden !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                position: fixed;
+                width: 100%;
+            }
+        }
+
         /* Loading Screen */
         .loading-screen {
             position: fixed;
@@ -1791,6 +1801,21 @@
             margin-bottom: 0;
         }
 
+        .message-for-me-box {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+            opacity: 0;
+            margin: 0;
+        }
+
+        .message-for-me-box.show {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
         .hobbies-box {
             max-height: 0;
             overflow: hidden;
@@ -2724,9 +2749,10 @@
                 padding: 20px 15px;
                 padding-top: 20px;
                 padding-bottom: 20px;
-                height: auto;
+                height: 100vh;
+                max-height: 100vh;
                 min-height: 100vh;
-                overflow-y: visible;
+                overflow-y: hidden;
                 overflow-x: hidden;
                 width: 100%;
                 box-sizing: border-box;
@@ -2854,6 +2880,22 @@
                 box-sizing: border-box;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
+            }
+
+            .form-link-below {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                transform: none !important;
+                width: 100%;
+                max-width: 100%;
+                margin: 20px auto 0;
+                padding: 10px 15px;
+                text-align: center;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                z-index: 100;
             }
 
             .modal-box {
@@ -3583,11 +3625,6 @@
             </button>
         </div>
         <div class="update-button-container hidden" id="updateButtonContainer" style="display: none !important;">
-            <div class="christmas-message-link-wrapper" id="christmasLinkWrapper">
-                <div class="christmas-message-link" onclick="openModal('christmasMessage')">
-                    MESSAGE FOR ME
-                </div>
-            </div>
             <div id="comingSoonMainLink" class="christmas-message-link-wrapper" style="display:none;">
                 <div class="christmas-message-link" onclick="openComingSoonInAboutMe()">
                     MESSAGE FOR MYSELF
@@ -3602,7 +3639,7 @@
             </div>
         </div>
         <!-- Outside the box link below the warning + timer -->
-        <div class="form-link-below" id="formLinkBelow">
+        <div class="form-link-below" id="formLinkBelow" style="display: block !important;">
             <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSepwgBcRWKOAWcpfeGn-Jb2_nK6MYzGJtufxtD5QI1iA2-1IA/viewform?usp=dialog"
                 target="_blank"
@@ -3674,6 +3711,15 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="info-item">
                             <div class="info-label">Birthplace</div>
                             <div class="info-value">Dr. Rafael S. Tumbukon Memorial Hospital</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-for-me-box" id="messageForMeBox">
+                    <div class="personal-info-container">
+                        <div class="christmas-message-link-wrapper" id="christmasLinkWrapperAboutMe">
+                            <div class="christmas-message-link" onclick="openModal('christmasMessage')">
+                                MESSAGE FOR ME
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -5482,11 +5528,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     comingSoonLink.style.display = 'none';
                 }
                 
-                // Show Christmas message link again
-                const christmasLinkWrapper = document.getElementById('christmasLinkWrapper');
-                if (christmasLinkWrapper) {
-                    christmasLinkWrapper.style.display = 'flex';
-                }
+                // Christmas message link is now in About Me modal, no need to show/hide on main menu
             }
         }
         
@@ -5743,11 +5785,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             
             // Only change "coming soon" to "christmas" when timer hits zero or admin
             if (countdownDone || adminAccess) {
-                // Hide Christmas message link wrapper from main menu
-                const christmasLinkWrapper = document.getElementById('christmasLinkWrapper');
-                if (christmasLinkWrapper) {
-                    christmasLinkWrapper.style.display = 'none';
-                }
+                // Christmas message link is now in About Me modal, no need to hide from main menu
                 
                 // Show Coming Soon link in its place on main menu
                 const comingSoonLink = document.getElementById('comingSoonMainLink');
@@ -7009,6 +7047,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     }
                     // Do not auto-show personal details here
                     if (personalBox) personalBox.classList.remove('show');
+                    // Hide message for me box
+                    const messageForMeBox = document.getElementById('messageForMeBox');
+                    if (messageForMeBox) messageForMeBox.classList.remove('show');
                 });
             }
 
@@ -7030,6 +7071,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 // Hide gate, show details
                 if (accessGate) accessGate.style.display = 'none';
                 if (personalBox) personalBox.classList.add('show');
+                // Show message for me box
+                const messageForMeBox = document.getElementById('messageForMeBox');
+                if (messageForMeBox) messageForMeBox.classList.add('show');
                 // Show welcome toast for 4 seconds
                 showWelcomeToast();
                 if (personalToggleBtn) personalToggleBtn.classList.remove('rotated');
