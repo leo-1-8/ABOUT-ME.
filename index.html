@@ -2745,9 +2745,10 @@
         /* Portrait Orientation Styles - Mobile */
         @media (orientation: portrait) and (max-width: 768px) {
             .main-content {
-                justify-content: flex-start;
-                padding: 20px 15px;
-                padding-top: 20px;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 15px 15px 20px 15px;
+                padding-top: 15px;
                 padding-bottom: 20px;
                 height: 100vh;
                 max-height: 100vh;
@@ -2768,11 +2769,12 @@
                 top: auto;
                 left: auto;
                 transform: none;
-                margin: 0 auto 20px auto;
+                margin: 0 auto 15px auto;
                 padding: 10px 15px;
                 min-width: 220px;
                 max-width: 95%;
                 box-sizing: border-box;
+                order: 3;
             }
 
             .countdown-title {
@@ -2809,8 +2811,8 @@
                 left: auto !important;
                 bottom: auto !important;
                 transform: none !important;
-                margin: 0 auto 20px auto;
-                gap: 20px;
+                margin: 0 auto 15px auto;
+                gap: 15px;
                 box-sizing: border-box;
                 padding: 0 10px;
                 display: flex !important;
@@ -2819,6 +2821,7 @@
                 visibility: visible !important;
                 opacity: 1 !important;
                 z-index: 100 !important;
+                order: 1;
             }
 
             .main-button {
@@ -2844,13 +2847,21 @@
                 left: auto;
                 transform: none;
                 width: 100%;
-                margin: 0 auto 20px auto;
+                margin: 0 auto 15px auto;
                 box-sizing: border-box;
                 padding: 0 10px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 15px;
+                gap: 12px;
+                order: 2;
+            }
+
+            .update-button-container .btn-updates {
+                width: 85%;
+                max-width: 280px;
+                padding: 12px 20px;
+                font-size: 15px;
             }
 
             .christmas-message-link-wrapper {
@@ -2870,16 +2881,17 @@
             .warning-message {
                 width: 100%;
                 max-width: 100%;
-                position: relative;
-                bottom: auto;
-                left: auto;
-                transform: none;
-                margin: 30px auto 0;
+                position: absolute;
+                top: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                margin: 0 auto;
                 padding: 12px 15px;
                 font-size: 11px;
                 box-sizing: border-box;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
+                z-index: 50;
             }
 
             .form-link-below {
@@ -2889,13 +2901,14 @@
                 transform: none !important;
                 width: 100%;
                 max-width: 100%;
-                margin: 20px auto 0;
+                margin: 0 auto 0;
                 padding: 10px 15px;
                 text-align: center;
                 display: block !important;
                 visibility: visible !important;
                 opacity: 1 !important;
                 z-index: 100;
+                order: 3;
             }
 
             .modal-box {
