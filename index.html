@@ -1585,7 +1585,8 @@
         /* Other modals */
         .modal-about .modal-content,
         .modal-favorites .modal-content,
-        .modal-gaming .modal-content {
+        .modal-gaming .modal-content,
+        .modal-myapps .modal-content {
             max-height: calc(90vh - 150px);
         }
 
@@ -2001,6 +2002,126 @@
 
         .modal-gaming {
             background: linear-gradient(135deg, #ffd89b 0%, #ff9a56 100%);
+        }
+
+        .modal-myapps {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        }
+
+        .myapps-app-box {
+            display: inline-flex;
+            border: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 20px;
+            margin: 16px 0;
+            max-width: 120px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .myapps-app-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .myapps-app-emoji {
+            font-size: 32px;
+        }
+
+        .myapps-app-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Calculator overlay - blended background, expandable box, no scrollbars */
+        .calculator-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            overflow: hidden;
+            /* Match calculator page background so it blends */
+            background: linear-gradient(145deg, #1a1b26 0%, #24283b 50%, #1a1b26 100%);
+        }
+
+        .calculator-overlay.show {
+            display: flex;
+        }
+
+        .calculator-overlay-box {
+            position: relative;
+            /* Box expanded to fit calculator; no scroll - auto-adjusts */
+            width: min(500px, calc(100% - 24px));
+            height: min(92vh, 880px);
+            min-width: 340px;
+            min-height: 520px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            /* Hide any scrollbar */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .calculator-overlay-box::-webkit-scrollbar {
+            display: none;
+        }
+
+        .calculator-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: linear-gradient(145deg, #1a1b26 0%, #24283b 50%, #1a1b26 100%);
+            /* No scrollbar on side */
+            overflow: hidden;
+        }
+
+        /* Hide scrollbars inside iframe (inherits to scrollable areas in some browsers) */
+        .calculator-iframe::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        .calculator-overlay-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .calculator-overlay-close:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .modal-music {
@@ -3874,10 +3995,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-title">SINGER</div>
                         <div class="favorite-description">i can't live without my fav singers😭.</div>
                     </div>
-                    <div class="favorite-card clickable" id="comingSoonCard" onclick="showStayTunedMessage()">
-                        <div class="favorite-icon">⏳</div>
-                        <div class="favorite-title">Coming Soon</div>
-                        <div class="favorite-description">Click to see more...</div>
+                    <div class="favorite-card clickable" id="myAppsCard" onclick="openModal('myApps')">
+                        <div class="favorite-icon">📱</div>
+                        <div class="favorite-title">My Apps</div>
+                        <div class="favorite-description">This is my apps that i created right now</div>
                     </div>
                 </div>
                 <div id="christmasMessageDisplay" style="display:none; margin-top: 30px; padding: 20px; background: #fff5f5; border-radius: 12px; border: 2px solid #ffcdd2;">
@@ -3914,6 +4035,32 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- My Apps Modal -->
+    <div class="modal-overlay" id="myAppsModal" onclick="closeModalOnOverlay(event, 'myApps')">
+        <div class="modal-box modal-myapps">
+            <button class="close-button" onclick="closeModal('myApps')" title="Close">×</button>
+            <h1 class="modal-title">My Apps</h1>
+            <div class="modal-content">
+                <p class="modal-text">This is my apps that i created right now</p>
+                <div class="myapps-app-box" onclick="openCalculatorBox()" role="button" tabindex="0">
+                    <span class="myapps-app-emoji">🧮</span>
+                    <span class="myapps-app-label">Calculator</span>
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-action-button btn-back" onclick="closeModal('myApps')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator overlay (same page, blended background) -->
+    <div class="calculator-overlay" id="calculatorOverlay" onclick="closeCalculatorOnOverlay(event)">
+        <div class="calculator-overlay-box">
+            <button class="calculator-overlay-close" onclick="closeCalculatorBox()" title="Close">×</button>
+            <iframe class="calculator-iframe" id="calculatorIframe" src="New folder/index.html" title="Calculator"></iframe>
         </div>
     </div>
 
@@ -5421,6 +5568,31 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 // restore default message text
                 const msgText = message.querySelector('div');
                 if (msgText) msgText.textContent = 'UNFORTUNATELY UNAVAILABLE AT THIS TIME!';
+            }
+        }
+
+        // Calculator box (same page, blended background)
+        function openCalculatorBox() {
+            const overlay = document.getElementById('calculatorOverlay');
+            if (overlay) {
+                overlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            }
+        }
+
+        function closeCalculatorBox() {
+            const overlay = document.getElementById('calculatorOverlay');
+            if (overlay) {
+                overlay.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
+            }
+        }
+
+        function closeCalculatorOnOverlay(event) {
+            if (event.target === event.currentTarget) {
+                closeCalculatorBox();
             }
         }
 
@@ -7143,6 +7315,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         // Close modal with Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
+                // Check if calculator overlay is open
+                const calculatorOverlay = document.getElementById('calculatorOverlay');
+                if (calculatorOverlay && calculatorOverlay.classList.contains('show')) {
+                    closeCalculatorBox();
+                    return;
+                }
                 // Check if unavailable message is open
                 const unavailableMessage = document.getElementById('unavailableMessage');
                 if (unavailableMessage && unavailableMessage.classList.contains('show')) {
@@ -7177,6 +7355,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         closeModal('singer');
                     } else if (modal.id === 'updatesModal') {
                         closeModal('updates');
+                    } else if (modal.id === 'myAppsModal') {
+                        closeModal('myApps');
                     }
                 });
             }
