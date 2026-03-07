@@ -2717,6 +2717,94 @@
             transform: translateY(-2px);
         }
 
+        /* Updating Overlay - Black box with gray backdrop */
+        .updating-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(80, 80, 80, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            pointer-events: auto;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .updating-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        .updating-overlay-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: not-allowed;
+            pointer-events: auto;
+        }
+        .updating-box {
+            position: relative;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 40px 50px;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+        }
+        .updating-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .updating-dots {
+            display: inline-block;
+        }
+        .updating-dots span {
+            color: #fff;
+            display: inline-block;
+            animation: updatingWave 1.4s ease-in-out infinite;
+        }
+        .updating-dots span:nth-child(1) { animation-delay: 0s; }
+        .updating-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .updating-dots span:nth-child(3) { animation-delay: 0.4s; }
+        .updating-dots span:nth-child(4) { animation-delay: 0.6s; }
+        @keyframes updatingWave {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+        .updating-message {
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .updating-footer-row {
+            margin-top: 8px;
+        }
+        .updating-footer-row.hidden {
+            display: none;
+        }
+        .updating-footer {
+            color: #999;
+            font-size: 14px;
+        }
+        .updating-timer {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            margin-top: 8px;
+        }
+
         /* Warning Message Box */
         .warning-message {
             position: absolute;
@@ -3740,7 +3828,7 @@
                 <span id="seconds">00</span><span class="time-label">S</span>
             </div>
         </div>
-        <div class="button-container" id="mainButtonContainer" style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
+        <div class="button-container" id="mainButtonContainer" style="display: none; visibility: visible; opacity: 1;">
             <button class="main-button btn-about" onclick="openModal('about')">
                 <span class="christmas-deco-left">🎁</span>
                 <span class="christmas-deco-right">❄️</span>
@@ -3787,6 +3875,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         
             !KIDLY ROTATE YOUR PHONE TO LANDSCAPE, FOR BETTER EXPERIENCE!</div>
         <button id="introSkip" class="intro-skip" title="Skip">Skip</button>
+    </div>
+
+    <!-- Updating Overlay - appears when Skip or 30s timer triggers, until March 15 12:00 AM -->
+    <div class="updating-overlay" id="updatingOverlay">
+        <div class="updating-overlay-backdrop"></div>
+        <div class="updating-box">
+            <div class="updating-title">UPDATING<span class="updating-dots"><span>.</span><span>.</span><span>.</span><span>.</span></span></div>
+            <div class="updating-message">My website is currently updating. Please wait — I'm sorry for the inconvenience.</div>
+            <div class="updating-footer-row" id="updatingFooterRow">
+                <div class="updating-footer">Updating</div>
+                <div class="updating-timer" id="updatingTimer">00:00:00:00</div>
+            </div>
+        </div>
     </div>
 
     <!-- About Me Modal -->
@@ -5048,10 +5149,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             }
             
-            // Show buttons immediately after load
-            setTimeout(function() {
-                showMainButtons();
-            }, 100);
+            // Buttons are shown only after intro/updating overlay flow (see showMainContentAfterIntro)
 
             // Countdown Timer Function
             function startCountdown() {
@@ -5199,30 +5297,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             if (formLinkBelow) formLinkBelow.style.display = 'none';
                             // Start countdown immediately (even while intro is visible)
                             startWarningCountdown();
-                            // Auto fade after 30s if not skipped
+                            // Auto fade after 30s if not skipped - then show updating overlay or main content
                             introHideTimer = setTimeout(function() {
-                                // Show buttons and timer immediately
-                                if (mainWarning) {
-                                    mainWarning.style.display = '';
-                                    if (formLinkBelow) formLinkBelow.style.display = '';
-                                    if (countdownAlreadyDone) {
-                                        if (warningTimerLine) warningTimerLine.style.display = 'none';
-                                        if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                                    }
-                                }
-                                enableMusicMiniButton();
-                                showUpdatesButton();
-                                showMainButtons();
-                                // Start music with a small delay to ensure user interaction is registered
-                                setTimeout(function() {
-                                    startBgMusic();
-                                }, 100);
-                                
-                                // Then fade out intro box
-                                introBox.classList.add('fade-out');
-                                setTimeout(function() {
-                                    introBox.style.display = 'none';
-                                }, 900);
+                                onIntroComplete();
                             }, 30000);
                             if (introSkip) {
                                 introSkip.addEventListener('click', function() {
@@ -5230,32 +5307,86 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                         clearTimeout(introHideTimer);
                                         introHideTimer = null;
                                     }
-                                    // Show buttons and timer immediately
-                                    if (mainWarning) {
-                                        mainWarning.style.display = '';
-                                        if (formLinkBelow) formLinkBelow.style.display = '';
-                                        if (countdownAlreadyDone) {
-                                            if (warningTimerLine) warningTimerLine.style.display = 'none';
-                                            if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                                        } else {
-                                            if (warningTimerLine) warningTimerLine.style.display = '';
-                                            if (updatingMsgEl) updatingMsgEl.style.display = 'none';
-                                        }
-                                    }
-                                    enableMusicMiniButton();
-                                    showUpdatesButton();
-                                    showMainButtons();
-                                    // Start music with a small delay to ensure user interaction is registered
-                                    setTimeout(function() {
-                                        startBgMusic();
-                                    }, 100);
-                                    
-                                    // Then fade out intro box
-                                    introBox.classList.add('fade-out');
-                                    setTimeout(function() {
-                                        introBox.style.display = 'none';
-                                    }, 900);
+                                    onIntroComplete();
                                 });
+                            }
+                            
+                            // When Skip or 30s triggers: show updating overlay (until March 15 12:00 AM) or main content
+                            function onIntroComplete() {
+                                // Hide buttons immediately so they never flash (before intro fade / overlay show)
+                                const mainBtnContainer = document.getElementById('mainButtonContainer');
+                                const countdownContainer = document.getElementById('countdownContainer');
+                                if (mainBtnContainer) mainBtnContainer.style.setProperty('display', 'none', 'important');
+                                if (countdownContainer) countdownContainer.style.setProperty('display', 'none', 'important');
+                                // Fade out intro box
+                                introBox.classList.add('fade-out');
+                                setTimeout(function() {
+                                    introBox.style.display = 'none';
+                                    // Timer ends March 15, 2026 12:00:00 AM — overlay hides then
+                                    const overlayEndTime = new Date(2026, 2, 15, 0, 0, 0);
+                                    const now = new Date();
+                                    if (now >= overlayEndTime) {
+                                        showMainContentAfterIntro();
+                                    } else {
+                                        const overlay = document.getElementById('updatingOverlay');
+                                        const timerEl = document.getElementById('updatingTimer');
+                                        const footerRow = document.getElementById('updatingFooterRow');
+                                        if (overlay) {
+                                            overlay.classList.add('show');
+                                            document.body.style.overflow = 'hidden';
+                                            document.documentElement.style.overflow = 'hidden';
+                                        }
+                                        // Countdown to March 15 — uses elapsed time (performance.now()), NOT device date/time, so changing settings won't affect it
+                                        var startPerf = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+                                        var durationMs = Math.max(0, overlayEndTime.getTime() - Date.now());
+                                        var totalDurationSeconds = Math.floor(durationMs / 1000);
+                                        function formatCountdown(seconds) {
+                                            var d = Math.floor(seconds / 86400);
+                                            var h = Math.floor((seconds % 86400) / 3600);
+                                            var m = Math.floor((seconds % 3600) / 60);
+                                            var s = seconds % 60;
+                                            return String(d).padStart(2,'0') + ':' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+                                        }
+                                        function updateUpdatingCountdown() {
+                                            var elapsedMs = (typeof performance !== 'undefined' && performance.now) ? (performance.now() - startPerf) : (Date.now() - startPerf);
+                                            var elapsedSeconds = Math.floor(elapsedMs / 1000);
+                                            var secondsRemaining = Math.max(0, totalDurationSeconds - elapsedSeconds);
+                                            if (timerEl) timerEl.textContent = formatCountdown(secondsRemaining);
+                                            if (elapsedMs >= durationMs) {
+                                                if (updatingOverlayInterval) clearInterval(updatingOverlayInterval);
+                                                if (footerRow) footerRow.classList.add('hidden');
+                                                if (timerEl) timerEl.textContent = '00:00:00:00';
+                                                setTimeout(function() {
+                                                    var ol = document.getElementById('updatingOverlay');
+                                                    if (ol) ol.classList.remove('show');
+                                                    document.body.style.overflow = 'auto';
+                                                    document.documentElement.style.overflow = 'auto';
+                                                    showMainContentAfterIntro();
+                                                }, 800);
+                                                return;
+                                            }
+                                        }
+                                        var updatingOverlayInterval = setInterval(updateUpdatingCountdown, 1000);
+                                        updateUpdatingCountdown();
+                                    }
+                                }, 900);
+                            }
+                            function showMainContentAfterIntro() {
+                                if (mainWarning) {
+                                    mainWarning.style.display = '';
+                                    if (formLinkBelow) formLinkBelow.style.display = '';
+                                    if (countdownAlreadyDone) {
+                                        if (warningTimerLine) warningTimerLine.style.display = 'none';
+                                        if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                                    } else {
+                                        if (warningTimerLine) warningTimerLine.style.display = '';
+                                        if (updatingMsgEl) updatingMsgEl.style.display = 'none';
+                                    }
+                                }
+                                enableMusicMiniButton();
+                                showUpdatesButton();
+                                showMainButtons();
+                                setTimeout(function() { startBgMusic(); }, 100);
                             }
                         } else {
                             if (mainWarning) mainWarning.style.display = '';
