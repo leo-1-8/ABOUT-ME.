@@ -2732,7 +2732,7 @@
             pointer-events: auto;
             visibility: hidden;
             opacity: 0;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: none;
         }
         .updating-overlay.show {
             visibility: visible;
@@ -5311,67 +5311,58 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                 });
                             }
                             
-                            // When Skip or 30s triggers: show updating overlay (until March 15 12:00 AM) or main content
+                            // When Skip or 30s triggers: go directly to updating overlay (no smooth transition)
                             function onIntroComplete() {
-                                // Hide buttons immediately so they never flash (before intro fade / overlay show)
-                                const mainBtnContainer = document.getElementById('mainButtonContainer');
-                                const countdownContainer = document.getElementById('countdownContainer');
+                                var mainContent = document.getElementById('mainContent');
+                                var mainBtnContainer = document.getElementById('mainButtonContainer');
+                                var countdownContainer = document.getElementById('countdownContainer');
                                 if (mainBtnContainer) mainBtnContainer.style.setProperty('display', 'none', 'important');
                                 if (countdownContainer) countdownContainer.style.setProperty('display', 'none', 'important');
-                                // Fade out intro box
-                                introBox.classList.add('fade-out');
-                                setTimeout(function() {
-                                    introBox.style.display = 'none';
-                                    // Timer ends March 15, 2026 12:00:00 AM — overlay hides then
-                                    const overlayEndTime = new Date(2026, 2, 15, 0, 0, 0);
-                                    const now = new Date();
-                                    if (now >= overlayEndTime) {
-                                        showMainContentAfterIntro();
-                                    } else {
-                                        const overlay = document.getElementById('updatingOverlay');
-                                        const timerEl = document.getElementById('updatingTimer');
-                                        const footerRow = document.getElementById('updatingFooterRow');
-                                        if (overlay) {
-                                            overlay.classList.add('show');
-                                            document.body.style.overflow = 'hidden';
-                                            document.documentElement.style.overflow = 'hidden';
-                                        }
-                                        // Countdown to March 15 — uses elapsed time (performance.now()), NOT device date/time, so changing settings won't affect it
-                                        var startPerf = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
-                                        var durationMs = Math.max(0, overlayEndTime.getTime() - Date.now());
-                                        var totalDurationSeconds = Math.floor(durationMs / 1000);
-                                        function formatCountdown(seconds) {
-                                            var d = Math.floor(seconds / 86400);
-                                            var h = Math.floor((seconds % 86400) / 3600);
-                                            var m = Math.floor((seconds % 3600) / 60);
-                                            var s = seconds % 60;
-                                            return String(d).padStart(2,'0') + ':' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-                                        }
-                                        function updateUpdatingCountdown() {
-                                            var elapsedMs = (typeof performance !== 'undefined' && performance.now) ? (performance.now() - startPerf) : (Date.now() - startPerf);
-                                            var elapsedSeconds = Math.floor(elapsedMs / 1000);
-                                            var secondsRemaining = Math.max(0, totalDurationSeconds - elapsedSeconds);
-                                            if (timerEl) timerEl.textContent = formatCountdown(secondsRemaining);
-                                            if (elapsedMs >= durationMs) {
-                                                if (updatingOverlayInterval) clearInterval(updatingOverlayInterval);
-                                                if (footerRow) footerRow.classList.add('hidden');
-                                                if (timerEl) timerEl.textContent = '00:00:00:00';
-                                                setTimeout(function() {
-                                                    var ol = document.getElementById('updatingOverlay');
-                                                    if (ol) ol.classList.remove('show');
-                                                    document.body.style.overflow = 'auto';
-                                                    document.documentElement.style.overflow = 'auto';
-                                                    showMainContentAfterIntro();
-                                                }, 800);
-                                                return;
-                                            }
-                                        }
-                                        var updatingOverlayInterval = setInterval(updateUpdatingCountdown, 1000);
-                                        updateUpdatingCountdown();
+                                introBox.style.display = 'none';
+                                if (mainContent) mainContent.style.display = 'none';
+                                var overlayEndTime = new Date(2026, 2, 15, 0, 0, 0);
+                                var now = new Date();
+                                if (now >= overlayEndTime) {
+                                    if (mainContent) mainContent.style.display = '';
+                                    showMainContentAfterIntro();
+                                } else {
+                                    var overlay = document.getElementById('updatingOverlay');
+                                    var timerEl = document.getElementById('updatingTimer');
+                                    var footerRow = document.getElementById('updatingFooterRow');
+                                    if (overlay) {
+                                        overlay.classList.add('show');
+                                        document.body.style.overflow = 'hidden';
+                                        document.documentElement.style.overflow = 'hidden';
                                     }
-                                }, 900);
+                                    var startPerf = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+                                    var durationMs = Math.max(0, overlayEndTime.getTime() - Date.now());
+                                    var totalDurationSeconds = Math.floor(durationMs / 1000);
+                                    function formatCountdown(seconds) {
+                                        var d = Math.floor(seconds / 86400);
+                                        var h = Math.floor((seconds % 86400) / 3600);
+                                        var m = Math.floor((seconds % 3600) / 60);
+                                        var s = seconds % 60;
+                                        return String(d).padStart(2,'0') + ':' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+                                    }
+                                    function updateUpdatingCountdown() {
+                                        var elapsedMs = (typeof performance !== 'undefined' && performance.now) ? (performance.now() - startPerf) : (Date.now() - startPerf);
+                                        var elapsedSeconds = Math.floor(elapsedMs / 1000);
+                                        var secondsRemaining = Math.max(0, totalDurationSeconds - elapsedSeconds);
+                                        if (timerEl) timerEl.textContent = formatCountdown(secondsRemaining);
+                                        if (elapsedMs >= durationMs) {
+                                            if (updatingOverlayInterval) clearInterval(updatingOverlayInterval);
+                                            if (footerRow) footerRow.classList.add('hidden');
+                                            if (timerEl) timerEl.textContent = '00:00:00:00';
+                                            return;
+                                        }
+                                    }
+                                    var updatingOverlayInterval = setInterval(updateUpdatingCountdown, 1000);
+                                    updateUpdatingCountdown();
+                                }
                             }
                             function showMainContentAfterIntro() {
+                                var mc = document.getElementById('mainContent');
+                                if (mc) mc.style.display = '';
                                 if (mainWarning) {
                                     mainWarning.style.display = '';
                                     if (formLinkBelow) formLinkBelow.style.display = '';
