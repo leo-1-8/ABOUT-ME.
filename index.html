@@ -1437,7 +1437,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-              gap: 15px;
+                gap: 15px;
             }
 
             .christmas-message-link-wrapper {
@@ -3827,12 +3827,14 @@
                 <span id="minutes">00</span><span class="time-label">M</span>
                 <span id="seconds">00</span><span class="time-label">S</span>
             </div>
-        </div> 
+        </div>
+
             
+        </div>
         <div class="update-button-container hidden" id="updateButtonContainer" style="display: none !important;">
             <div id="comingSoonMainLink" class="christmas-message-link-wrapper" style="display:none;">
                 <div class="christmas-message-link" onclick="openComingSoonInAboutMe()">
-                    
+                    MESSAGE FOR MYSELF
                 </div>
             </div>
             <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW</button>
@@ -3853,6 +3855,20 @@
             ></a>
         </div>
     </div>
+    
+    <!-- Updating Overlay - appears when Loading finished, until March 15 12:00 AM -->
+    <div class="updating-overlay" id="updatingOverlay">
+        <div class="updating-overlay-backdrop"></div>
+        <div class="updating-box">
+            <div class="updating-title">UPDATING<span class="updating-dots"><span>.</span><span>.</span><span>.</span><span>.</span></span></div>
+            <div class="updating-message">My website is currently updating. Please wait — I'm sorry for the inconvenience.</div>
+            <div class="updating-footer-row" id="updatingFooterRow">
+                <div class="updating-footer">Updating</div>
+                <div class="updating-timer" id="updatingTimer">00:00:00:00</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Welcome Intro Box -->
     <div id="introBox" class="intro-box" role="dialog" aria-live="polite">
         <div class="intro-title">WELCOME</div>
@@ -3866,28 +3882,15 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         <button id="introSkip" class="intro-skip" title="Skip">Skip</button>
     </div>
 
-    <!-- Updating Overlay - appears when Skip or 30s timer triggers, until March 15 12:00 AM -->
-    <div class="updating-overlay" id="updatingOverlay">
-        <div class="updating-overlay-backdrop"></div>
-        <div class="updating-box">
-            <div class="updating-title">UPDATING<span class="updating-dots"><span>.</span><span>.</span><span>.</span><span>.</span></span></div>
-            <div class="updating-message">My website is currently updating. Please wait — I'm sorry for the inconvenience.</div>
-            <div class="updating-footer-row" id="updatingFooterRow">
-                <div class="updating-footer">Updating</div>
-                <div class="updating-timer" id="updatingTimer">00:00:00:00</div>
-            </div>
-        </div>
-    </div>
-
     <!-- About Me Modal -->
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-box modal-about">
             <button class="close-button" onclick="closeModal('about')" title="Close">×</button>
-            <h1 class="modal-title">About Me</h1>
+            <h1 class="modal-title"></h1>
             <div class="modal-content">
                 <div class="info-item name-item">
                     <div class="info-label name-with-button">
-                        <span>Personal Details</span>
+                        <span></span>
                         <button id="personalToggleBtn" class="info-toggle-button" title="Toggle access">▶</button>
                     </div>
                 </div>
