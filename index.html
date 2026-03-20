@@ -2724,7 +2724,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(80, 80, 80, 0.7);
+            /* Nearly solid so the page behind can't "show through" when mainContent gets toggled by orientation code */
+            background: rgba(0, 0, 0, 0.92);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -3842,6 +3843,13 @@
             <div id="warningTimerLine" style="margin-top:6px;font-weight:700;">
                 UPDATES IN <span id="warningTimer">84:00:00:00</span>
             </div>
+            <!-- Shown when countdown ends (JS toggles vs warningTimerLine); must exist or timer line hides with nothing shown -->
+            <div id="updatingMsg" style="display:none; margin-top:6px; font-weight:700; letter-spacing:0.02em;">
+                UPDATING…
+            </div>
+            <div id="warningTimerLineMarch23" style="margin-top:8px;font-weight:700;">
+                UNTIL MARCH 23: <span id="warningTimerMarch23">00:00:00:00</span>
+            </div>
         </div>
         <!-- Outside the box link below the warning + timer -->
         <div class="form-link-below" id="formLinkBelow" style="display: block !important;">
@@ -3866,7 +3874,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         <button id="introSkip" class="intro-skip" title="Skip">Skip</button>
     </div>
 
-    <!-- Updating Overlay - appears when Skip or 30s timer triggers, until March 15 12:00 AM -->
+    <!-- Updating Overlay - after intro until March 23 12:00 AM; stays visible after countdown hits 0 -->
     <div class="updating-overlay" id="updatingOverlay">
         <div class="updating-overlay-backdrop"></div>
         <div class="updating-box">
@@ -5097,6 +5105,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const mainWarning = document.getElementById('mainWarning');
             const warningTimerEl = document.getElementById('warningTimer');
             const warningTimerLine = document.getElementById('warningTimerLine');
+            const warningTimerMarch23El = document.getElementById('warningTimerMarch23');
             const updatingMsgEl = document.getElementById('updatingMsg');
             const formLinkBelow = document.getElementById('formLinkBelow');
             const updatesButtonContainer = document.querySelector('.update-button-container');
@@ -5309,10 +5318,11 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                 if (countdownContainer) countdownContainer.style.setProperty('display', 'none', 'important');
                                 introBox.style.display = 'none';
                                 if (mainContent) mainContent.style.display = 'none';
-                                var overlayEndTime = new Date(2026, 2, 21, 0, 0, 0);
+                                // Same target as banner "UNTIL MARCH 23" — after this date, skip overlay and show site
+                                var overlayEndTime = new Date(2026, 2, 23, 0, 0, 0);
                                 var now = new Date();
                                 if (now >= overlayEndTime) {
-                                    if (mainContent) mainContent.style.display = '';
+                                    if (mainContent) mainContent.style.removeProperty('display');
                                     showMainContentAfterIntro();
                                 } else {
                                     var overlay = document.getElementById('updatingOverlay');
@@ -5323,6 +5333,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                         document.body.style.overflow = 'hidden';
                                         document.documentElement.style.overflow = 'hidden';
                                     }
+                                    if (mainContent) mainContent.style.setProperty('display', 'none', 'important');
                                     var startPerf = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
                                     var durationMs = Math.max(0, overlayEndTime.getTime() - Date.now());
                                     var totalDurationSeconds = Math.floor(durationMs / 1000);
@@ -5339,8 +5350,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                         var secondsRemaining = Math.max(0, totalDurationSeconds - elapsedSeconds);
                                         if (timerEl) timerEl.textContent = formatCountdown(secondsRemaining);
                                         if (elapsedMs >= durationMs) {
-                                            // Keep the UPDATING footer visible after reaching 0
+                                            // Keep full updating screen — do not reveal main content or remove overlay
                                             if (timerEl) timerEl.textContent = '00:00:00:00';
+                                            if (mainContent) mainContent.style.setProperty('display', 'none', 'important');
+                                            if (overlay) overlay.classList.add('show');
+                                            document.body.style.overflow = 'hidden';
+                                            document.documentElement.style.overflow = 'hidden';
                                             return;
                                         }
                                     }
@@ -5350,7 +5365,11 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             }
                             function showMainContentAfterIntro() {
                                 var mc = document.getElementById('mainContent');
-                                if (mc) mc.style.display = '';
+                                var updOv = document.getElementById('updatingOverlay');
+                                if (updOv) updOv.classList.remove('show');
+                                document.body.style.overflow = '';
+                                document.documentElement.style.overflow = '';
+                                if (mc) mc.style.removeProperty('display');
                                 if (mainWarning) {
                                     mainWarning.style.display = '';
                                     if (formLinkBelow) formLinkBelow.style.display = '';
@@ -5396,28 +5415,32 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
 
             function startWarningCountdown() {
-                if (!warningTimerEl) return;
+                if (!warningTimerEl && !warningTimerMarch23El) return;
                 if (countdownAlreadyDone) {
                     if (warningTimerLine) warningTimerLine.style.display = 'none';
                     if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                    return;
+                    // Keep running: March 23 countdown must still tick after March 21
                 }
-                // Determine target for updates: March 21, 2026 at 12:00 AM local time
-                // Use local time to ensure it matches the user's clock
+                // March 21, 2026 at 12:00 AM local — first milestone (UPDATING…)
                 if (!targetNov15) {
-                    // month index: 2 = March, day: 21, hour 0, minute 0, second 0
                     targetNov15 = new Date(2026, 2, 21, 0, 0, 0);
                 }
                 function updateCountdown() {
-                    // Always use current local time
                     const now = new Date();
-                    // Recalculate target to ensure it uses local timezone
+                    // March 23, 2026 at 12:00 AM local — always updated
+                    const targetMarch23 = new Date(2026, 2, 23, 0, 0, 0);
+                    let diff23 = Math.floor((targetMarch23.getTime() - now.getTime()) / 1000);
+                    if (diff23 < 0) diff23 = 0;
+                    if (warningTimerMarch23El) warningTimerMarch23El.textContent = formatDhms(diff23);
+
+                    if (countdownAlreadyDone) {
+                        return;
+                    }
                     const targetDate = new Date(2026, 2, 21, 0, 0, 0);
                     let diff = Math.floor((targetDate.getTime() - now.getTime()) / 1000);
                     if (diff < 0) diff = 0;
                     if (warningTimerEl) warningTimerEl.textContent = formatDhms(diff);
                     if (diff === 0) {
-                        // Swap timer with "UPDATING..."
                         if (warningTimerLine) warningTimerLine.style.display = 'none';
                         if (updatingMsgEl) updatingMsgEl.style.display = 'block';
                         if (!countdownAlreadyDone) {
@@ -5427,9 +5450,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                             } catch (error) {
                                 // ignore storage errors
                             }
-                            // Unlock features when timer hits 0 (permanent unlock)
                             unlockChristmasFeatures();
-                            // Also start preview timer for testing (10 minutes)
                             startPreviewTimer();
                         }
                     }
@@ -5487,8 +5508,13 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             }
             
-            // Force reflow to ensure styles apply
+            // Force reflow to ensure styles apply — but never reveal #mainContent while the updating overlay is up
             if (mainContent) {
+                const updatingOv = document.getElementById('updatingOverlay');
+                if (updatingOv && updatingOv.classList.contains('show')) {
+                    mainContent.style.setProperty('display', 'none', 'important');
+                    return;
+                }
                 mainContent.style.display = 'none';
                 mainContent.offsetHeight; // Trigger reflow
                 mainContent.style.display = '';
