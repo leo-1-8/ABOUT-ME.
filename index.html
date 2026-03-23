@@ -67,6 +67,74 @@
         .loading-screen.hidden {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        /* Completely remove from layout when hidden so it never blocks the intro */
+        .loading-screen.hidden.removed {
+            display: none !important;
+        }
+
+        /* Sleep mode overlay (10:00 PM - 5:00 AM) */
+        body.sleep-mode {
+            overflow: hidden !important;
+        }
+        /* When site is closed, hide all main UI so only the sleep overlay is visible */
+        body.sleep-mode .intro-box,
+        body.sleep-mode .button-container,
+        body.sleep-mode .update-button-container,
+        body.sleep-mode .warning-message,
+        body.sleep-mode .form-link-below {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        .sleep-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.62);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 20000;
+            padding: 24px;
+            text-align: center;
+        }
+        .sleep-overlay.show {
+            display: flex;
+        }
+        .sleep-box {
+            width: min(520px, 95vw);
+            background: rgba(0, 0, 0, 0.92);
+            border-radius: 18px;
+            padding: 26px 22px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+        }
+        .sleep-title {
+            font-weight: 800;
+            font-size: 22px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .sleep-subtitle {
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.6px;
+        }
+        .sleep-timer-line {
+            margin-top: 12px;
+            font-weight: 800;
+            font-size: 16px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .sleep-timer-line span {
+            font-variant-numeric: tabular-nums;
         }
 
         .progress-container {
@@ -214,6 +282,293 @@
             backface-visibility: hidden;
             transform: translateZ(0);
         }
+
+        /* Theme toggle (top-right on main menu) */
+        .theme-toggle {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 25001;
+            border: none;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        /* Only show after intro is done/skipped */
+        body.intro-pending .theme-toggle {
+            display: none !important;
+        }
+        body.sleep-mode .theme-toggle {
+            display: none !important;
+        }
+        .theme-toggle-ui {
+            width: 150px;
+            height: 44px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(8px);
+            position: relative;
+        }
+        .theme-toggle-label {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #111;
+            text-transform: uppercase;
+            user-select: none;
+            white-space: nowrap;
+            line-height: 1;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 16px;
+            right: 50px; /* leave space for knob */
+            text-align: left;
+            pointer-events: none;
+        }
+        .theme-toggle-knob {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(0, 0, 0, 0.18);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+            line-height: 1;
+            flex-shrink: 0;
+            transition: left 0.25s ease, right 0.25s ease, background 0.25s ease, color 0.25s ease;
+            color: #111;
+            position: absolute;
+            right: 6px;
+            top: 6px;
+        }
+        .theme-toggle-icon {
+            width: 18px;
+            height: 18px;
+            display: block;
+            color: #111;
+        }
+        body.dark-mode .theme-toggle-icon {
+            color: rgba(255, 255, 255, 0.92);
+        }
+        #themeIconMoon { display: none; }
+        body.dark-mode #themeIconSun { display: none; }
+        body.dark-mode #themeIconMoon { display: block; }
+        body.dark-mode .theme-toggle-ui {
+            background: rgba(0, 0, 0, 0.55);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+        body.dark-mode .theme-toggle-label {
+            color: rgba(255, 255, 255, 0.9);
+            left: 50px;  /* leave space for knob on left */
+            right: 16px;
+            text-align: right;
+        }
+        body.dark-mode .theme-toggle-knob {
+            right: auto;
+            left: 6px;
+            background: rgba(0, 0, 0, 0.7);
+            color: rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Dark mode (main page + modals basic) */
+        body.dark-mode .main-content {
+            background: #070b14;
+            color: rgba(255, 255, 255, 0.92);
+        }
+        body.dark-mode .warning-message {
+            background: rgba(255, 107, 107, 0.18);
+            border-color: rgba(255, 107, 107, 0.35);
+            color: rgba(255, 255, 255, 0.92);
+        }
+        body.dark-mode .form-link-below a {
+            color: #86efac !important;
+        }
+
+        /* Dark mode: keep main buttons/text bright */
+        body.dark-mode .main-button {
+            color: #fff;
+        }
+        body.dark-mode .whats-new-icon-btn {
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+        }
+
+        body.dark-mode .countdown-title,
+        body.dark-mode .countdown-timer,
+        body.dark-mode .countdown-timer .time-label {
+            color: rgba(255, 255, 255, 0.92);
+        }
+        body.dark-mode .modal-box {
+            background: rgba(10, 14, 26, 0.92);
+            color: rgba(255, 255, 255, 0.92);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+        body.dark-mode .modal-title {
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        /* About Me (dark): light panels had white text from old wildcard — use dark panels + light text */
+        body.dark-mode #aboutModal .modal-content {
+            color: rgba(255, 255, 255, 0.92);
+        }
+        body.dark-mode #aboutModal .info-item,
+        body.dark-mode #aboutModal .personal-info-container,
+        body.dark-mode #aboutModal .hobbies-box .personal-info-container,
+        body.dark-mode #aboutModal .about-favorites-box .personal-info-container,
+        body.dark-mode #aboutModal .hobbies-box,
+        body.dark-mode #aboutModal .about-favorites-box {
+            background: rgba(28, 36, 52, 0.95) !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        }
+        body.dark-mode #aboutModal .favorites-topics-container {
+            background: transparent;
+        }
+        body.dark-mode #aboutModal .favorite-topic-box {
+            background: rgba(28, 36, 52, 0.95) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode #aboutModal .info-label {
+            color: rgba(255, 255, 255, 0.75) !important;
+        }
+        body.dark-mode #aboutModal .info-value,
+        body.dark-mode #aboutModal .favorite-topic-title,
+        body.dark-mode #aboutModal .favorite-topic-description,
+        body.dark-mode #aboutModal .description-short,
+        body.dark-mode #aboutModal .description-full,
+        body.dark-mode #aboutModal .see-more-link {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+        body.dark-mode #aboutModal .see-more-link {
+            color: #86efac !important;
+        }
+        body.dark-mode #aboutModal .access-gate {
+            background: rgba(28, 36, 52, 0.95) !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+        }
+        body.dark-mode #aboutModal .access-gate-title,
+        body.dark-mode #aboutModal .access-gate-msg {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        body.dark-mode #aboutModal .access-gate-link {
+            color: #86efac !important;
+        }
+        body.dark-mode #aboutModal .christmas-message-link {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+        body.dark-mode #aboutModal .back-button-box {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        body.dark-mode #aboutModal .form-link-below,
+        body.dark-mode #aboutModal .form-link-below a {
+            color: #a7f3d0 !important;
+        }
+        body.dark-mode #aboutModal .countdown-title,
+        body.dark-mode #aboutModal .countdown-timer {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+        body.dark-mode .modal-box .close-button,
+        body.dark-mode .modal-box .close-button-left {
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+        body.dark-mode .modal-box .close-button:hover,
+        body.dark-mode .modal-box .close-button-left:hover {
+            background: rgba(255, 255, 255, 0.32);
+            color: #fff;
+        }
+
+        /* Dark mode: make modal text white (About Me uses targeted rules below — no * wildcard) */
+        body.dark-mode #gamingModal .modal-content,
+        body.dark-mode #gamingModal .modal-content *,
+        body.dark-mode #musicModal .modal-content,
+        body.dark-mode #musicModal .modal-content *,
+        body.dark-mode #singerModal .modal-content,
+        body.dark-mode #singerModal .modal-content *,
+        body.dark-mode #myAppsModal .modal-content,
+        body.dark-mode #myAppsModal .modal-content * {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+        body.dark-mode #musicModal a,
+        body.dark-mode #singerModal a {
+            color: #86efac !important;
+        }
+        body.dark-mode #singerModal .social-link a {
+            color: #4caf50 !important;
+        }
+        body.dark-mode #singerModal .social-link a:hover {
+            color: #2e7d32 !important;
+        }
+        body.dark-mode #musicModal .music-control-button,
+        body.dark-mode #musicModal .play-button,
+        body.dark-mode #musicModal .modal-action-button,
+        body.dark-mode #gamingModal .gaming-link-button,
+        body.dark-mode #myAppsModal .modal-action-button {
+            color: #fff !important;
+        }
+        body.dark-mode #musicModal .close-button-left,
+        body.dark-mode #musicModal .music-info-button {
+            color: #fff !important;
+        }
+        body.dark-mode #musicModal .close-button-left,
+        body.dark-mode #musicModal .music-info-button {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Theme transition animation */
+        body.theme-transition,
+        body.theme-transition * {
+            transition:
+                background-color 350ms ease,
+                color 350ms ease,
+                border-color 350ms ease,
+                box-shadow 350ms ease,
+                filter 350ms ease;
+        }
+        body.theme-transition .modal-overlay {
+            transition: background-color 350ms ease, filter 350ms ease;
+        }
+
+        /* Dark mode: force What's New (updates) modal text readable */
+        body.dark-mode #updatesModal .modal-content,
+        body.dark-mode #updatesModal .modal-content * {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+        body.dark-mode #updatesModal .see-more-link {
+            color: rgba(255, 255, 255, 0.92) !important;
+            text-decoration: underline;
+        }
+        body.dark-mode #updatesModal .updates-summary-accent {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        /* Dark mode: Others/My Favorites modal readability */
+        body.dark-mode #favoritesModal .modal-content,
+        body.dark-mode #favoritesModal .modal-content * {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+        body.dark-mode #favoritesModal h2 {
+            color: rgba(255, 255, 255, 0.92) !important;
+            text-shadow: none !important;
+        }
+        body.dark-mode #favoritesModal .favorite-card {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+        }
         
         /* (Removed) Christmas decorations that floated around the page */
         .main-content::before,
@@ -345,6 +700,48 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 80px; /* Move main buttons lower so content sits closer to bottom */
+        }
+
+        .favorites-and-whatsnew-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .whats-new-icon-btn {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+            border-radius: 50%;
+            background: #888;
+            color: #000;
+            border: none;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .whats-new-icon-btn:hover {
+            background: #666;
+            transform: scale(1.05);
+        }
+        .whats-new-icon-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Keep buttons (including ?) hidden until intro finishes (30s) or Skip */
+        body.intro-pending .button-container {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        .button-container {
             z-index: 100;
             visibility: visible;
             opacity: 1;
@@ -1437,7 +1834,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-              gap: 15px;
+                gap: 15px;
             }
 
             .christmas-message-link-wrapper {
@@ -1586,7 +1983,8 @@
         .modal-about .modal-content,
         .modal-favorites .modal-content,
         .modal-gaming .modal-content,
-        .modal-myapps .modal-content {
+        .modal-myapps .modal-content,
+        .modal-calculator .modal-content {
             max-height: calc(90vh - 150px);
         }
 
@@ -2010,118 +2408,146 @@
 
         .myapps-app-box {
             display: inline-flex;
-            border: none;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 12px 20px;
-            margin: 16px 0;
-            max-width: 120px;
+            gap: 8px;
+            padding: 10px 16px;
+            margin: 20px 0;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
-            border: 2px solid rgba(99, 102, 241, 0.3);
             cursor: pointer;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: auto;
         }
 
         .myapps-app-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            border-color: rgba(99, 102, 241, 0.5);
-            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .myapps-app-emoji {
-            font-size: 32px;
+            font-size: 24px;
         }
 
         .myapps-app-label {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: #333;
         }
 
-        /* Calculator overlay - blended background, expandable box, no scrollbars */
-        .calculator-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 10001;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            box-sizing: border-box;
-            overflow: hidden;
-            /* Match calculator page background so it blends */
-            background: linear-gradient(145deg, #1a1b26 0%, #24283b 50%, #1a1b26 100%);
+        #calculatorModal .modal-box,
+        .modal-calculator .modal-box {
+            max-width: 95vw;
+            width: 90vw;
+            min-height: 0 !important;
+            max-height: 90vh;
+            height: auto;
+            padding: 0;
+            margin: 20px;
+            border-radius: 12px;
+            overflow: hidden !important;
+            overflow-y: hidden !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: auto;
+            background: #1a1b26;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        .calculator-overlay.show {
-            display: flex;
-        }
-
-        .calculator-overlay-box {
+        #calculatorModal .modal-content,
+        #calculatorModal .modal-calculator-content,
+        .modal-calculator .modal-content,
+        .modal-calculator-content {
             position: relative;
-            /* Box expanded to fit calculator; no scroll - auto-adjusts */
-            width: min(500px, calc(100% - 24px));
-            height: min(92vh, 880px);
-            min-width: 340px;
-            min-height: 520px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            /* Hide any scrollbar */
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            min-height: 0;
+            max-height: none;
+            margin: 0;
+            padding: 0;
+            background: #1a1b26;
+            overflow: hidden !important;
+            overflow-y: hidden !important;
+            overflow-x: hidden !important;
         }
 
-        .calculator-overlay-box::-webkit-scrollbar {
-            display: none;
-        }
-
-        .calculator-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            background: linear-gradient(145deg, #1a1b26 0%, #24283b 50%, #1a1b26 100%);
-            /* No scrollbar on side */
-            overflow: hidden;
-        }
-
-        /* Hide scrollbars inside iframe (inherits to scrollable areas in some browsers) */
-        .calculator-iframe::-webkit-scrollbar {
-            display: none;
+        #calculatorModal .modal-box::-webkit-scrollbar,
+        #calculatorModal .modal-content::-webkit-scrollbar,
+        .modal-calculator .modal-box::-webkit-scrollbar,
+        .modal-calculator .modal-content::-webkit-scrollbar {
+            display: none !important;
             width: 0;
             height: 0;
         }
 
-        .calculator-overlay-close {
+        #calculatorModal .modal-box,
+        #calculatorModal .modal-content,
+        .modal-calculator .modal-box,
+        .modal-calculator .modal-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .calculator-close-btn {
             position: absolute;
             top: 12px;
             right: 12px;
+            z-index: 10004;
             width: 36px;
             height: 36px;
+            font-size: 22px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
             border: none;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            font-size: 22px;
             cursor: pointer;
-            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
         }
 
-        .calculator-overlay-close:hover {
-            background: rgba(255, 255, 255, 0.25);
+        .calculator-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .calculator-iframe {
+            width: 100%;
+            height: 78vh;
+            min-height: 580px;
+            border: none;
+            border-radius: 0 0 12px 12px;
+            display: block;
+        }
+
+        /* Calculator modal: full screen on mobile so no "Music" or background shows, one clear scroll */
+        @media (max-width: 768px) {
+            #calculatorModal .modal-box,
+            .modal-calculator .modal-box {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            .modal-calculator .calculator-iframe {
+                height: 100vh !important;
+                min-height: 100vh !important;
+                border-radius: 0 !important;
+            }
+            .calculator-close-btn {
+                top: 8px;
+                right: 8px;
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 768px) and (max-height: 600px) {
+            .modal-calculator .calculator-iframe {
+                height: 100vh !important;
+                min-height: 100vh !important;
+            }
         }
 
         .modal-music {
@@ -2541,6 +2967,10 @@
             text-align: center;
         }
 
+        body.intro-visible .form-link-below {
+            display: none !important;
+        }
+
         @media (max-width: 768px) {
             .form-link-below {
                 position: fixed;
@@ -2599,14 +3029,99 @@
             text-align: center;
         }
 
+        .otp-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .otp-input-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
         .otp-input {
-            padding: 10px 14px;
+            padding: 10px 44px 10px 14px;
             font-size: 16px;
-            width: 160px;
+            width: 210px;
             text-align: center;
             border-radius: 8px;
             border: 2px solid #bbb;
             outline: none;
+        }
+
+        /* Dark mode: make OTP/password text visible */
+        body.dark-mode .otp-input {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.92);
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+        body.dark-mode .otp-input::placeholder {
+            color: rgba(255, 255, 255, 0.55);
+        }
+        body.dark-mode .otp-eye-btn {
+            background: rgba(255, 255, 255, 0.10);
+        }
+        body.dark-mode .otp-eye-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+        }
+        body.dark-mode .otp-eye-icon {
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        /* Hide browser built-in password reveal/clear icons (prevents duplicate eye on the right) */
+        .otp-input::-ms-reveal,
+        .otp-input::-ms-clear {
+            display: none;
+        }
+
+        .otp-input::placeholder {
+            font-size: 14px;
+        }
+
+        .otp-eye-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            font-size: 16px;
+        }
+
+        .otp-eye-btn:hover {
+            background: rgba(0, 0, 0, 0.10);
+        }
+
+        .otp-eye-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0, 0, 0, 0.75);
+        }
+
+        /* Default state is hidden (password) => show closed-eye icon */
+        .otp-eye-btn .otp-eye-icon-open {
+            display: none;
+        }
+        .otp-eye-btn .otp-eye-icon-closed {
+            display: inline-flex;
+        }
+        .otp-eye-btn[data-state="shown"] .otp-eye-icon-open {
+            display: inline-flex;
+        }
+        .otp-eye-btn[data-state="shown"] .otp-eye-icon-closed {
+            display: none;
         }
 
         .otp-input:focus {
@@ -2614,7 +3129,6 @@
         }
 
         .otp-submit {
-            margin-left: 8px;
             padding: 10px 16px;
             font-size: 16px;
             font-weight: 600;
@@ -2655,7 +3169,7 @@
             display: none;
         }
 
-        /* Post-loading welcome intro */
+        /* Post-loading welcome intro - very high z-index so nothing can cover the Skip button */
         .intro-box {
             position: fixed;
             top: 50%;
@@ -2666,7 +3180,7 @@
             padding: 20px 24px;
             border-radius: 14px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-            z-index: 10004;
+            z-index: 99998;
             width: 90%;
             max-width: 640px;
             display: none;
@@ -2674,10 +3188,12 @@
             transition: opacity 0.8s ease;
             text-align: center;
             border: 2px solid rgba(27, 94, 32, 0.2);
+            pointer-events: auto;
         }
 
         .intro-box.show {
             display: block;
+            pointer-events: auto;
         }
 
         .intro-box.fade-out {
@@ -2710,100 +3226,15 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 99999;
+            pointer-events: auto;
+            touch-action: manipulation;
         }
 
         .intro-skip:hover {
             background: #707070;
             transform: translateY(-2px);
-        }
-
-        /* Updating Overlay - Black box with gray backdrop */
-        .updating-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Nearly solid so the page behind can't "show through" when mainContent gets toggled by orientation code */
-            background: rgba(0, 0, 0, 0.92);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            pointer-events: auto;
-            visibility: hidden;
-            opacity: 0;
-            transition: none;
-        }
-        .updating-overlay.show {
-            visibility: visible;
-            opacity: 1;
-        }
-        .updating-overlay-backdrop {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: not-allowed;
-            pointer-events: auto;
-        }
-        .updating-box {
-            position: relative;
-            background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 12px;
-            padding: 40px 50px;
-            text-align: center;
-            max-width: 90%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            pointer-events: auto;
-        }
-        .updating-title {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-        .updating-dots {
-            display: inline-block;
-        }
-        .updating-dots span {
-            color: #fff;
-            display: inline-block;
-            animation: updatingWave 1.4s ease-in-out infinite;
-        }
-        .updating-dots span:nth-child(1) { animation-delay: 0s; }
-        .updating-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .updating-dots span:nth-child(3) { animation-delay: 0.4s; }
-        .updating-dots span:nth-child(4) { animation-delay: 0.6s; }
-        @keyframes updatingWave {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-8px); }
-        }
-        .updating-message {
-            color: #ccc;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
-        .updating-footer-row {
-            margin-top: 8px;
-        }
-        .updating-footer-row.hidden {
-            display: none;
-        }
-        .updating-footer {
-            color: #999;
-            font-size: 14px;
-        }
-        .updating-timer {
-            color: #fff;
-            font-size: 18px;
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
-            margin-top: 8px;
         }
 
         /* Warning Message Box */
@@ -3044,6 +3475,19 @@
                 position: relative;
             }
 
+            .favorites-and-whatsnew-row {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .favorites-and-whatsnew-row .main-button.btn-favorites {
+                width: 100%;
+                max-width: 100%;
+                flex: 1 1 100%;
+            }
+            .favorites-and-whatsnew-row .whats-new-icon-btn {
+                flex-shrink: 0;
+            }
+
             .main-button::after {
                 display: none;
             }
@@ -3091,7 +3535,7 @@
                 bottom: auto;
                 left: auto;
                 transform: none;
-                margin: 45px auto 0;
+                margin: 70px auto 0;
                 padding: 12px 15px;
                 font-size: 11px;
                 box-sizing: border-box;
@@ -3106,7 +3550,7 @@
                 transform: none !important;
                 width: 100%;
                 max-width: 100%;
-                margin: 20px auto 0;
+                margin: 30px auto 0;
                 padding: 10px 15px;
                 text-align: center;
                 display: block !important;
@@ -3115,11 +3559,57 @@
                 z-index: 100;
             }
 
+            /* OTP (Personal Details) — keep input + submit inside on mobile */
+            .otp-row {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+                gap: 10px;
+            }
+            .otp-input-wrap {
+                width: 100%;
+                justify-content: center;
+            }
+            .otp-input {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .otp-submit {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* My Apps — keep EXIT on right and shorter */
+            .modal-myapps .modal-buttons {
+                justify-content: flex-end;
+            }
+            .modal-myapps .btn-exit {
+                width: auto !important;
+                padding: 10px 18px !important;
+                border-radius: 999px;
+            }
+
             .modal-box {
                 width: 95%;
                 max-height: 90vh;
                 padding: 25px 18px;
                 margin: 10px auto;
+            }
+
+            .modal-favorites .modal-box {
+                width: 98%;
+                max-width: 98%;
+                margin: 10px auto;
+                padding: 20px 12px;
+            }
+
+            .modal-favorites .modal-content {
+                max-height: none;
+                overflow-y: visible;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: auto;
             }
 
             .favorites-grid {
@@ -3274,13 +3764,19 @@
 
             .main-button {
                 flex: 1 1 calc(50% - 10px);
-                min-width: 140px;
-                max-width: 200px;
-                padding: 12px 20px;
-                font-size: 15px;
+                min-width: 120px;
+                max-width: 160px;
+                padding: 12px 18px;
+                font-size: 14px;
                 visibility: visible !important;
                 opacity: 1 !important;
                 position: relative;
+            }
+
+            .button-container .main-button.btn-about {
+                flex: 1 1 calc(50% - 10px);
+                min-width: 120px;
+                max-width: 160px;
             }
 
             .main-button::after {
@@ -3348,6 +3844,16 @@
                 width: 98%;
                 box-sizing: border-box;
                 overflow-x: hidden;
+            }
+
+            .modal-favorites .modal-box {
+                width: 98%;
+                max-width: 98%;
+            }
+
+            .modal-favorites .modal-content {
+                max-height: none;
+                overflow-y: visible;
             }
 
             .favorites-grid {
@@ -3805,7 +4311,7 @@
         }
     </style>
 </head>
-<body>
+<body class="intro-pending">
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen" style="cursor: pointer;">
         <div class="progress-container">
@@ -3818,8 +4324,39 @@
         </div>
     </div>
 
+    <!-- Sleep Mode Overlay (10:00 PM - 5:00 AM) -->
+    <div class="sleep-overlay" id="sleepOverlay" role="dialog" aria-live="polite" aria-label="Website sleeping">
+        <div class="sleep-box">
+            <div class="sleep-title">MY WEBSITE IS CLOSED</div>
+            <div class="sleep-subtitle">WILL BE BACK ON</div>
+            <div class="sleep-timer-line"><span id="sleepTimer">00:00:00</span></div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <div class="theme-toggle-ui" aria-hidden="true">
+                <div class="theme-toggle-label" id="themeToggleLabel">DAY MODE</div>
+                <div class="theme-toggle-knob" id="themeToggleKnob" aria-hidden="true">
+                    <svg id="themeIconSun" class="theme-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="M4.93 4.93l1.41 1.41"></path>
+                        <path d="M17.66 17.66l1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="M4.93 19.07l1.41-1.41"></path>
+                        <path d="M17.66 6.34l1.41-1.41"></path>
+                    </svg>
+                    <svg id="themeIconMoon" class="theme-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.8A8.5 8.5 0 0 1 11.2 3 7 7 0 1 0 21 12.8z"></path>
+                        <path d="M16.5 2.5l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6.6-1.6z"></path>
+                    </svg>
+                </div>
+            </div>
+        </button>
         <div class="countdown-container" id="countdownContainer" style="display: none;">
             <div class="countdown-title">COUNTDOWN TO 2026</div>
             <div class="countdown-timer" id="countdownTimer">
@@ -3828,27 +4365,33 @@
                 <span id="minutes">00</span><span class="time-label">M</span>
                 <span id="seconds">00</span><span class="time-label">S</span>
             </div>
-        </div> 
-            
+        </div>
+        <div class="button-container" id="mainButtonContainer" style="display: none;">
+            <button class="main-button btn-about" onclick="openModal('about')">
+                <span class="christmas-deco-left">🎁</span>
+                <span class="christmas-deco-right">❄️</span>
+                About Me
+            </button>
+            <div class="favorites-and-whatsnew-row">
+                <button class="main-button btn-favorites" onclick="openModal('favorites')">
+                    <span class="christmas-deco-left">⛄</span>
+                    <span class="christmas-deco-right">🎀</span>
+                    Others
+                </button>
+                <button type="button" class="whats-new-icon-btn" onclick="openModal('updates')" title="What's New">?</button>
+            </div>
+        </div>
         <div class="update-button-container hidden" id="updateButtonContainer" style="display: none !important;">
             <div id="comingSoonMainLink" class="christmas-message-link-wrapper" style="display:none;">
                 <div class="christmas-message-link" onclick="openComingSoonInAboutMe()">
-                    
+                    MESSAGE FOR MYSELF
                 </div>
             </div>
-            <button class="main-button btn-updates" onclick="openModal('updates')">WHAT'S NEW</button>
         </div>
         <div class="warning-message" id="mainWarning" style="display: none;">
             THIS ISN'T OFFICIALLY FINISHED YET; I STILL HAVE MANY WORKS TO DO
             <div id="warningTimerLine" style="margin-top:6px;font-weight:700;">
                 UPDATES IN <span id="warningTimer">84:00:00:00</span>
-            </div>
-            <!-- Shown when countdown ends (JS toggles vs warningTimerLine); must exist or timer line hides with nothing shown -->
-            <div id="updatingMsg" style="display:none; margin-top:6px; font-weight:700; letter-spacing:0.02em;">
-                UPDATING…
-            </div>
-            <div id="warningTimerLineMarch23" style="margin-top:8px;font-weight:700;">
-                UNTIL MARCH 23: <span id="warningTimerMarch23">00:00:00:00</span>
             </div>
         </div>
         <!-- Outside the box link below the warning + timer -->
@@ -3858,7 +4401,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 style="color:#2e7d32; font-weight:700; font-style:italic; text-decoration:none; cursor:pointer;"
-            ></a>
+            >ANSWER THIS FORM</a>
         </div>
     </div>
     <!-- Welcome Intro Box -->
@@ -3872,19 +4415,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         
             !KIDLY ROTATE YOUR PHONE TO LANDSCAPE, FOR BETTER EXPERIENCE!</div>
         <button id="introSkip" class="intro-skip" title="Skip">Skip</button>
-    </div>
-
-    <!-- Updating Overlay - after intro until March 23 12:00 AM; stays visible after countdown hits 0 -->
-    <div class="updating-overlay" id="updatingOverlay">
-        <div class="updating-overlay-backdrop"></div>
-        <div class="updating-box">
-            <div class="updating-title">UPDATING<span class="updating-dots"><span>.</span><span>.</span><span>.</span><span>.</span></span></div>
-            <div class="updating-message">My website is currently updating. Please wait — I'm sorry for the inconvenience.</div>
-            <div class="updating-footer-row" id="updatingFooterRow">
-                <div class="updating-footer">Updating</div>
-                <div class="updating-timer" id="updatingTimer">00:00:00:00</div>
-            </div>
-        </div>
     </div>
 
     <!-- About Me Modal -->
@@ -3906,17 +4436,36 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <span class="access-gate-link" id="showOtpLink">Click here</span>
                     </div>
                     <div class="otp-container" id="otpContainer">
-                        <input
-                            id="otpInput"
-                            class="otp-input"
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            autocomplete="one-time-code"
-                            placeholder="Enter one-time PIN"
-                            maxlength="4"
-                        />
-                        <button class="otp-submit" id="otpSubmit">Submit</button>
+                        <div class="otp-row">
+                            <div class="otp-input-wrap">
+                                <button type="button" class="otp-eye-btn" id="otpEyeBtn" data-state="hidden" aria-label="Show PIN" title="Show PIN">
+                                    <span class="otp-eye-icon otp-eye-icon-open" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </span>
+                                    <span class="otp-eye-icon otp-eye-icon-closed" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                            <path d="M4 4l16 16"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <input
+                                    id="otpInput"
+                                    class="otp-input"
+                                    type="password"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
+                                    autocomplete="one-time-code"
+                                    placeholder="Enter one-time PIN"
+                                    maxlength="4"
+                                />
+                            </div>
+                            <button class="otp-submit" id="otpSubmit">Submit</button>
+                        </div>
                         <div class="otp-feedback" id="otpFeedback"></div>
                     </div>
                 </div>
@@ -3928,7 +4477,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         </div>
                         <div class="info-item">
                             <div class="info-label">Age</div>
-                            <div class="info-value">17 Years Old</div>
+                            <div class="info-value">18 Years Old</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Birth Date</div>
@@ -4071,12 +4620,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         </div>
     </div>
 
-    <!-- My Favorites Modal -->
+    <!-- Others Modal (previously My Favorites) -->
     <div class="modal-overlay" id="favoritesModal">
         <div class="modal-box modal-favorites">
             <button class="close-button" onclick="closeModal('favorites')" title="Close">×</button>
             <div class="modal-content">
-                <h2 style="text-align: center; font-size: 32px; margin-bottom: 30px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">My Favorites</h2>
+                <h2 style="text-align: center; font-size: 32px; margin-bottom: 30px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Others</h2>
                 <div class="favorites-grid">
                     <div class="favorite-card clickable" onclick="openModal('gaming')">
                         <div class="favorite-icon">🎮</div>
@@ -4094,9 +4643,28 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <div class="favorite-description">i can't live without my fav singers😭.</div>
                     </div>
                     <div class="favorite-card clickable" id="myAppsCard" onclick="openModal('myApps')">
-                        <div class="favorite-icon">⏳</div>
-                        <div class="favorite-title">Coming Soon</div>
+                        <div class="favorite-icon">📱</div>
+                        <div class="favorite-title">My Apps</div>
                         <div class="favorite-description">This is my apps that i created right now</div>
+                    </div>
+                    <div class="favorite-card clickable" onclick="showNotAvailableNow()">
+                        <div class="favorite-icon">⌛</div>
+                        <div class="favorite-title">COMING SOON</div>
+                        <div class="favorite-description">STAY TUNED</div>
+                    </div>
+                    <div class="favorite-card clickable" onclick="showNotAvailableNow()">
+                        <div class="favorite-icon">⌛</div>
+                        <div class="favorite-title">COMING SOON</div>
+                        <div class="favorite-description">STAY TUNED</div>
+                    </div>
+                </div>
+                <div id="christmasMessageDisplay" style="display:none; margin-top: 30px; padding: 20px; background: #fff5f5; border-radius: 12px; border: 2px solid #ffcdd2;">
+                    <h3 style="text-align: center; color: #b71c1c; margin-bottom: 15px;">Your Christmas Message</h3>
+                    <div id="userChristmasMessage" class="christmas-message-display" style="min-height: 100px; max-height: 300px;"></div>
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-action-button btn-back" onclick="closeModal('favorites')">Back to Main Menu</button>
+                    <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
                 </div>
             </div>
         </div>
@@ -4122,6 +4690,65 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 </div>
                 <div class="modal-buttons">
                     <button class="modal-action-button btn-exit" onclick="exitPage()">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Apps Modal -->
+    <div class="modal-overlay" id="myAppsModal">
+        <div class="modal-box modal-myapps">
+            <button class="close-button-left" onclick="closeModal('myApps')" title="Close">×</button>
+            <h1 class="modal-title">My Apps</h1>
+            <div class="modal-content">
+                <p class="modal-text">This is my apps that i created right now</p>
+                <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                    <div class="myapps-app-box" onclick="closeModal('myApps'); openModal('calculator');" title="Open Calculator">
+                        <span class="myapps-app-emoji">🧮</span>
+                        <span class="myapps-app-label">Calculator</span>
+                    </div>
+                    <div class="myapps-app-box" onclick="openModal('novaAI')" title="Open NovaAI">
+                        <span class="myapps-app-emoji">🤖</span>
+                        <span class="myapps-app-label">NovaAI</span>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-action-button btn-exit" style="margin-left:auto;" onclick="exitPage('myApps')">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator Modal: put calculator.html in same folder as index.html -->
+    <div class="modal-overlay" id="calculatorModal">
+        <div class="modal-box modal-calculator" onclick="event.stopPropagation()">
+            <div class="modal-content modal-calculator-content">
+                <button type="button" class="calculator-close-btn" onclick="closeModal('calculator')" title="Close">×</button>
+                <iframe src="calculator.html" class="calculator-iframe" title="Scientific Calculator"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- NovaAI Modal -->
+    <div class="modal-overlay" id="novaAIModal">
+        <div class="modal-box modal-novaai">
+            <div class="modal-content" style="display:flex;align-items:center;justify-content:center;min-height:calc(90vh - 180px);">
+                <div style="max-width:480px;margin:0 auto;">
+                    <div style="padding:18px 20px;border-radius:14px;background:rgba(5,20,10,0.95);border:1px solid rgba(34,197,94,0.7);box-shadow:0 12px 30px rgba(6,95,70,0.6);">
+                        <p style="margin:0;font-family:'Courier New',monospace;font-size:14px;line-height:1.6;color:#22c55e;text-align:center;">
+                            This AI is currently under development,<br>
+                            and I'm actively working on creating and improving it.
+                        </p>
+                    </div>
+                    <div style="margin-top:14px;text-align:center;font-family:'Courier New',monospace;color:#22c55e;">
+                        <div style="font-size:12px;letter-spacing:0.18em;opacity:0.9;">RELEASE IN</div>
+                        <div id="novaAiTimer" style="margin-top:6px;font-size:16px;font-weight:800;letter-spacing:0.12em; font-variant-numeric: tabular-nums;">
+                            --:--:--:--
+                        </div>
+                    </div>
+                    <div style="margin-top:18px;display:flex;justify-content:center;">
+                        <button class="modal-action-button" style="min-width:120px;font-family:'Courier New',monospace;background:transparent;border:2px solid #22c55e;color:#22c55e;" onclick="closeModal('novaAI')">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -4770,7 +5397,75 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             <div class="modal-content">
                 <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">WHAT'S NEW</h2>
                 <div class="updates-scroll-body">
-                    <p style="margin-top: 20px;"><strong>UPDATE 1</strong></p>
+                    <p style="margin-top: 20px;"><strong>UPDATE 1.3 (CHANGES AND FIXES)</strong></p>
+                    <p id="update13-summary" style="margin-bottom: 8px; font-style: italic;">
+                        This Version Is Fixed
+                        <span id="update13-toggle-top" class="see-more-link" onclick="toggleUpdate13Details()">see more...</span>
+                    </p>
+                    <div id="update13-details" style="display:none; margin-bottom: 15px;">
+                        <p>Added Day and Night Mode</p>
+                        <p>Added a timer on NovaAI, Schedule for the of release</p>
+                        <p>Fixed the password put inboX</p>
+                        <p>Fixed the tier when the website is closed/p>
+                        <p>+10 additional fixes and improvements</p>
+                        <p>Day and Night mode added based on user requests (10 people asked for it)</p>
+                            <span id="update13-toggle-bottom" class="see-more-link" onclick="toggleUpdate13Details()">see less...</span>
+                        </p>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>UPDATE 1.2 (NEW) </strong></p>
+                    <p id="update12-summary" style="margin-bottom: 8px;">
+                        <span style="font-style: italic;">These are the updates and fixes</span>
+                        <span id="update12-toggle-top" class="see-more-link" onclick="toggleUpdate12Details()">see more...</span>
+                    </p>
+                    <div id="update12-details" style="display:none; margin-bottom: 15px;">
+                        <p><strong>⏳ MAIN MENU</strong></p>
+                        <p>Adjusted the timer</p>
+                        <p>Changed the What's New button into (?)</p>
+                        <p>Fixed the buttons because they were delayed when clicked</p>
+                        <p>Fixed the duplicated "X" button</p>
+                        <p>Fixed the green buttons in the About Me section</p>
+                        <p>Added password visibility toogle on Personal Details.</p>
+                        
+                        <p style="margin-top: 20px;"><strong>💙 OTHERS</strong></p>
+                        <p>Change the name from "My favorites" to "Others"</p>
+                        <p>Added 2 "Coming Soon"</p>
+                        <p>Added My Apps section</p>
+                        <p>Added a calculator (currently under development)</p>
+                        <p>Added NovaAI- This AI will help you with anything. It is currently under development.</p>
+                        <p>Fixed the music playback and adjusted the volume</p>
+                        <p>Fixed the scrolling effect</p>
+                        <p>Fixed the delayed response when clicking buttons</p>
+
+                        <p style="margin-top: 20px;"><strong>🚫 WEBSITE CLOSE</strong></p>
+                        <p>Added Website Close to my website (active from 10 PM to 5 AM)</p>
+                        <p>Improved button responsiveness</p>
+
+                        <p style="margin-top: 20px;"><strong>🐛 BUGS, ERRORS AND OTHERS</strong></p>
+                        <p>You may still encounter some glitches, bugs, or errors, but I will fix them as soon as I find them</p>
+                        <p>+30 other bugs/ errors fixes</p>
+                        <p>Thank you for answering my form</p>
+                        <p>7 people asked me to create a calculator, so I made one</p>
+                        <p>Thank you, and see you in the next update
+                            <span id="update12-toggle-bottom" class="see-more-link" onclick="toggleUpdate12Details()">see less...</span>
+                        </p>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>UPDATE 1.1 [FIXED]</strong></p>
+                    <p id="update11-summary" style="font-style: italic; font-size: 16px; margin-bottom: 10px; color: #555;">
+                        These fixes are now applied in this version
+                        <span id="update11-toggle-top" class="see-more-link" onclick="toggleUpdate11Details()">see more...</span>
+                    </p>
+                    <div id="update11-details" style="display:none; margin-bottom: 10px;">
+                        <p>Fixed the blue button, because it's too big</p>
+                        <p>Fixed the title "Facebook, Instagram, etc." so it is no longer clickable and is displayed as plain text</p>
+                        <p>Fixed the scrolling effect on "Songs" and "What's New" because it wasn't supposed to scroll that way</p>
+                        <p>Overall improvements and small fixes have been applied
+                            <span id="update11-toggle-bottom" class="see-more-link" onclick="toggleUpdate11Details()">see less...</span>
+                        </p>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>UPDATE 1.0</strong></p>
                     <p id="update1-summary" style="margin-bottom: 8px;">
                         UI REFORGE + MUSIC SYSTEM UPGRADE
                         <span id="update1-toggle-top" class="see-more-link" onclick="toggleUpdateDetails()">see more...</span>
@@ -4824,24 +5519,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         </p>
                     </div>
 
-                    <p style="margin-top: 20px;"><strong>UPDATE 1.1 [FIXED]</strong></p>
-                    <p id="update11-summary" style="font-style: italic; font-size: 16px; margin-bottom: 10px; color: #555;">
-                        These fixes are now applied in this version
-                        <span id="update11-toggle-top" class="see-more-link" onclick="toggleUpdate11Details()">see more...</span>
-                    </p>
-                    <div id="update11-details" style="display:none; margin-bottom: 10px;">
-                        <p>Fixed the blue button, because it's too big</p>
-                        <p>Fixed the title “Facebook, Instagram, etc.” so it is no longer clickable and is displayed as plain text</p>
-                        <p>Fixed the scrolling effect on “Songs” and “What's New” because it wasn't supposed to scroll that way</p>
-                        <p>Overall improvements and small fixes have been applied
-                            <span id="update11-toggle-bottom" class="see-more-link" onclick="toggleUpdate11Details()">see less...</span>
-                        </p>
-                    </div>
-
                     <p style="margin-top: 20px;"><strong>🚫 BUGS AND ERRORS</strong></p>
                     <P>My sincerely apologies for the errors and bugs. I'm currently working on fixing them.</p>
-                    <p>It's just a bit difficult since I have school and we have our research defense going on right now, but I will fix everything as soon as I'm free again.</p>
-                    <p></p>Thank you for understanding and see you soon...</p>
 
                     <p style="margin-top: 20px;"><strong>📩 Your Response</strong></p>
                     <p>I received you all response on my form and most of it i applied it here</p>
@@ -4852,7 +5531,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     </div>
 
     <!-- Singer Modal -->
-    <div class="modal-overlay" id="singerModal" onclick="closeModalOnOverlay(event, 'singer')">
+    <div class="modal-overlay" id="singerModal">
         <div class="modal-box modal-singer">
             <button class="close-button-left" onclick="closeModal('singer')" title="Close">×</button>
             <div class="modal-content">
@@ -5024,7 +5703,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
     </div>
 
     <!-- Unavailable Message Box -->
-    <div class="unavailable-overlay" id="unavailableOverlay" onclick="closeUnavailable()"></div>
+    <div class="unavailable-overlay" id="unavailableOverlay"></div>
     <div class="unavailable-message" id="unavailableMessage">
         <div>UNFORTUNATELY UNAVAILABLE AT THIS TIME!</div>
         <button class="unavailable-close" onclick="closeUnavailable()">OK</button>
@@ -5045,7 +5724,208 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const totalSteps = duration / updateInterval;
             let currentStep = 0;
             let loadingStarted = false;
-            
+
+            // Sleep mode (10:00 PM - 5:00 AM) — use server time so changing device clock cannot bypass
+            const sleepOverlay = document.getElementById('sleepOverlay');
+            const sleepTimerEl = document.getElementById('sleepTimer');
+            const mainContentEl = document.getElementById('mainContent');
+            const introBoxEl = document.getElementById('introBox');
+            const themeToggle = document.getElementById('themeToggle');
+            const themeToggleLabel = document.getElementById('themeToggleLabel');
+            const themeToggleKnob = document.getElementById('themeToggleKnob');
+
+            function applyTheme(mode) {
+                const isDark = mode === 'dark';
+                document.body.classList.add('theme-transition');
+                document.body.classList.toggle('dark-mode', isDark);
+                if (themeToggleLabel) themeToggleLabel.textContent = isDark ? 'NIGHT MODE' : 'DAY MODE';
+                try { localStorage.setItem('themeMode', isDark ? 'dark' : 'light'); } catch {}
+                setTimeout(function() {
+                    document.body.classList.remove('theme-transition');
+                }, 400);
+            }
+            (function initTheme() {
+                let saved = null;
+                try { saved = localStorage.getItem('themeMode'); } catch {}
+                applyTheme(saved === 'light' ? 'light' : 'dark');
+            })();
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                    applyTheme(next);
+                });
+            }
+
+            function parseUtcOffsetMinutes(utcOffset) {
+                if (!utcOffset || typeof utcOffset !== 'string') return 0;
+                const m = utcOffset.match(/^([+-])(\d{2}):(\d{2})$/);
+                if (!m) return 0;
+                const sign = m[1] === '-' ? -1 : 1;
+                return sign * (parseInt(m[2], 10) * 60 + parseInt(m[3], 10));
+            }
+            function getHourInOffset(d, offsetMinutes) {
+                const shifted = new Date(d.getTime() + offsetMinutes * 60000);
+                return shifted.getUTCHours();
+            }
+            function isSleepWindow(d, offsetMinutes) {
+                const h = getHourInOffset(d, offsetMinutes || 0);
+                return h >= 22 || h < 5;
+            }
+            function getSleepEndTime(d, offsetMinutes) {
+                const off = offsetMinutes || 0;
+                const shifted = new Date(d.getTime() + off * 60000);
+                const y = shifted.getUTCFullYear();
+                const mo = shifted.getUTCMonth();
+                let day = shifted.getUTCDate();
+                const h = shifted.getUTCHours();
+                if (h >= 22) day += 1;
+                const endShiftedUtcMs = Date.UTC(y, mo, day, 5, 0, 0, 0);
+                return new Date(endShiftedUtcMs - off * 60000);
+            }
+            function formatHMS(totalSeconds) {
+                const s = Math.max(0, Math.floor(totalSeconds));
+                const hh = String(Math.floor(s / 3600)).padStart(2, '0');
+                const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+                const ss = String(s % 60).padStart(2, '0');
+                return hh + ':' + mm + ':' + ss;
+            }
+            // Fetch real time from API so device time changes are ignored
+            function getServerTime() {
+                return fetch('https://worldtimeapi.org/api/ip', { cache: 'no-store' })
+                    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+                    .then(function(data) { return data && data.datetime ? new Date(data.datetime) : null; })
+                    .catch(function() { return null; });
+            }
+            function getServerTimeWithOffset() {
+                return fetch('https://worldtimeapi.org/api/ip', { cache: 'no-store' })
+                    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+                    .then(function(data) {
+                        if (!data || !data.datetime) return null;
+                        return { now: new Date(data.datetime), utcOffset: data.utc_offset || '' };
+                    })
+                    .catch(function() { return null; });
+            }
+            function showSleepMode() {
+                var introEl = document.getElementById('introBox');
+                if (introEl) { introEl.style.display = 'none'; introEl.classList.remove('show'); }
+                document.body.classList.remove('intro-visible');
+                if (sleepOverlay) sleepOverlay.classList.add('show');
+                document.body.classList.add('sleep-mode');
+                try {
+                    if (typeof pauseBgMusic === 'function') pauseBgMusic(false);
+                } catch {}
+            }
+            function hideSleepMode() {
+                if (sleepOverlay) sleepOverlay.classList.remove('show');
+                document.body.classList.remove('sleep-mode');
+            }
+            function startSleepLoop(initialServerTime, utcOffsetStr) {
+                if (!sleepOverlay || !sleepTimerEl) return;
+                showSleepMode();
+                var lastServerTime = initialServerTime || new Date();
+                var lastServerTimeFetchedAtPerformance = (typeof performance !== 'undefined' && performance.now) ? performance.now() : null;
+                var elapsedSinceFetchMs = 0;
+                var sleepOffsetMinutes = parseUtcOffsetMinutes(utcOffsetStr || '');
+                var refreshIntervalMs = 60000;
+
+                function getCurrentServerTime() {
+                    if (lastServerTimeFetchedAtPerformance !== null && typeof performance !== 'undefined' && performance.now) {
+                        var elapsed = performance.now() - lastServerTimeFetchedAtPerformance;
+                        return new Date(lastServerTime.getTime() + elapsed);
+                    }
+                    // Fallback: rely on interval ticks (no device clock)
+                    return new Date(lastServerTime.getTime() + elapsedSinceFetchMs);
+                }
+                function tick() {
+                    // If performance.now isn't available, advance using tick count (no device clock)
+                    if (!(typeof performance !== 'undefined' && performance.now)) {
+                        elapsedSinceFetchMs += 1000;
+                    }
+                    var shouldRefresh = lastServerTimeFetchedAtPerformance !== null && typeof performance !== 'undefined' && performance.now
+                        ? (performance.now() - lastServerTimeFetchedAtPerformance > refreshIntervalMs)
+                        : (elapsedSinceFetchMs > refreshIntervalMs);
+                    if (shouldRefresh) {
+                        getServerTimeWithOffset().then(function(data) {
+                            if (data && data.now) {
+                                lastServerTime = data.now;
+                                lastServerTimeFetchedAtPerformance = (typeof performance !== 'undefined' && performance.now) ? performance.now() : null;
+                                elapsedSinceFetchMs = 0;
+                                sleepOffsetMinutes = parseUtcOffsetMinutes(data.utcOffset || '');
+                            }
+                        });
+                    }
+                    var now = getCurrentServerTime();
+                    if (!isSleepWindow(now, sleepOffsetMinutes)) {
+                        hideSleepMode();
+                        // Wake up: show main UI (intro already finished/skipped)
+                        const mainWarningEl = document.getElementById('mainWarning');
+                        const formLinkBelowEl = document.getElementById('formLinkBelow');
+                        const warningTimerLineEl = document.getElementById('warningTimerLine');
+                        const updatingMsgEl2 = document.getElementById('updatingMsg');
+                        if (mainWarningEl) {
+                            mainWarningEl.style.display = '';
+                            if (formLinkBelowEl) formLinkBelowEl.style.display = '';
+                            if (countdownAlreadyDone) {
+                                if (warningTimerLineEl) warningTimerLineEl.style.display = 'none';
+                                if (updatingMsgEl2) updatingMsgEl2.style.display = 'block';
+                            } else {
+                                if (warningTimerLineEl) warningTimerLineEl.style.display = '';
+                                if (updatingMsgEl2) updatingMsgEl2.style.display = 'none';
+                            }
+                        }
+                        try { enableMusicMiniButton(); } catch {}
+                        try { showUpdatesButton(); } catch {}
+                        try { showMainButtons(); } catch {}
+                        setTimeout(function() {
+                            try { startBgMusic(); } catch {}
+                        }, 100);
+                        return;
+                    }
+                    var end = getSleepEndTime(now, sleepOffsetMinutes);
+                    var diff = Math.floor((end.getTime() - now.getTime()) / 1000);
+                    sleepTimerEl.textContent = formatHMS(diff);
+                }
+                tick();
+                setInterval(tick, 1000);
+                window.addEventListener('focus', tick);
+            }
+            function checkSleepThenShowUI(callbackIfAwake) {
+                getServerTimeWithOffset().then(function(data) {
+                    // If we can't fetch server time, don't block the UI (Skip must still work).
+                    // Sleep mode will still be enforced once server time becomes available via the monitor loop.
+                    if (!data || !data.now) {
+                        if (callbackIfAwake) callbackIfAwake();
+                        return;
+                    }
+                    var now = data.now;
+                    if (isSleepWindow(now, parseUtcOffsetMinutes(data.utcOffset || ''))) {
+                        if (introBox) {
+                            introBox.classList.add('fade-out');
+                            document.body.classList.remove('intro-visible');
+                            setTimeout(function() { if (introBox) introBox.style.display = 'none'; }, 900);
+                        }
+                        startSleepLoop(now, data.utcOffset || '');
+                    } else {
+                        if (callbackIfAwake) callbackIfAwake();
+                    }
+                });
+            }
+            var sleepMonitorInterval = null;
+            function startSleepMonitor() {
+                if (sleepMonitorInterval) return;
+                sleepMonitorInterval = setInterval(function() {
+                        if (!sleepOverlay || sleepOverlay.classList.contains('show')) return;
+                    getServerTimeWithOffset().then(function(data) {
+                        if (!data || !data.now) return;
+                        var now = data.now;
+                        if (isSleepWindow(now, parseUtcOffsetMinutes(data.utcOffset || ''))) {
+                            if (introBox) { introBox.style.display = 'none'; document.body.classList.remove('intro-visible'); }
+                            startSleepLoop(now, data.utcOffset || '');
+                        }
+                    });
+                }, 30000);
+            }
+
             // Function to start loading when clicked
             function startLoading() {
                 if (loadingStarted) return;
@@ -5102,10 +5982,48 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const introBox = document.getElementById('introBox');
             const introSkip = document.getElementById('introSkip');
             let introHideTimer = null;
+            // Document-level click (capture phase) so Skip works even if something blocks the button
+            document.addEventListener('click', function introSkipDelegated(e) {
+                if (!introBox || !introBox.classList.contains('show')) return;
+                var hitButton = e.target.closest('#introSkip');
+                if (!hitButton && introSkip) {
+                    var rect = introSkip.getBoundingClientRect();
+                    if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) hitButton = true;
+                }
+                if (!hitButton) return;
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                if (introHideTimer) {
+                    clearTimeout(introHideTimer);
+                    introHideTimer = null;
+                }
+                checkSleepThenShowUI(function() {
+                    if (mainWarning) {
+                        mainWarning.style.display = '';
+                        if (formLinkBelow) formLinkBelow.style.display = '';
+                        if (countdownAlreadyDone) {
+                            if (warningTimerLine) warningTimerLine.style.display = 'none';
+                            if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                        } else {
+                            if (warningTimerLine) warningTimerLine.style.display = '';
+                            if (updatingMsgEl) updatingMsgEl.style.display = 'none';
+                        }
+                    }
+                    enableMusicMiniButton();
+                    showUpdatesButton();
+                    showMainButtons();
+                    setTimeout(function() { try { startBgMusic(); } catch {} }, 100);
+                    if (introBox) {
+                        introBox.classList.add('fade-out');
+                        document.body.classList.remove('intro-visible');
+                        setTimeout(function() { if (introBox) introBox.style.display = 'none'; }, 900);
+                    }
+                });
+            }, true);
             const mainWarning = document.getElementById('mainWarning');
             const warningTimerEl = document.getElementById('warningTimer');
             const warningTimerLine = document.getElementById('warningTimerLine');
-            const warningTimerMarch23El = document.getElementById('warningTimerMarch23');
             const updatingMsgEl = document.getElementById('updatingMsg');
             const formLinkBelow = document.getElementById('formLinkBelow');
             const updatesButtonContainer = document.querySelector('.update-button-container');
@@ -5132,6 +6050,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
             
             function showMainButtons() {
+                document.body.classList.remove('intro-pending');
+                startSleepMonitor();
                 const mainButtonContainer = document.getElementById('mainButtonContainer');
                 const countdownContainer = document.getElementById('countdownContainer');
                 if (mainButtonContainer) {
@@ -5147,7 +6067,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             }
             
-            // Buttons are shown only after intro/updating overlay flow (see showMainContentAfterIntro)
+            // Don't show main buttons until intro finishes (30s) or user skips
 
             // Countdown Timer Function
             function startCountdown() {
@@ -5287,17 +6207,40 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     stopMessageRotation();
                     setTimeout(function() {
                         loadingScreen.classList.add('hidden');
+                        // After fade finishes, remove loading screen from layout so it can't block the Skip button
+                        setTimeout(function() {
+                            loadingScreen.classList.add('removed');
+                        }, 600);
                         // Show welcome intro box
                         if (introBox) {
                             introBox.classList.add('show');
+                            document.body.classList.add('intro-visible');
                             // Hide warning while intro is visible
                             if (mainWarning) mainWarning.style.display = 'none';
                             if (formLinkBelow) formLinkBelow.style.display = 'none';
                             // Start countdown immediately (even while intro is visible)
                             startWarningCountdown();
-                            // Auto fade after 30s if not skipped - then show updating overlay or main content
+                            // Auto fade after 30s if not skipped
                             introHideTimer = setTimeout(function() {
-                                onIntroComplete();
+                                checkSleepThenShowUI(function() {
+                                    if (mainWarning) {
+                                        mainWarning.style.display = '';
+                                        if (formLinkBelow) formLinkBelow.style.display = '';
+                                        if (countdownAlreadyDone) {
+                                            if (warningTimerLine) warningTimerLine.style.display = 'none';
+                                            if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                                        }
+                                    }
+                                    enableMusicMiniButton();
+                                    showUpdatesButton();
+                                    showMainButtons();
+                                    setTimeout(function() { try { startBgMusic(); } catch {} }, 100);
+                                    if (introBox) {
+                                        introBox.classList.add('fade-out');
+                                        document.body.classList.remove('intro-visible');
+                                        setTimeout(function() { if (introBox) introBox.style.display = 'none'; }, 900);
+                                    }
+                                });
                             }, 30000);
                             if (introSkip) {
                                 introSkip.addEventListener('click', function() {
@@ -5305,86 +6248,29 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                                         clearTimeout(introHideTimer);
                                         introHideTimer = null;
                                     }
-                                    onIntroComplete();
-                                });
-                            }
-                            
-                            // When Skip or 30s triggers: go directly to updating overlay (no smooth transition)
-                            function onIntroComplete() {
-                                var mainContent = document.getElementById('mainContent');
-                                var mainBtnContainer = document.getElementById('mainButtonContainer');
-                                var countdownContainer = document.getElementById('countdownContainer');
-                                if (mainBtnContainer) mainBtnContainer.style.setProperty('display', 'none', 'important');
-                                if (countdownContainer) countdownContainer.style.setProperty('display', 'none', 'important');
-                                introBox.style.display = 'none';
-                                if (mainContent) mainContent.style.display = 'none';
-                                // Same target as banner "UNTIL MARCH 23" — after this date, skip overlay and show site
-                                var overlayEndTime = new Date(2026, 2, 23, 0, 0, 0);
-                                var now = new Date();
-                                if (now >= overlayEndTime) {
-                                    if (mainContent) mainContent.style.removeProperty('display');
-                                    showMainContentAfterIntro();
-                                } else {
-                                    var overlay = document.getElementById('updatingOverlay');
-                                    var timerEl = document.getElementById('updatingTimer');
-                                    var footerRow = document.getElementById('updatingFooterRow');
-                                    if (overlay) {
-                                        overlay.classList.add('show');
-                                        document.body.style.overflow = 'hidden';
-                                        document.documentElement.style.overflow = 'hidden';
-                                    }
-                                    if (mainContent) mainContent.style.setProperty('display', 'none', 'important');
-                                    var startPerf = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
-                                    var durationMs = Math.max(0, overlayEndTime.getTime() - Date.now());
-                                    var totalDurationSeconds = Math.floor(durationMs / 1000);
-                                    function formatCountdown(seconds) {
-                                        var d = Math.floor(seconds / 86400);
-                                        var h = Math.floor((seconds % 86400) / 3600);
-                                        var m = Math.floor((seconds % 3600) / 60);
-                                        var s = seconds % 60;
-                                        return String(d).padStart(2,'0') + ':' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-                                    }
-                                    function updateUpdatingCountdown() {
-                                        var elapsedMs = (typeof performance !== 'undefined' && performance.now) ? (performance.now() - startPerf) : (Date.now() - startPerf);
-                                        var elapsedSeconds = Math.floor(elapsedMs / 1000);
-                                        var secondsRemaining = Math.max(0, totalDurationSeconds - elapsedSeconds);
-                                        if (timerEl) timerEl.textContent = formatCountdown(secondsRemaining);
-                                        if (elapsedMs >= durationMs) {
-                                            // Keep full updating screen — do not reveal main content or remove overlay
-                                            if (timerEl) timerEl.textContent = '00:00:00:00';
-                                            if (mainContent) mainContent.style.setProperty('display', 'none', 'important');
-                                            if (overlay) overlay.classList.add('show');
-                                            document.body.style.overflow = 'hidden';
-                                            document.documentElement.style.overflow = 'hidden';
-                                            return;
+                                    checkSleepThenShowUI(function() {
+                                        if (mainWarning) {
+                                            mainWarning.style.display = '';
+                                            if (formLinkBelow) formLinkBelow.style.display = '';
+                                            if (countdownAlreadyDone) {
+                                                if (warningTimerLine) warningTimerLine.style.display = 'none';
+                                                if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                                            } else {
+                                                if (warningTimerLine) warningTimerLine.style.display = '';
+                                                if (updatingMsgEl) updatingMsgEl.style.display = 'none';
+                                            }
                                         }
-                                    }
-                                    var updatingOverlayInterval = setInterval(updateUpdatingCountdown, 1000);
-                                    updateUpdatingCountdown();
-                                }
-                            }
-                            function showMainContentAfterIntro() {
-                                var mc = document.getElementById('mainContent');
-                                var updOv = document.getElementById('updatingOverlay');
-                                if (updOv) updOv.classList.remove('show');
-                                document.body.style.overflow = '';
-                                document.documentElement.style.overflow = '';
-                                if (mc) mc.style.removeProperty('display');
-                                if (mainWarning) {
-                                    mainWarning.style.display = '';
-                                    if (formLinkBelow) formLinkBelow.style.display = '';
-                                    if (countdownAlreadyDone) {
-                                        if (warningTimerLine) warningTimerLine.style.display = 'none';
-                                        if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                                    } else {
-                                        if (warningTimerLine) warningTimerLine.style.display = '';
-                                        if (updatingMsgEl) updatingMsgEl.style.display = 'none';
-                                    }
-                                }
-                                enableMusicMiniButton();
-                                showUpdatesButton();
-                                showMainButtons();
-                                setTimeout(function() { startBgMusic(); }, 100);
+                                        enableMusicMiniButton();
+                                        showUpdatesButton();
+                                        showMainButtons();
+                                        setTimeout(function() { try { startBgMusic(); } catch {} }, 100);
+                                        if (introBox) {
+                                            introBox.classList.add('fade-out');
+                                            document.body.classList.remove('intro-visible');
+                                            setTimeout(function() { if (introBox) introBox.style.display = 'none'; }, 900);
+                                        }
+                                    });
+                                });
                             }
                         } else {
                             if (mainWarning) mainWarning.style.display = '';
@@ -5414,45 +6300,89 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 return dd + ':' + hh + ':' + mm + ':' + ss;
             }
 
+            var updatesCountdownServerNow = null;
+            var updatesCountdownServerFetchedAt = null;
+            var updatesCountdownFetchedAtPerformance = null;
+            var updatesCountdownTargetDate = null;
+            var updatesCountdownRefreshMs = 60000;
+
+            function getCountdownNow() {
+                if (updatesCountdownServerNow === null || updatesCountdownFetchedAtPerformance === null) return null;
+                if (typeof performance === 'undefined' || !performance.now) return null;
+                var elapsed = performance.now() - updatesCountdownFetchedAtPerformance;
+                return new Date(updatesCountdownServerNow.getTime() + elapsed);
+            }
+
             function startWarningCountdown() {
-                if (!warningTimerEl && !warningTimerMarch23El) return;
+                if (!warningTimerEl) return;
                 if (countdownAlreadyDone) {
                     if (warningTimerLine) warningTimerLine.style.display = 'none';
                     if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                    // Keep running: March 23 countdown must still tick after March 21
+                    return;
                 }
-                // March 21, 2026 at 12:00 AM local — first milestone (UPDATING…)
-                if (!targetNov15) {
-                    targetNov15 = new Date(2026, 2, 21, 0, 0, 0);
-                }
+                if (!updatesCountdownTargetDate) updatesCountdownTargetDate = new Date(2026, 4, 1, 0, 0, 0);
                 function updateCountdown() {
-                    const now = new Date();
-                    // March 23, 2026 at 12:00 AM local — always updated
-                    const targetMarch23 = new Date(2026, 2, 23, 0, 0, 0);
-                    let diff23 = Math.floor((targetMarch23.getTime() - now.getTime()) / 1000);
-                    if (diff23 < 0) diff23 = 0;
-                    if (warningTimerMarch23El) warningTimerMarch23El.textContent = formatDhms(diff23);
-
-                    if (countdownAlreadyDone) {
-                        return;
-                    }
-                    const targetDate = new Date(2026, 2, 21, 0, 0, 0);
-                    let diff = Math.floor((targetDate.getTime() - now.getTime()) / 1000);
-                    if (diff < 0) diff = 0;
-                    if (warningTimerEl) warningTimerEl.textContent = formatDhms(diff);
-                    if (diff === 0) {
-                        if (warningTimerLine) warningTimerLine.style.display = 'none';
-                        if (updatingMsgEl) updatingMsgEl.style.display = 'block';
-                        if (!countdownAlreadyDone) {
-                            countdownAlreadyDone = true;
-                            try {
-                                localStorage.setItem(COUNTDOWN_DONE_KEY, 'true');
-                            } catch (error) {
-                                // ignore storage errors
+                    function setDiffFromNow(now) {
+                        if (!updatesCountdownTargetDate) return now;
+                        var diff = Math.floor((updatesCountdownTargetDate.getTime() - now.getTime()) / 1000);
+                        if (diff < 0) diff = 0;
+                        if (warningTimerEl) warningTimerEl.textContent = formatDhms(diff);
+                        if (diff === 0) {
+                            if (warningCountdownInterval) clearInterval(warningCountdownInterval);
+                            if (warningTimerLine) warningTimerLine.style.display = 'none';
+                            if (updatingMsgEl) updatingMsgEl.style.display = 'block';
+                            if (!countdownAlreadyDone) {
+                                countdownAlreadyDone = true;
+                                try { localStorage.setItem(COUNTDOWN_DONE_KEY, 'true'); } catch (e) {}
+                                unlockChristmasFeatures();
+                                startPreviewTimer();
                             }
-                            unlockChristmasFeatures();
-                            startPreviewTimer();
                         }
+                        return now;
+                    }
+                    if (updatesCountdownServerNow !== null && updatesCountdownFetchedAtPerformance !== null) {
+                        var elapsedMs = (typeof performance !== 'undefined' && performance.now) ? (performance.now() - updatesCountdownFetchedAtPerformance) : 0;
+                        if (elapsedMs > updatesCountdownRefreshMs) {
+                            getServerTimeWithOffset().then(function(data) {
+                                if (data) {
+                                    updatesCountdownServerNow = data.now;
+                                    updatesCountdownServerFetchedAt = Date.now();
+                                    updatesCountdownFetchedAtPerformance = (typeof performance !== 'undefined' && performance.now) ? performance.now() : null;
+                                    if (data.utcOffset && !updatesCountdownTargetDate) {
+                                        var targetStr = '2026-05-01T00:00:00' + data.utcOffset;
+                                        updatesCountdownTargetDate = new Date(targetStr);
+                                    }
+                                }
+                                var now = getCountdownNow();
+                                if (now) setDiffFromNow(now);
+                            });
+                            return;
+                        }
+                        var now = getCountdownNow();
+                        if (now) setDiffFromNow(now);
+                    } else {
+                        var pending = getCountdownNow();
+                        if (pending) setDiffFromNow(pending);
+                        getServerTimeWithOffset().then(function(data) {
+                            if (data) {
+                                updatesCountdownServerNow = data.now;
+                                updatesCountdownServerFetchedAt = Date.now();
+                                updatesCountdownFetchedAtPerformance = (typeof performance !== 'undefined' && performance.now) ? performance.now() : null;
+                                if (data.utcOffset) {
+                                    var targetStr = '2026-05-01T00:00:00' + data.utcOffset;
+                                    updatesCountdownTargetDate = new Date(targetStr);
+                                }
+                                var now = getCountdownNow();
+                                if (now) setDiffFromNow(now);
+                            } else {
+                                // Do not use device time for this countdown (changing device time must not affect it).
+                                // If server time is unavailable, show a waiting state and retry.
+                                if (warningTimerEl) warningTimerEl.textContent = 'CONNECTING...';
+                                updatesCountdownServerNow = null;
+                                updatesCountdownFetchedAtPerformance = null;
+                                setTimeout(function() { updateCountdown(); }, 2500);
+                            }
+                        });
                     }
                 }
                 updateCountdown();
@@ -5476,6 +6406,28 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const details = document.getElementById('update11-details');
             const topToggle = document.getElementById('update11-toggle-top');
             const bottomToggle = document.getElementById('update11-toggle-bottom');
+            if (!details || !topToggle || !bottomToggle) return;
+            const isHidden = details.style.display === 'none' || details.style.display === '';
+            details.style.display = isHidden ? 'block' : 'none';
+            topToggle.style.display = isHidden ? 'none' : 'inline';
+            bottomToggle.style.display = isHidden ? 'inline' : 'none';
+        }
+
+        function toggleUpdate12Details() {
+            const details = document.getElementById('update12-details');
+            const topToggle = document.getElementById('update12-toggle-top');
+            const bottomToggle = document.getElementById('update12-toggle-bottom');
+            if (!details || !topToggle || !bottomToggle) return;
+            const isHidden = details.style.display === 'none' || details.style.display === '';
+            details.style.display = isHidden ? 'block' : 'none';
+            topToggle.style.display = isHidden ? 'none' : 'inline';
+            bottomToggle.style.display = isHidden ? 'inline' : 'none';
+        }
+
+        function toggleUpdate13Details() {
+            const details = document.getElementById('update13-details');
+            const topToggle = document.getElementById('update13-toggle-top');
+            const bottomToggle = document.getElementById('update13-toggle-bottom');
             if (!details || !topToggle || !bottomToggle) return;
             const isHidden = details.style.display === 'none' || details.style.display === '';
             details.style.display = isHidden ? 'block' : 'none';
@@ -5508,13 +6460,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 }
             }
             
-            // Force reflow to ensure styles apply — but never reveal #mainContent while the updating overlay is up
+            // Force reflow to ensure styles apply
             if (mainContent) {
-                const updatingOv = document.getElementById('updatingOverlay');
-                if (updatingOv && updatingOv.classList.contains('show')) {
-                    mainContent.style.setProperty('display', 'none', 'important');
-                    return;
-                }
                 mainContent.style.display = 'none';
                 mainContent.offsetHeight; // Trigger reflow
                 mainContent.style.display = '';
@@ -5544,6 +6491,110 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         }, 500);
 
         // Modal Functions
+        // Server time helper (global) for countdowns that must ignore device time.
+        // Uses multiple providers + timeouts, returns Date or null.
+        function getServerTimeNow() {
+            function fetchJsonWithTimeout(url, timeoutMs) {
+                const ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+                const t = setTimeout(function() { try { ctrl && ctrl.abort(); } catch {} }, timeoutMs);
+                return fetch(url, { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+                    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+                    .finally(function() { clearTimeout(t); });
+            }
+            // 1) WorldTimeAPI
+            return fetchJsonWithTimeout('https://worldtimeapi.org/api/ip', 4500)
+                .then(function(data) { return data && data.datetime ? new Date(data.datetime) : null; })
+                .catch(function() {
+                    // 2) TimeAPI.io fallback (UTC)
+                    return fetchJsonWithTimeout('https://timeapi.io/api/Time/current/zone?timeZone=Etc/UTC', 4500)
+                        .then(function(data) {
+                            // timeapi.io returns dateTime like "2026-03-19T10:23:00.0000000"
+                            return data && data.dateTime ? new Date(data.dateTime + 'Z') : null;
+                        })
+                        .catch(function() { return null; });
+                });
+        }
+
+        // NovaAI release countdown (Sep 1, 2026 00:00 UTC)
+        let novaAiCountdownInterval = null;
+        let novaAiServerAnchor = null;
+        let novaAiPerfAnchor = null;
+        let novaAiLastSyncPerf = null;
+        const NOVA_AI_SYNC_MS = 60000;
+        const NOVA_AI_RELEASE_UTC_MS = Date.UTC(2026, 8, 1, 0, 0, 0, 0);
+
+        function formatDhmsFromSeconds(totalSeconds) {
+            const s = Math.max(0, Math.floor(totalSeconds));
+            const days = Math.floor(s / 86400);
+            const rem = s % 86400;
+            const hh = String(Math.floor(rem / 3600)).padStart(2, '0');
+            const mm = String(Math.floor((rem % 3600) / 60)).padStart(2, '0');
+            const ss = String(rem % 60).padStart(2, '0');
+            const dd = String(days).padStart(2, '0');
+            return dd + ':' + hh + ':' + mm + ':' + ss;
+        }
+
+        function stopNovaAiCountdown() {
+            if (novaAiCountdownInterval) {
+                clearInterval(novaAiCountdownInterval);
+                novaAiCountdownInterval = null;
+            }
+        }
+
+        function startNovaAiCountdown() {
+            const el = document.getElementById('novaAiTimer');
+            if (!el) return;
+            stopNovaAiCountdown();
+            novaAiServerAnchor = null;
+            novaAiPerfAnchor = null;
+            novaAiLastSyncPerf = null;
+            el.textContent = '--:--:--:--';
+
+            function tick() {
+                if (!el) return;
+                if (!novaAiServerAnchor || novaAiPerfAnchor === null || typeof performance === 'undefined' || !performance.now) return;
+                const perfNow = performance.now();
+                const now = new Date(novaAiServerAnchor.getTime() + (perfNow - novaAiPerfAnchor));
+                const diffSec = Math.floor((NOVA_AI_RELEASE_UTC_MS - now.getTime()) / 1000);
+                el.textContent = formatDhmsFromSeconds(diffSec);
+
+                // Periodically resync from server (does not use device clock)
+                if (novaAiLastSyncPerf !== null && perfNow - novaAiLastSyncPerf > NOVA_AI_SYNC_MS) {
+                    novaAiLastSyncPerf = perfNow;
+                    getServerTimeNow().then(function(serverNow) {
+                        if (serverNow && typeof performance !== 'undefined' && performance.now) {
+                            novaAiServerAnchor = serverNow;
+                            novaAiPerfAnchor = performance.now();
+                        }
+                    });
+                }
+            }
+
+            function fetchAnchor() {
+                getServerTimeNow().then(function(now) {
+                    if (now && typeof performance !== 'undefined' && performance.now) {
+                        novaAiServerAnchor = now;
+                        novaAiPerfAnchor = performance.now();
+                        novaAiLastSyncPerf = novaAiPerfAnchor;
+                        tick();
+                        stopNovaAiCountdown();
+                        novaAiCountdownInterval = setInterval(tick, 1000);
+                    } else {
+                        // Fallback: anchor once using current Date, then use performance.now()
+                        // so changing device time later will NOT affect the countdown.
+                        novaAiServerAnchor = new Date();
+                        novaAiPerfAnchor = (typeof performance !== 'undefined' && performance.now) ? performance.now() : null;
+                        novaAiLastSyncPerf = novaAiPerfAnchor;
+                        tick();
+                        stopNovaAiCountdown();
+                        novaAiCountdownInterval = setInterval(tick, 1000);
+                    }
+                });
+            }
+
+            fetchAnchor();
+        }
+
         function openModal(type) {
             const modal = document.getElementById(type + 'Modal');
             if (modal) {
@@ -5609,6 +6660,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         if (viewArea) viewArea.style.display = 'none';
                     }
                 }
+
+                if (type === 'novaAI') {
+                    startNovaAiCountdown();
+                }
             }
         }
 
@@ -5625,6 +6680,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 maybeResumeBgMusic();
             }
             // Note: do NOT stop music when closing the music modal so audio can keep playing
+            if (type === 'novaAI') {
+                stopNovaAiCountdown();
+            }
         }
 
         function closeModalOnOverlay(event, type) {
@@ -5655,6 +6713,21 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
         }
 
+        function showNotAvailableNow() {
+            const overlay = document.getElementById('unavailableOverlay');
+            const message = document.getElementById('unavailableMessage');
+            if (overlay && message) {
+                const msgText = message.querySelector('div');
+                if (msgText) msgText.textContent = 'NOT AVAILABLE RIGHT NOW';
+                overlay.classList.add('show');
+                message.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            } else {
+                alert('NOT AVAILABLE RIGHT NOW');
+            }
+        }
+
         function closeUnavailable() {
             const overlay = document.getElementById('unavailableOverlay');
             const message = document.getElementById('unavailableMessage');
@@ -5666,31 +6739,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 // restore default message text
                 const msgText = message.querySelector('div');
                 if (msgText) msgText.textContent = 'UNFORTUNATELY UNAVAILABLE AT THIS TIME!';
-            }
-        }
-
-        // Calculator box (same page, blended background)
-        function openCalculatorBox() {
-            const overlay = document.getElementById('calculatorOverlay');
-            if (overlay) {
-                overlay.classList.add('show');
-                document.body.style.overflow = 'hidden';
-                document.documentElement.style.overflow = 'hidden';
-            }
-        }
-
-        function closeCalculatorBox() {
-            const overlay = document.getElementById('calculatorOverlay');
-            if (overlay) {
-                overlay.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                document.documentElement.style.overflow = 'auto';
-            }
-        }
-
-        function closeCalculatorOnOverlay(event) {
-            if (event.target === event.currentTarget) {
-                closeCalculatorBox();
             }
         }
 
@@ -7262,6 +8310,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const showLink = document.getElementById('showOtpLink');
             const otpContainer = document.getElementById('otpContainer');
             const otpInput = document.getElementById('otpInput');
+            const otpEyeBtn = document.getElementById('otpEyeBtn');
             const otpSubmit = document.getElementById('otpSubmit');
             const otpFeedback = document.getElementById('otpFeedback');
             const personalBox = document.getElementById('personalInfoBox');
@@ -7305,6 +8354,18 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 otpInput.focus();
             });
 
+            // Toggle PIN visibility (eye button)
+            if (otpEyeBtn) {
+                otpEyeBtn.addEventListener('click', function() {
+                    const isHidden = otpInput.type === 'password';
+                    otpInput.type = isHidden ? 'text' : 'password';
+                    otpEyeBtn.setAttribute('data-state', isHidden ? 'shown' : 'hidden');
+                    otpEyeBtn.setAttribute('aria-label', isHidden ? 'Hide PIN' : 'Show PIN');
+                    otpEyeBtn.title = isHidden ? 'Hide PIN' : 'Show PIN';
+                    otpInput.focus();
+                });
+            }
+
             // Clicking the Personal Details button only reveals the access gate (no direct access)
             if (personalToggleBtn) {
                 personalToggleBtn.addEventListener('click', function() {
@@ -7316,6 +8377,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         otpContainer.style.display = 'none';
                         otpInput.value = '';
                         otpFeedback.textContent = '';
+                        if (otpEyeBtn) {
+                            otpInput.type = 'password';
+                            otpEyeBtn.setAttribute('data-state', 'hidden');
+                            otpEyeBtn.setAttribute('aria-label', 'Show PIN');
+                            otpEyeBtn.title = 'Show PIN';
+                        }
                         // rotate to indicate open
                         personalToggleBtn.classList.add('rotated');
                     } else {
@@ -7413,12 +8480,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         // Close modal with Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                // Check if calculator overlay is open
-                const calculatorOverlay = document.getElementById('calculatorOverlay');
-                if (calculatorOverlay && calculatorOverlay.classList.contains('show')) {
-                    closeCalculatorBox();
-                    return;
-                }
                 // Check if unavailable message is open
                 const unavailableMessage = document.getElementById('unavailableMessage');
                 if (unavailableMessage && unavailableMessage.classList.contains('show')) {
@@ -7455,6 +8516,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         closeModal('updates');
                     } else if (modal.id === 'myAppsModal') {
                         closeModal('myApps');
+                    } else if (modal.id === 'calculatorModal') {
+                        closeModal('calculator');
                     }
                 });
             }
