@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "visits": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

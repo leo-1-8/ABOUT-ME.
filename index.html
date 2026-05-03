@@ -389,15 +389,11 @@
         .settings-lang-heading-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
             width: 100%;
             margin-bottom: 2px;
         }
         .settings-lang-heading-row .settings-row-label {
             margin: 0;
-            flex: 1;
-            min-width: 0;
         }
         .settings-lang-wrap {
             position: relative;
@@ -428,6 +424,12 @@
         .settings-lang-trigger .settings-lang-chev {
             font-weight: 900;
             opacity: 0.85;
+            display: inline-block;
+            transition: transform 0.2s ease;
+            transform: rotate(0deg);
+        }
+        .settings-lang-trigger[aria-expanded="true"] .settings-lang-chev {
+            transform: rotate(90deg);
         }
         .settings-lang-menu {
             display: none;
@@ -697,6 +699,10 @@
             top: auto;
             right: auto;
             z-index: auto;
+            width: fit-content;
+            max-width: 100%;
+            justify-self: start;
+            display: block;
         }
         .settings-card .theme-toggle-label {
             color: rgba(255, 255, 255, 0.92);
@@ -5496,7 +5502,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             <div class="modal-content" style="display:flex;align-items:center;justify-content:center;min-height:calc(90vh - 180px);">
                 <div class="coming-soon-preview-card">
                     <p class="coming-soon-preview-title">
-                       COMING SOON
+                        COMING SOON
                     </p>
                     <div class="coming-soon-preview-sub">
                         Something big is coming... can you guess what it is?
@@ -6157,8 +6163,35 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 <div class="updates-scroll-body">
                     <p class="update14-heading" style="margin-top: 20px;">
                         <span class="update14-new-dot" aria-hidden="true"></span>
-                        <strong>UPDATE 1.4 (NEW)</strong>
+                        <strong>UPDATE 1.5 [FIXED]</strong>
                     </p>
+                    <p id="update15-summary" style="margin-bottom: 8px; font-style: italic;">
+                        In this update, I fixed some small issues on my website.
+                        <span id="update15-toggle-top" class="see-more-link" onclick="toggleUpdate15Details()">see more...</span>
+                    </p>
+                    <div id="update15-details" style="display:none; margin-bottom: 15px;">
+                        <p style="margin-top: 12px;"><strong>⚙️ Settings</strong></p>
+                        <p>Added “Reset to Default”</p>
+                        <p>Changed “Settings” to “System Settings”</p>
+                        <p>Added “Viewing” tab</p>
+                        <p>Fixed the eye icon (it is now clickable)</p>
+                        <p>Fixed the “!” in Language (now properly positioned)</p>
+                        <p>Fixed Day and Night Mode button bug</p>
+                        <p>Fixed incorrect grammar beside the version text</p>
+                        <p style="margin-top: 20px;"><strong>💙 Others</strong></p>
+                        <p>Fixed timer on the clock</p>
+                        <p>Fixed music playback issue</p>
+                        <p>Fixed calculator calculation error</p>
+                        <p style="margin-top: 20px;"><strong>🐛 Bugs, Errors &amp; Suggestions</strong></p>
+                        <p>15 bugs have been fixed</p>
+                        <p>6 improvements have been added to the website</p>
+                        <p>This update includes minor fixes, and the clock feature will be released soon</p>
+                        <p>Please answer the form to be included here
+                            <span id="update15-toggle-bottom" class="see-more-link" onclick="toggleUpdate15Details()">see less...</span>
+                        </p>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>UPDATE 1.4</strong></p>
                     <p id="update14-summary" style="margin-bottom: 8px; font-style: italic;">
                         In this update, I've added many improvements to my website.
                         <span id="update14-toggle-top" class="see-more-link" onclick="toggleUpdate14Details()">see more...</span>
@@ -6179,18 +6212,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         <p>Added Language that supports 5 languages</p>
                         <p>Added volume and brightness controls</p>
                         <p>Added version info and a message below the brightness setting</p>
-                        
+                        <p>Added a viewing tab to show how many people are visiting</p>
+                       
                         <p>Fixed touch responsiveness in Settings</p>
                         <p>Fixed the bug where the volume and brightness sliders could not be dragged</p>
                         <p>Fixed the Night and Day mode bug</p>
                         <p>Fixed the Personal Details section requiring a password</p>
-                        <p>There is a bug on eye icon on Settings, it is not working properly, but I'm currently working on it.</p>
+                        <p>There is a bug on eye icon in Settings, it is not working properly, but I'm currently working on it</p>
 
                         <p style="margin-top: 20px;"><strong>💙 Others</strong></p>
                         <p>Added a clock to my apps (coming soon)</p>
                         <p>Adjusted the timer on NovaAI</p>
                         <p>One more feature is coming soon—stay tuned</p>
-                        
+                     
                         <p>Fixed music playback</p>
                         <p>Fixed music volume issues</p>
                         <p>Fixed singer links not being clickable</p>
@@ -6213,7 +6247,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     <div id="update13-details" style="display:none; margin-bottom: 15px;">
                         <p>Added Day and Night Mode</p>
                         <p>Added a timer on NovaAI, Schedule for the of release</p>
-                        <p>Fixed the password put inboX</p>
+                        <p>Fixed the password put inbox</p>
                         <p>Fixed the tier when the website is closed</p>
                         <p>+10 additional fixes and improvements</p>
                         <p>Day and Night mode added based on user requests (10 people asked for it)</p>
@@ -6519,9 +6553,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
     <!-- Settings (white card box) -->
     <div class="settings-overlay" id="settingsOverlay" aria-hidden="true">
-        <div class="settings-card" role="dialog" aria-label="Settings">
+        <div class="settings-card" role="dialog" aria-labelledby="settingsCardHeading">
             <div class="settings-card-header">
-                <div class="settings-card-title" data-i18n="settings_title">SETTINGS</div>
+                <div id="settingsCardHeading" class="settings-card-title" data-i18n="settings_title">System Settings</div>
                 <div style="display:inline-flex; align-items:center; gap:8px;">
                     <button type="button" id="settingsEyeBtn" class="settings-eye-btn" aria-label="Visitors">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -6535,7 +6569,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             <div class="settings-card-body">
                 <div class="settings-row-label" data-i18n="settings_whats_new">What's New</div>
                 <button type="button" class="settings-open-btn" id="settingsOpenUpdatesBtn" data-i18n="settings_open">Open</button>
-                <div class="settings-row-label" data-i18n="settings_theme">Theme</div>
+                <div class="settings-lang-heading-row">
+                    <span class="settings-control-left">
+                        <span class="settings-row-label" data-i18n="settings_reset_default">Reset to Default</span>
+                        <button type="button" class="settings-warning-btn" id="settingsResetNoteBtn" data-i18n-aria="aria_reset_note" aria-label="Note about Reset to Default">!</button>
+                    </span>
+                </div>
+                <button type="button" class="settings-open-btn" id="settingsResetDefaultsBtn" data-i18n="settings_reset_btn">Reset</button>
+                <div class="settings-lang-heading-row">
+                    <span class="settings-control-left">
+                        <span class="settings-row-label" data-i18n="settings_theme">Theme</span>
+                        <button type="button" class="settings-warning-btn" id="settingsThemeNoteBtn" data-i18n-aria="aria_theme_note" aria-label="Note about theme">!</button>
+                    </span>
+                </div>
                 <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <div class="theme-toggle-ui" aria-hidden="true">
                         <div class="theme-toggle-label" id="themeToggleLabel">DAY MODE</div>
@@ -6559,8 +6605,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                     </div>
                 </button>
                 <div class="settings-lang-heading-row">
-                    <div class="settings-row-label" data-i18n="settings_language">Language</div>
-                    <button type="button" class="settings-warning-btn" id="settingsLangNoteBtn" data-i18n-aria="aria_lang_note" aria-label="Language note">!</button>
+                    <span class="settings-control-left">
+                        <span class="settings-row-label" data-i18n="settings_language">Language</span>
+                        <button type="button" class="settings-warning-btn" id="settingsLangNoteBtn" data-i18n-aria="aria_lang_note" aria-label="Language note">!</button>
+                    </span>
                 </div>
                 <div class="settings-lang-wrap">
                     <button type="button" id="settingsLangTrigger" class="settings-lang-trigger" aria-expanded="false" aria-haspopup="listbox">
@@ -6596,8 +6644,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 </div>
                 <div style="height:16px;"></div>
                 <div class="settings-version-row">
-                    <div class="settings-version">v. 1.4</div>
-                    <div class="settings-version-note" data-i18n="settings_version_note">Note: This website uses Mobile Data and can be drained your Mobile Load, highly recommended if you use Wi-Fi connection.</div>
+                    <div class="settings-version">v. 1.5</div>
+                    <div class="settings-version-note" data-i18n="settings_version_note">Note: This website uses Mobile Data and may consume your mobile load. Wi‑Fi is highly recommended.</div>
                 </div>
             </div>
         </div>
@@ -6608,11 +6656,30 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             <button type="button" class="settings-caution-ok" id="settingsCautionOkBtn" data-i18n="btn_ok">OK</button>
         </div>
     </div>
-
+    <div class="settings-caution-overlay" id="settingsVisitorsOverlay" aria-hidden="true">
+        <div class="settings-caution-box" role="dialog" aria-label="Visitors">
+            <div class="settings-caution-text" id="settingsVisitorsText">
+                <div class="settings-visitors-header">
+                    <span class="settings-visitors-spacer" aria-hidden="true"></span>
+                    <div id="settingsVisitorsStatus" class="settings-visitors-status" data-i18n="visitors_viewing_tab">VIEWING TAB</div>
+                    <span class="settings-visitors-spacer" aria-hidden="true"></span>
+                </div>
+                <div style="font-weight:900; margin-bottom:6px;"><span data-i18n="visitors_viewing_now">Viewing Now:</span> <span id="settingsViewingNowCount">0</span></div>
+                <div style="font-weight:900;"><span data-i18n="visitors_visits">Visits:</span> <span id="settingsVisitorsCount">0</span></div>
+            </div>
+            <button type="button" class="settings-caution-ok" id="settingsVisitorsOkBtn" data-i18n="btn_ok">OK</button>
+        </div>
+    </div>
     <div class="settings-caution-overlay" id="settingsLangNoteOverlay" aria-hidden="true">
         <div class="settings-caution-box" role="dialog" aria-labelledby="settingsLangNoteTitle">
             <div id="settingsLangNoteTitle" class="settings-caution-text" data-i18n="settings_language_note">Note: This language feature currently supports only five languages and is still under development. Some parts of the site may still appear in English.</div>
             <button type="button" class="settings-caution-ok" id="settingsLangNoteOkBtn" data-i18n="btn_ok">OK</button>
+        </div>
+    </div>
+    <div class="settings-caution-overlay" id="settingsInfoNoteOverlay" aria-hidden="true">
+        <div class="settings-caution-box" role="dialog" aria-labelledby="settingsInfoNoteTitle">
+            <div id="settingsInfoNoteTitle" class="settings-caution-text"></div>
+            <button type="button" class="settings-caution-ok" id="settingsInfoNoteOkBtn" data-i18n="btn_ok">OK</button>
         </div>
     </div>
 
@@ -6654,19 +6721,19 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const settingsLangNoteOverlay = document.getElementById('settingsLangNoteOverlay');
             const settingsLangNoteBtn = document.getElementById('settingsLangNoteBtn');
             const settingsLangNoteOkBtn = document.getElementById('settingsLangNoteOkBtn');
+            const settingsInfoNoteOverlay = document.getElementById('settingsInfoNoteOverlay');
+            const settingsInfoNoteTitle = document.getElementById('settingsInfoNoteTitle');
+            const settingsInfoNoteOkBtn = document.getElementById('settingsInfoNoteOkBtn');
+            const settingsResetNoteBtn = document.getElementById('settingsResetNoteBtn');
+            const settingsThemeNoteBtn = document.getElementById('settingsThemeNoteBtn');
             const settingsVisitorsOkBtn = document.getElementById('settingsVisitorsOkBtn');
-            const settingsVisitorsRefreshBtn = document.getElementById('settingsVisitorsRefreshBtn');
             const settingsVisitorsCount = document.getElementById('settingsVisitorsCount');
             const settingsVisitorsStatus = document.getElementById('settingsVisitorsStatus');
             const settingsViewingNowCount = document.getElementById('settingsViewingNowCount');
             const settingsWarningBtns = document.querySelectorAll('[data-settings-caution="true"]');
             const SETTINGS_VOLUME_KEY = 'settingsVolumeLevel';
             const SETTINGS_BRIGHTNESS_KEY = 'settingsBrightnessLevel';
-            const VISIT_COUNT_SESSION_KEY = 'visitCountedThisSession';
-            const LOCAL_VISIT_COUNT_SESSION_KEY = 'localVisitCountedThisSession';
-            const LOCAL_VISIT_COUNT_KEY = 'localVisitCountTotal';
             const LOCAL_ACTIVE_VIEWERS_KEY = 'localActiveViewers';
-            const LOCAL_VISITS_BASELINE = 102;
 
             function clamp(value, min, max) {
                 const num = Number(value);
@@ -6823,19 +6890,51 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 });
             }
 
-            function getVisitCounterIds() {
-                // Stable-ish key per site/page without setup.
-                const host = (location && location.hostname) ? location.hostname : 'local';
-                const path = (location && location.pathname) ? location.pathname.replace(/[^a-z0-9/_-]/gi, '') : 'index';
-                return {
-                    namespace: ('about-my-self-' + host).toLowerCase(),
-                    key: ('visits' + path).toLowerCase()
-                };
+            function openSettingsInfoNote(i18nKey) {
+                if (!settingsInfoNoteOverlay || !settingsInfoNoteTitle) return;
+                var msg = typeof window.t === 'function' ? window.t(i18nKey) : '';
+                if (!msg) msg = i18nKey;
+                settingsInfoNoteTitle.textContent = msg;
+                settingsInfoNoteOverlay.classList.add('show');
+                settingsInfoNoteOverlay.setAttribute('aria-hidden', 'false');
             }
-            function setVisitorsText(text) {
-                if (!settingsVisitorsCount) return;
-                settingsVisitorsCount.textContent = text;
+            function closeSettingsInfoNote() {
+                if (!settingsInfoNoteOverlay) return;
+                settingsInfoNoteOverlay.classList.remove('show');
+                settingsInfoNoteOverlay.setAttribute('aria-hidden', 'true');
             }
+            if (settingsResetNoteBtn) {
+                settingsResetNoteBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openSettingsInfoNote('settings_note_reset');
+                });
+                settingsResetNoteBtn.addEventListener('pointerdown', function(e) {
+                    e.stopPropagation();
+                });
+            }
+            if (settingsThemeNoteBtn) {
+                settingsThemeNoteBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openSettingsInfoNote('settings_note_theme');
+                });
+                settingsThemeNoteBtn.addEventListener('pointerdown', function(e) {
+                    e.stopPropagation();
+                });
+            }
+            if (settingsInfoNoteOkBtn) {
+                settingsInfoNoteOkBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeSettingsInfoNote();
+                });
+            }
+            if (settingsInfoNoteOverlay) {
+                settingsInfoNoteOverlay.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
             function setVisitorsStatus(text) {
                 if (!settingsVisitorsStatus) return;
                 settingsVisitorsStatus.textContent = text;
@@ -6846,27 +6945,6 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             function setViewingNowText(text) {
                 if (!settingsViewingNowCount) return;
                 settingsViewingNowCount.textContent = text;
-            }
-            function getAndMaybeIncLocalVisits() {
-                let total = 0;
-                try {
-                    const raw = localStorage.getItem(LOCAL_VISIT_COUNT_KEY);
-                    if (raw !== null) {
-                        total = parseInt(raw, 10) || 0;
-                        // If older saved value exists (<baseline), bump to new baseline.
-                        if (total < LOCAL_VISITS_BASELINE) {
-                            total = LOCAL_VISITS_BASELINE;
-                            localStorage.setItem(LOCAL_VISIT_COUNT_KEY, String(total));
-                        }
-                    } else {
-                        total = LOCAL_VISITS_BASELINE;
-                        localStorage.setItem(LOCAL_VISIT_COUNT_KEY, String(total));
-                    }
-                } catch {}
-                // Count on every page open/load.
-                total += 1;
-                try { localStorage.setItem(LOCAL_VISIT_COUNT_KEY, String(total)); } catch {}
-                return total;
             }
             function getTabId() {
                 // Unique id per tab for local "viewing now"
@@ -6930,43 +7008,8 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             setInterval(pingViewingNow, 12000);
             window.addEventListener('beforeunload', removeViewingNow);
             window.addEventListener('pagehide', removeViewingNow);
-            function loadVisitorCount() {
-                if (!settingsVisitorsCount) return Promise.resolve();
-                // Keep local visits as the source of truth so it always increases reliably.
-                try {
-                    const raw = localStorage.getItem(LOCAL_VISIT_COUNT_KEY);
-                    const total = raw !== null ? (parseInt(raw, 10) || LOCAL_VISITS_BASELINE) : LOCAL_VISITS_BASELINE;
-                        setVisitorsStatus(typeof window.t === 'function' ? window.t('visitors_viewing_tab') : 'VIEWING TAB');
-                    setVisitorsText(String(total));
-                } catch {
-                    setVisitorsStatus(typeof window.t === 'function' ? window.t('visitors_viewing_tab') : 'VIEWING TAB');
-                    setVisitorsText(String(LOCAL_VISITS_BASELINE));
-                }
-                return Promise.resolve();
-            }
-            function countVisitOncePerSession() {
-                let countedOnlineThisSession = false;
-                try { countedOnlineThisSession = sessionStorage.getItem(VISIT_COUNT_SESSION_KEY) === 'true'; } catch {}
-                if (!countedOnlineThisSession) {
-                    try { sessionStorage.setItem(VISIT_COUNT_SESSION_KEY, 'true'); } catch {}
-                }
-                return loadVisitorCount();
-            }
-            // Always show local values immediately (never stuck at 0),
-            // then try to replace Visits with the online counter if available.
             setVisitorsStatus(typeof window.t === 'function' ? window.t('visitors_viewing_tab') : 'VIEWING TAB');
-            setVisitorsText(String(getAndMaybeIncLocalVisits()));
             pingViewingNow();
-            countVisitOncePerSession();
-
-            if (settingsVisitorsRefreshBtn) {
-                settingsVisitorsRefreshBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Refresh local viewing now immediately, and re-check visits (online if available).
-                    pingViewingNow();
-                    loadVisitorCount();
-                });
-            }
 
             function openSettings() {
                 if (!settingsOverlay) return;
@@ -6976,6 +7019,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             function closeSettings() {
                 if (typeof closeSettingsLangMenu === 'function') closeSettingsLangMenu();
                 if (typeof closeSettingsLangNote === 'function') closeSettingsLangNote();
+                if (typeof closeSettingsInfoNote === 'function') closeSettingsInfoNote();
                 if (!settingsOverlay) return;
                 settingsOverlay.classList.remove('show');
                 settingsOverlay.setAttribute('aria-hidden', 'true');
@@ -7021,6 +7065,10 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             }
             document.addEventListener('keydown', function(e) {
                 if (e.key !== 'Escape') return;
+                if (settingsInfoNoteOverlay && settingsInfoNoteOverlay.classList.contains('show')) {
+                    closeSettingsInfoNote();
+                    return;
+                }
                 if (settingsLangNoteOverlay && settingsLangNoteOverlay.classList.contains('show')) {
                     closeSettingsLangNote();
                     return;
@@ -7061,6 +7109,36 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             // Prevent any parent click handlers from accidentally toggling theme
             if (themeToggle) {
                 themeToggle.addEventListener('pointerdown', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            const settingsResetDefaultsBtn = document.getElementById('settingsResetDefaultsBtn');
+            if (settingsResetDefaultsBtn) {
+                settingsResetDefaultsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    applyTheme('light');
+                    const defaultVol = 70;
+                    const defaultBright = 85;
+                    if (typeof window.applySiteLanguage === 'function') {
+                        window.applySiteLanguage('en');
+                    }
+                    if (typeof closeSettingsLangMenu === 'function') closeSettingsLangMenu();
+                    if (settingsVolumeSlider) {
+                        settingsVolumeSlider.value = String(defaultVol);
+                        updateVolumeText(defaultVol);
+                        applySiteVolume(defaultVol / 100);
+                        try { localStorage.setItem(SETTINGS_VOLUME_KEY, String(defaultVol)); } catch (err) {}
+                    }
+                    if (settingsBrightnessSlider) {
+                        settingsBrightnessSlider.value = String(defaultBright);
+                        updateBrightnessText(defaultBright);
+                        applySiteBrightness(defaultBright / 100);
+                        try { localStorage.setItem(SETTINGS_BRIGHTNESS_KEY, String(defaultBright)); } catch (err) {}
+                    }
+                });
+                settingsResetDefaultsBtn.addEventListener('pointerdown', function(e) {
                     e.stopPropagation();
                 });
             }
@@ -7181,7 +7259,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 runIntroSkip(e);
             }, true);
 
-            const UPDATED_SPLASH_SEEN_KEY = 'aboutMySelf_updatedSplashSeen_v1';
+            const UPDATED_SPLASH_SEEN_KEY = 'aboutMySelf_updatedSplashSeen_v1_5';
             function hasSeenUpdatedSplashOnce() {
                 try {
                     return localStorage.getItem(UPDATED_SPLASH_SEEN_KEY) === '1';
@@ -7731,6 +7809,17 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const details = document.getElementById('update13-details');
             const topToggle = document.getElementById('update13-toggle-top');
             const bottomToggle = document.getElementById('update13-toggle-bottom');
+            if (!details || !topToggle || !bottomToggle) return;
+            const isHidden = details.style.display === 'none' || details.style.display === '';
+            details.style.display = isHidden ? 'block' : 'none';
+            topToggle.style.display = isHidden ? 'none' : 'inline';
+            bottomToggle.style.display = isHidden ? 'inline' : 'none';
+        }
+
+        function toggleUpdate15Details() {
+            const details = document.getElementById('update15-details');
+            const topToggle = document.getElementById('update15-toggle-top');
+            const bottomToggle = document.getElementById('update15-toggle-bottom');
             if (!details || !topToggle || !bottomToggle) return;
             const isHidden = details.style.display === 'none' || details.style.display === '';
             details.style.display = isHidden ? 'block' : 'none';
@@ -9986,6 +10075,62 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 });
             }
         });
+    </script>
+    <script type="module">
+        (async function () {
+            try {
+                const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+                const { getDatabase, ref, runTransaction, onValue } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js');
+
+                const firebaseConfig = {
+                    apiKey: 'AIzaSyB2ABXvRSz9JQU8pKaSYy1cxnFw91xCt2o',
+                    authDomain: 'my-website-6fe0d.firebaseapp.com',
+                    databaseURL: 'https://my-website-6fe0d-default-rtdb.firebaseio.com',
+                    projectId: 'my-website-6fe0d',
+                    appId: '1:106731880567:web:beb553fff430c16248c672'
+                };
+
+                const app = initializeApp(firebaseConfig);
+                const db = getDatabase(app);
+                const visitsRef = ref(db, 'visits');
+
+                function updateVisitUi(value) {
+                    var n = Number(value);
+                    if (!Number.isFinite(n) || n < 0) n = 0;
+                    var txt = String(Math.floor(n));
+                    var modalCountEl = document.getElementById('settingsVisitorsCount');
+                    if (modalCountEl) modalCountEl.textContent = txt;
+                }
+
+                onValue(
+                    visitsRef,
+                    function (snap) {
+                        var v = snap.val();
+                        if (v === null || v === undefined) updateVisitUi(0);
+                        else updateVisitUi(v);
+                    },
+                    function (err) {
+                        try { console.warn('[visits]', err); } catch (e2) {}
+                    }
+                );
+
+                try {
+                    await runTransaction(visitsRef, function (current) {
+                        var cur = 0;
+                        if (typeof current === 'number' && Number.isFinite(current) && current >= 0) cur = current;
+                        else if (typeof current === 'string' && current.trim() !== '') {
+                            var parsed = Number(current);
+                            if (Number.isFinite(parsed) && parsed >= 0) cur = Math.floor(parsed);
+                        }
+                        return cur + 1;
+                    });
+                } catch (err) {
+                    try { console.warn('[visits] transaction:', err); } catch (e2) {}
+                }
+            } catch (err) {
+                try { console.warn('[firebase]', err); } catch (e2) {}
+            }
+        })();
     </script>
 </body>
 </html>
