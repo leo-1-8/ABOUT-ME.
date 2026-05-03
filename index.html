@@ -2010,6 +2010,17 @@
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
         }
 
+        /* Balance absolute close button so title reads visually centered */
+        .modal-box.modal-about > .modal-title {
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 52px;
+            padding-right: 52px;
+            text-align: center;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
         .modal-favorites {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
         }
@@ -3753,17 +3764,42 @@
             padding: 10px 16px;
             font-size: 16px;
             font-weight: 600;
-            background: #808080;
+            background-color: #808080;
             color: white;
             border: 2px solid #666;
             border-radius: 8px;
+            cursor: default;
+            box-shadow: none;
+            /* Solid colors (no gradient) so green ↔ gray can interpolate smoothly */
+            transition:
+                background-color 0.38s ease-out,
+                border-color 0.38s ease-out,
+                box-shadow 0.38s ease-out,
+                color 0.28s ease-out,
+                transform 0.28s ease-out;
+        }
+
+        .otp-submit.otp-submit-ready {
+            background-color: #22c55e;
+            border-color: #15803d;
+            color: #fff;
             cursor: pointer;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
         }
 
         .otp-submit:hover {
-            background: #707070;
+            background-color: #707070;
             transform: translateY(-2px);
+        }
+
+        .otp-submit.otp-submit-ready:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .otp-submit.otp-submit-ready {
+            border-color: rgba(74, 222, 128, 0.85);
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25);
         }
 
         .otp-feedback {
@@ -9852,6 +9888,12 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
 
             if (!showLink || !otpContainer || !otpInput || !otpSubmit || !otpFeedback) return;
 
+            function updateOtpSubmitReadyState() {
+                var digits = (otpInput.value || '').replace(/\D/g, '');
+                if (digits.length === 4) otpSubmit.classList.add('otp-submit-ready');
+                else otpSubmit.classList.remove('otp-submit-ready');
+            }
+
             const validCodes = ['1298', '0912', '4643', '6464', '5382', '4638', '0047']; // 0047 is unlimited
 
             function getUsedCodes() {
@@ -9910,6 +9952,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                         otpContainer.style.display = 'none';
                         otpInput.value = '';
                         otpFeedback.textContent = '';
+                        updateOtpSubmitReadyState();
                         if (otpEyeBtn) {
                             otpInput.type = 'password';
                             otpEyeBtn.setAttribute('data-state', 'hidden');
@@ -9942,7 +9985,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             // Also sanitize on input paste
             otpInput.addEventListener('input', function() {
                 otpInput.value = otpInput.value.replace(/[^0-9]/g, '').slice(0, 4);
+                updateOtpSubmitReadyState();
             });
+            updateOtpSubmitReadyState();
 
             function unlockPersonalDetails() {
                 // Hide gate, show details
