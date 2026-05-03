@@ -314,12 +314,17 @@
         }
         .settings-card {
             width: min(760px, calc(100vw - 40px));
+            max-height: min(92vh, calc(100vh - 40px));
+            max-height: min(92vh, calc(100dvh - 40px));
             background: linear-gradient(180deg, #102847 0%, #0a1a31 100%);
             border: 1px solid rgba(139, 191, 255, 0.22);
             border-radius: 12px;
             box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55);
             overflow: hidden;
             color: rgba(235, 244, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }
         .settings-card-header {
             display: flex;
@@ -327,6 +332,7 @@
             justify-content: space-between;
             padding: 14px 14px 12px 16px;
             border-bottom: 1px solid rgba(139, 191, 255, 0.2);
+            flex-shrink: 0;
         }
         .settings-card-title {
             font-weight: 900;
@@ -529,6 +535,24 @@
             padding: 14px 16px 16px 16px;
             display: grid;
             gap: 12px;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(139, 191, 255, 0.28) transparent;
+        }
+        .settings-card-body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .settings-card-body::-webkit-scrollbar-thumb {
+            background: rgba(139, 191, 255, 0.22);
+            border-radius: 999px;
+        }
+        .settings-card-body::-webkit-scrollbar-track {
+            background: transparent;
         }
         .settings-row-label {
             font-size: 13px;
@@ -4031,9 +4055,23 @@
                 font-size: 15px;
             }
 
+            /* Loading: true vertical + horizontal center on phones/tablets (not desktop >768px) */
+            .loading-screen {
+                align-items: center;
+                justify-content: center;
+            }
             .progress-container {
-                width: 90%;
-                bottom: 25%;
+                position: relative;
+                bottom: auto;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+                width: min(90%, 420px);
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 0 16px;
+                box-sizing: border-box;
             }
 
             .loading-percentage {
@@ -4605,8 +4643,19 @@
                 -webkit-overflow-scrolling: touch;
             }
 
+            .loading-screen {
+                align-items: center;
+                justify-content: center;
+            }
             .progress-container {
-                bottom: 15%;
+                position: relative;
+                bottom: auto;
+                top: auto;
+                transform: none;
+                width: min(92%, 400px);
+                margin: 0 auto;
+                padding: 0 12px;
+                box-sizing: border-box;
             }
 
             .christmas-message-link {
@@ -6729,11 +6778,9 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             const settingsVisitorsOkBtn = document.getElementById('settingsVisitorsOkBtn');
             const settingsVisitorsCount = document.getElementById('settingsVisitorsCount');
             const settingsVisitorsStatus = document.getElementById('settingsVisitorsStatus');
-            const settingsViewingNowCount = document.getElementById('settingsViewingNowCount');
             const settingsWarningBtns = document.querySelectorAll('[data-settings-caution="true"]');
             const SETTINGS_VOLUME_KEY = 'settingsVolumeLevel';
             const SETTINGS_BRIGHTNESS_KEY = 'settingsBrightnessLevel';
-            const LOCAL_ACTIVE_VIEWERS_KEY = 'localActiveViewers';
 
             function clamp(value, min, max) {
                 const num = Number(value);
@@ -6942,74 +6989,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
             window.__reapplyVisitorsStatusForLang = function() {
                 setVisitorsStatus(typeof window.t === 'function' ? window.t('visitors_viewing_tab') : 'VIEWING TAB');
             };
-            function setViewingNowText(text) {
-                if (!settingsViewingNowCount) return;
-                settingsViewingNowCount.textContent = text;
-            }
-            function getTabId() {
-                // Unique id per tab for local "viewing now"
-                try {
-                    let id = sessionStorage.getItem('localTabId');
-                    if (!id) {
-                        id = String(Date.now()) + '-' + Math.random().toString(16).slice(2);
-                        sessionStorage.setItem('localTabId', id);
-                    }
-                    return id;
-                } catch {
-                    return String(Date.now()) + '-' + Math.random().toString(16).slice(2);
-                }
-            }
-            const localTabId = getTabId();
-            function readActiveMap() {
-                try {
-                    const raw = localStorage.getItem(LOCAL_ACTIVE_VIEWERS_KEY);
-                    if (!raw) return {};
-                    const obj = JSON.parse(raw);
-                    return obj && typeof obj === 'object' ? obj : {};
-                } catch {
-                    return {};
-                }
-            }
-            function writeActiveMap(map) {
-                try { localStorage.setItem(LOCAL_ACTIVE_VIEWERS_KEY, JSON.stringify(map)); } catch {}
-            }
-            function cleanupAndCountActive(map) {
-                const now = Date.now();
-                const freshWithinMs = 30000; // consider active if pinged in last 30s
-                let count = 0;
-                Object.keys(map).forEach(function(id) {
-                    const ts = Number(map[id]);
-                    if (!Number.isFinite(ts) || now - ts > freshWithinMs) {
-                        delete map[id];
-                    } else {
-                        count += 1;
-                    }
-                });
-                return { map, count };
-            }
-            function pingViewingNow() {
-                const map = readActiveMap();
-                map[localTabId] = Date.now();
-                const res = cleanupAndCountActive(map);
-                writeActiveMap(res.map);
-                setViewingNowText(String(res.count));
-            }
-            function removeViewingNow() {
-                const map = readActiveMap();
-                if (map && map[localTabId]) {
-                    delete map[localTabId];
-                    const res = cleanupAndCountActive(map);
-                    writeActiveMap(res.map);
-                    setViewingNowText(String(res.count));
-                }
-            }
-            // Keep "viewing now" updated locally
-            pingViewingNow();
-            setInterval(pingViewingNow, 12000);
-            window.addEventListener('beforeunload', removeViewingNow);
-            window.addEventListener('pagehide', removeViewingNow);
             setVisitorsStatus(typeof window.t === 'function' ? window.t('visitors_viewing_tab') : 'VIEWING TAB');
-            pingViewingNow();
 
             function openSettings() {
                 if (!settingsOverlay) return;
@@ -10080,7 +10060,7 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
         (async function () {
             try {
                 const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
-                const { getDatabase, ref, runTransaction, onValue } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js');
+                const { getDatabase, ref, runTransaction, onValue, set, onDisconnect } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js');
 
                 const firebaseConfig = {
                     apiKey: 'AIzaSyBgnlOhQ_YOuQwP0_KFQa38_UFKehvJYkA',
@@ -10093,6 +10073,74 @@ FEEL FREE TO EXPLORE, AND ENJOY YOUR STAY!
                 const app = initializeApp(firebaseConfig);
                 const db = getDatabase(app);
                 const visitsRef = ref(db, 'visits');
+
+                var PRESENCE_STALE_MS = 45000;
+                var PRESENCE_HEARTBEAT_MS = 12000;
+                function getPresenceSessionId() {
+                    try {
+                        var id = sessionStorage.getItem('rtdbPresenceSid');
+                        if (!id) {
+                            id = 'p' + Date.now() + '_' + Math.random().toString(36).slice(2, 12);
+                            sessionStorage.setItem('rtdbPresenceSid', id);
+                        }
+                        return String(id).replace(/[.#$\[\]]/g, '_');
+                    } catch (e) {
+                        return 'p' + Date.now();
+                    }
+                }
+                var presenceSid = getPresenceSessionId();
+                var presenceRootRef = ref(db, 'presence');
+                var myPresenceRef = ref(db, 'presence/' + presenceSid);
+                var onDisconnectConfigured = false;
+
+                function updateViewingNowCountUi(count) {
+                    var el = document.getElementById('settingsViewingNowCount');
+                    if (el) el.textContent = String(count);
+                }
+                function countFreshPresence(val) {
+                    var now = Date.now();
+                    var n = 0;
+                    if (!val || typeof val !== 'object') return 0;
+                    Object.keys(val).forEach(function (key) {
+                        var node = val[key];
+                        var t =
+                            node && typeof node === 'object' && typeof node.t === 'number'
+                                ? node.t
+                                : typeof node === 'number'
+                                  ? node
+                                  : 0;
+                        if (now - t <= PRESENCE_STALE_MS) n++;
+                    });
+                    return n;
+                }
+                onValue(
+                    presenceRootRef,
+                    function (snap) {
+                        updateViewingNowCountUi(countFreshPresence(snap.val()));
+                    },
+                    function (err) {
+                        try {
+                            console.warn('[presence]', err);
+                        } catch (e2) {}
+                    }
+                );
+                async function presenceHeartbeat() {
+                    try {
+                        await set(myPresenceRef, { t: Date.now() });
+                        if (!onDisconnectConfigured) {
+                            await onDisconnect(myPresenceRef).remove();
+                            onDisconnectConfigured = true;
+                        }
+                    } catch (err) {
+                        try {
+                            console.warn('[presence] heartbeat:', err);
+                        } catch (e2) {}
+                    }
+                }
+                await presenceHeartbeat();
+                setInterval(function () {
+                    presenceHeartbeat();
+                }, PRESENCE_HEARTBEAT_MS);
 
                 function updateVisitUi(value) {
                     var n = Number(value);
